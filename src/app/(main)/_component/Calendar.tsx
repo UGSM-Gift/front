@@ -35,29 +35,31 @@ const Calendar = () => {
 
 
 
-    const [makeTestArr, setMakeTestArr] = useState<TestElement[]>([{year: '', month: '', day: '', select: false}]);
+    // const [makeTestArr, setMakeTestArr] = useState<TestElement[]>([{year: '', month: '', day: '', select: false}]);
+
+    const startRender = () => {
+        let arr = [];
+        for (let i = 1; i <= firstDayOfMonth.day(); i++) {
+            arr.push({year: '', month: '', day: '', select: false});
+        }
+
+        for (let i = 0; i < daysInMonth; i++) {
+            arr.push({
+                year: currentMonth.format('YY'),
+                month: currentMonth.format('MM'),
+                day: changeDayForm(String(Number(dayjs(currentMonth).startOf('month').format('DD')) + Number(i))),
+                select: false
+            });
+        }
+        return arr;
+    }
+
+    const [makeTestArr, setMakeTestArr] = useState<TestElement[]>(startRender());
 
 
     useEffect(() => {
-        const startRender = () => {
-            let arr = [];
-            for (let i = 1; i <= firstDayOfMonth.day(); i++) {
-                arr.push({year: '', month: '', day: '', select: false});
-            }
-
-            for (let i = 0; i < daysInMonth; i++) {
-                arr.push({
-                    year: currentMonth.format('YY'),
-                    month: currentMonth.format('MM'),
-                    day: changeDayForm(String(Number(dayjs(currentMonth).startOf('month').format('DD')) + Number(i))),
-                    select: false
-                });
-            }
-            return arr;
-        }
-
         setMakeTestArr(startRender());
-    }, [currentMonth, daysInMonth, firstDayOfMonth]);
+    }, [currentMonth]);
 
 
 
