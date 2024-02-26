@@ -1,0 +1,174 @@
+@import "../variables.scss";
+
+
+.default__input__layout {
+  max-width: 341px;
+  max-height: 54px;
+  position: relative;
+}
+
+@mixin input-style($options) {
+  $border: map-get($options, border);
+  $borderBottom: map-get($options, borderBottom);
+  $radius: map-get($options, radius);
+  $width: map-get($options, width);
+
+  border: $border;
+  border-bottom: $borderBottom;
+  border-radius: $radius;
+  width: $width;
+}
+
+@mixin image-style($options) {
+  $position: map-get($options, position);
+  $right: map-get($options, right);
+  $top: map-get($options, top);
+  $transform: map-get($options, transform);
+
+  position: $position;
+  top: $top;
+  transform: $transform;
+  right: $right;
+}
+
+
+.input__image {
+  cursor: pointer;
+
+  &.default {
+    @include image-style((
+            position: absolute,
+            right: 16px,
+            top: 50%,
+            transform: translateY(-50%),
+    ))
+  }
+
+  &.bottom_line {
+    @include image-style((
+            position: absolute,
+            right: 16px,
+            top: 50%,
+            transform: translateY(-50%),
+    ))
+  }
+  &.small_image {
+    @include image-style((
+            position: absolute,
+            right: 152px,
+            top: 50%,
+            transform: translateY(-50%),
+    ))
+  }
+}
+
+
+.default__input {
+  width: 309px;
+  height: 14px;
+  padding: 20px 16px;
+  border-radius: 8px;
+  @extend %font-style;
+  font: 400 16px "Pretendard Variable";
+  color: map-get($gray-colors, 90);
+  border: 1px solid map-get($gray-colors, 30);
+
+
+  &::placeholder {
+    color: map-get($gray-colors, 40);
+  }
+
+  &:focus {
+    outline: none;
+    border: 1px solid map-get($gray-colors, 90);
+  }
+
+  &.default {
+  }
+
+  &.bottom_line {
+    @include input-style((
+            border: 0px,
+            borderBottom: 1px solid map-get($gray-colors, 30),
+            radius: 0
+    ));
+  }
+
+  &.small_image {
+    @include input-style((
+            width: 168px
+    ));
+  }
+
+  &.button_input {
+  }
+
+  &.max_length_input {
+  }
+}
+
+
+
+@mixin button-style($options) {
+  $position: map-get($options, position);
+  $right: map-get($options, right);
+  $top: map-get($options, top);
+  $transform: map-get($options, transform);
+
+  position: $position;
+  top: $top;
+  transform: $transform;
+  right: $right;
+}
+
+
+.input__button__layout {
+  width: 80px;
+  max-height: 32px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  background-color: map-get($primary-colors, 400);
+  color: $white__color;
+  border-radius: 8px;
+
+  &.button_input {
+    @include button-style((
+            position: absolute,
+            right: 12px,
+            top: 50%,
+            transform: translateY(-50%),
+    ))
+  }
+}
+
+.input__button {
+  padding: 7px 0;
+}
+
+
+@mixin max-length-style($options) {
+  $top: map-get($options, top);
+  top: $top;
+}
+.max__length__layout {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: map-get($gray-colors, 40);
+
+  &.text__area {
+    @include max-length-style((
+      top: 160px
+  ))
+  }
+
+}
+
+.text__area__layout {
+  height: 143px;
+  resize: none;
+
+}

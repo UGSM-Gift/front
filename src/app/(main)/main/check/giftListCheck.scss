@@ -1,0 +1,23 @@
+.gift_check__layout__content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 14px 10px;
+}
+
+
+.gift_check__layout__footer {
+  width: 343px;
+  height: 184px;
+  position: fixed;
+  bottom: 0;
+  padding: 16px 16px 10px;
+  background-color: #fff;
+  box-shadow: 0px -8px 12px 0px #0000000A;
+  border: 1px solid red;
+}
+
+.gift_check__layout__footer__input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

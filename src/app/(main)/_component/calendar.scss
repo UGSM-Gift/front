@@ -1,0 +1,38 @@
+.calendar__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.calendar__nav__layout {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar__nav__layout__black_text {
+  color: black;
+}
+.calendar__nav__layout__red_text {
+  color: red;
+}
+
+
+.calendar__day {
+  width: 47px;
+  height: 47px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #fff;
+  border-radius: 50px;
+}
+
+.calendar__current_day {
+  background-color: #E1E2EA;
+}
+
+.calendar__select_day {
+  border: 1px solid #C2005F;
+  color: #C2005F;
+}

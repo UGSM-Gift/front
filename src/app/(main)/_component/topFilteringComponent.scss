@@ -1,0 +1,14 @@
+
+.top_filter__layout {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+
+  &__filter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+}

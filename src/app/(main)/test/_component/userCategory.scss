@@ -1,0 +1,19 @@
+.user_category__layout {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 4px 4px;
+}
+
+
+
+.user_category__layout__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.user_category__layout__content__image {
+  width: 106px;
+  height: 106px;
+  overflow: hidden;
+  border-radius: 8px;
+}

@@ -1,0 +1,16 @@
+.receive_present__layout {
+  height: calc(100dvh - 250px);
+
+  &__null {
+    height: calc(100dvh - 250px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.receive_present__layout__content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 14px 10px;
+}

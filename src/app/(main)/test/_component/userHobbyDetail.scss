@@ -1,0 +1,10 @@
+
+.user_hobby_detail__layout__main_title {
+  width: 108px;
+}
+
+.user_hobby_detail__layout {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 14px 10px;
+}

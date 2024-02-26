@@ -1,0 +1,51 @@
+///* slideUp 애니메이션 정의 */
+//@keyframes slideUp {
+//  from {
+//    bottom: -8%; /* 시작 지점: 화면 아래 */
+//    opacity: 0; /* 시작 시 투명도를 0으로 설정하여 사라진 상태에서 시작 */
+//  }
+//  to {
+//    bottom: 0; /* 종료 지점: 화면 상단에 나타남 */
+//    opacity: 1; /* 종료 시 투명도를 1로 설정하여 완전히 나타나게 함 */
+//  }
+//}
+//
+///* slideDown 애니메이션 정의 */
+//@keyframes slideDown {
+//  from {
+//    bottom: 0; /* 시작 지점: 화면 상단에 있음 */
+//    opacity: 1; /* 시작 시 투명도를 1로 설정하여 완전히 나타난 상태에서 시작 */
+//  }
+//  to {
+//    bottom: -8%; /* 시작 지점: 화면 아래 */
+//    opacity: 1; /* 시작 시 투명도를 0으로 설정하여 사라진 상태에서 시작 */
+//  }
+//}
+//
+//.popup {
+//  position: fixed;
+//  bottom: -100%; /* 초기에는 화면 아래에 숨겨진 상태 */
+//  left: 50%;
+//  transform: translateX(-50%);
+//  width: 300px;
+//  height: 200px;
+//  background-color: #ffffff;
+//  border: 1px solid #ccc;
+//  padding: 20px;
+//  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+//  animation: slideUp 0.5s ease forwards; /* slideUp 애니메이션 적용 */
+//}
+//
+//.hide {
+//  position: fixed;
+//  left: 50%;
+//  transform: translateX(-50%);
+//  width: 300px;
+//  height: 200px;
+//  background-color: #ffffff;
+//  border: 1px solid #ccc;
+//  padding: 20px;
+//  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+//  animation: slideDown 1s ease forwards; /* slideDown 애니메이션 적용 */
+//  bottom: 0; /* 현재 위치에서 slideDown 애니메이션 실행 */
+//}

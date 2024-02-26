@@ -1,0 +1,14 @@
+.my_list__layout {
+  height: calc(100dvh - 250px);
+
+  &__null {
+    height: calc(100dvh - 250px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.my_list__layout__content {
+
+}

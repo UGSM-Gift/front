@@ -1,0 +1,22 @@
+.footer__layout {
+  width: 343px;
+  height: 61px;
+  padding: 0 16px 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+
+  box-shadow: 0px -4px 12px 0px #9B00590A;
+  border-top: 1px solid #E1E2EA;
+  background: linear-gradient(0deg, #FFFFFF, #FFFFFF),
+  linear-gradient(0deg, #E1E2EA, #E1E2EA);
+
+  &__content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center
+  }
+}

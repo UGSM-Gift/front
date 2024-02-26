@@ -1,0 +1,51 @@
+.my_page__layout {
+}
+
+.my_page__layout__user {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+
+.my_page__layout__event {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.my_page__layout__event_box {
+  width: 165px;
+  height: 138px;
+  border-radius: 12px;
+  border: 1px solid #A2A9AD;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 6px 0;
+}
+
+
+.my_page__layout__divider {
+  background-color: #F2F4F5;
+  width: 100%;
+  height: 8px;
+}
+
+
+.my_page__layout__menu {
+  padding: 16px;
+
+
+}
+
+
+.my_page__layout__menu__divider {
+  background: #F2F4F5;
+  margin: 4px 0;
+  height: 1px;
+  width: 100%;
+}

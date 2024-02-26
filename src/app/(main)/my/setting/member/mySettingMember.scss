@@ -1,0 +1,27 @@
+.my_setting_member__layout {
+  padding: 16px;
+}
+
+
+
+
+.my_setting_member__layout__user {
+  width: 84px;
+  height: 84px;
+}
+
+.update_icon {
+  position: relative;
+  bottom: 25px;
+  left: 60px;
+}
+
+.my_setting_member__layout__gender {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  &_box {
+    width: 168px;
+  }
+}

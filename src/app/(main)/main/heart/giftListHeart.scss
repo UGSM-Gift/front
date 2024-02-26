@@ -1,0 +1,37 @@
+.gift_list_heart__layout {
+}
+
+.gift_list_heart__layout__content {
+  padding: 8px 16px;
+}
+
+.gift_list_heart__layout__content_false {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+}
+
+.gift_list_heart__layout__nav {
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+
+  &_right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+
+.gift_list_heart__layout__content__present {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 14px 10px;
+}

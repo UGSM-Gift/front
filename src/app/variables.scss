@@ -1,0 +1,80 @@
+$primary-colors: (
+        50: #FFE4EE,
+        100: #FEBAD4,
+        200: #FF8CB7,
+        300: #FF599A,
+        400: #FF2882,
+        500: #FF0069,
+        600: #EE0067,
+        700: #D70062,
+        800: #C2005F,
+        900: #9B0059,
+);
+
+$secondary-colors: (
+        50: #DEF1FE,
+        100: #B0DBFD,
+        200: #7EC6FC,
+        300: #4BB0FB,
+        400: #219FFB,
+        500: #0090FA,
+        600: #0081F1,
+        700: #006EDB,
+        800: #0B5DC6,
+        900: #1440A5,
+);
+
+$sub-colors: (
+        50: #E1E2EA,
+        100: #B6B8CC,
+        200: #8A8EAB,
+        300: #62678C,
+        400: #484C78,
+        500: #313365,
+        600: #2C2E5D,
+        700: #262753,
+        800: #201F48,
+        900: #171434,
+);
+
+$gray-colors: (
+        10: #F2F4F5,
+        20: #DDE1E3,
+        30: #C1C7CA,
+        40: #A2A9AD,
+        50: #878D96,
+        60: #697074,
+        70: #4D5358,
+        80: #343A3C,
+        90: #212727,
+        100: #121616
+);
+
+$white__color: #fff;
+$error__color: #e63a3a;
+$warning__color: #e8c33d;
+$success__color: #51b800;
+$overlay__color: #121616;
+
+%font-style {
+  margin: 0;
+  padding: 0;
+  line-height: 110%;
+  letter-spacing: 0;
+}
+
+%bold__button__font {
+  margin: 0;
+  line-height: 24px;
+  letter-spacing: 0;
+  font: 600 16px "Pretendard Variable";
+}
+
+%button__font {
+  margin: 0;
+  line-height: 20px;
+  letter-spacing: 0;
+  font: 500 15px "Pretendard Variable";
+}
+
+

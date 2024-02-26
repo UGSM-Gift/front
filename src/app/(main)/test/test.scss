@@ -1,0 +1,124 @@
+.test_page__layout {
+  padding: 14px;
+
+}
+
+.test_page__layout__progress {
+  height: 48px;
+  padding: 0 16px 0;
+  display: flex;
+  align-items: center;
+}
+
+.test_page__layout__progress_bar {
+  width: 343px;
+  height: 8px;
+  border-radius: 13px;
+  background-color: #F2F4F5;
+
+}
+
+.test_page__layout__progress_bar__inner {
+  height: 8px;
+  border-radius: 13px;
+  //background-color: #219FFB;
+  background-color: red;
+}
+
+
+/* slideUp 애니메이션 정의 */
+@keyframes slideUp {
+  from {
+    bottom: -100%; /* 시작 지점: 화면 아래 */
+    opacity: 1; /* 시작 시 투명도를 0으로 설정하여 사라진 상태에서 시작 */
+  }
+  to {
+    bottom: 0; /* 종료 지점: 화면 상단에 나타남 */
+    opacity: 1; /* 종료 시 투명도를 1로 설정하여 완전히 나타나게 함 */
+  }
+}
+
+/* slideDown 애니메이션 정의 */
+@keyframes slideDown {
+  from {
+    bottom: calc(0% + 200px); /* 시작 지점: 화면 상단에 있음 */
+    opacity: 1; /* 시작 시 투명도를 1로 설정하여 완전히 나타난 상태에서 시작 */
+  }
+  to {
+    bottom: 0; /* 시작 지점: 화면 아래 */
+    opacity: 1; /* 시작 시 투명도를 0으로 설정하여 사라진 상태에서 시작 */
+  }
+}
+
+.test_page__calendar_down {
+  width: 343px;
+  height: 61px;
+  position: fixed;
+  bottom: 0;
+  padding: 16px 16px 10px;
+  background-color: #fff;
+  box-shadow: 0px -8px 12px 0px #0000000A;
+
+  left: 50%;
+  transform: translateX(-50%);
+  animation: slideDown 1s ease forwards; /* slideDown 애니메이션 적용 */
+}
+
+
+.test_page__calendar_up {
+  position: fixed;
+  bottom: 61px; /* 초기에는 화면 아래에 숨겨진 상태 */
+  left: 50%;
+  transform: translateX(-50%);
+  //width: 343px;
+  //padding: 16px 16px 10px;
+  padding: 0;
+  width: 375px;
+
+  height: 500px;
+  background-color: #ffffff;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.5s ease forwards; /* slideUp 애니메이션 적용 */
+
+
+  border: 1px solid red;
+}
+
+
+.test_page__footer {
+  width: 343px;
+  height: 61px;
+  position: fixed;
+  bottom: 0;
+  padding: 16px 16px 10px;
+  background-color: #fff;
+  box-shadow: 0px -8px 12px 0px #0000000A;
+}
+
+
+.test_page__footer__inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 14px;
+
+}
+
+.test_page__footer__none_border {
+  width: 343px;
+  height: 61px;
+  position: fixed;
+  bottom: 0;
+  padding: 16px 16px 10px;
+  background-color: #fff;
+
+}
+.test_page__footer__inner__button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.test_page__footer__inner__button_box {
+  width: 166px;
+}

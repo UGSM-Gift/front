@@ -1,0 +1,210 @@
+@import "./variables.scss";
+
+
+html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1 {
+  @extend %font-style;
+  font: 600 32px "Pretendard Variable";
+}
+
+h2 {
+  @extend %font-style;
+  font: 600 28px "Pretendard Variable";
+}
+
+h3 {
+  @extend %font-style;
+  font: 500 22px "Pretendard Variable";
+}
+
+h4 {
+  @extend %font-style;
+  font: 500 20px "Pretendard Variable";
+}
+
+h5 {
+  @extend %font-style;
+  font: 600 16px "Pretendard Variable";
+}
+
+h6 {
+  @extend %font-style;
+  font: 600 14px "Pretendard Variable";
+}
+
+.text__font {
+  margin: 0;
+  padding: 0;
+  line-height: 105%;
+  letter-spacing: 0;
+  font: 400 15px "Pretendard Variable";
+}
+
+.bold__text__font {
+  @extend %font-style;
+  font: 400 16px "Pretendard Variable";
+}
+
+
+
+
+.bold__button__font {
+  //600 16
+  padding: 0;
+  @extend %bold__button__font;
+}
+
+.button__font {
+  // 500 15
+  padding: 0;
+  @extend %button__font;
+}
+
+.bold__caption__font {
+  @extend %font-style;
+  font: 400 13px "Pretendard Variable";
+}
+
+.caption__font {
+  @extend %font-style;
+  font: 400 12px "Pretendard Variable";
+}
+
+.footer__font {
+  @extend %font-style;
+  font: 500 10px "Pretendard Variable";
+}
+
+.small__product__font {
+  @extend %font-style;
+  font: 400 14px "Pretendard Variable";
+}
+
+
+
+@each $key, $value in $primary-colors {
+  .primary__color__#{$key} {
+    color: $value;
+  }
+}
+
+
+@each $key, $value in $secondary-colors {
+  .secondary__color__#{$key} {
+    color: $value;
+  }
+}
+
+
+
+@each $key, $value in $sub-colors {
+  .sub__color__#{$key} {
+    color: $value;
+  }
+}
+
+
+
+@each $key, $value in $gray-colors {
+  .gray__color__#{$key} {
+    color: $value;
+  }
+}
+
+
+.white__color {
+  color: $white__color;
+}
+
+.error__color {
+  color: $error__color;
+}
+
+.warning__color {
+  color: $warning__color;
+}
+
+.success__color {
+  color: $success__color;
+}
+
+.overlay__color {
+  color: $overlay__color;
+  opacity: 50%;
+}
+
+@for $i from 1 through 50 {
+  .mb_#{$i} {
+    margin-bottom: #{$i}px;
+  }
+  .mt_#{$i} {
+    margin-top: #{$i}px;
+  }
+
+  .ml_#{$i} {
+    margin-left: #{$i}px;
+  }
+  .mr_#{$i} {
+    margin-right: #{$i}px;
+  }
+  .m_#{$i} {
+    margin: #{$i}px;
+  }
+
+  .p_#{$i} {
+    padding: #{$i}px;
+  }
+
+  .pb_#{$i} {
+    padding-bottom: #{$i}px;
+  }
+  .pt_#{$i} {
+    padding-top: #{$i}px;
+  }
+  .pr_#{$i} {
+    padding-right: #{$i}px;
+  }
+  .pl_#{$i} {
+    padding-left: #{$i}px;
+  }
+}
+
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.w100 {
+  width: 100%;
+}
+
+@for $i from 1 through 400 {
+  .w_#{$i} {
+    width: #{$i}px;
+  }
+}
+
+

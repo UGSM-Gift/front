@@ -1,0 +1,47 @@
+
+.signup__layout {
+  max-height: 768px;
+  height: calc(100vh - 32px);;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  &__back {
+  }
+
+  &__title {
+    margin: 30px 0 0;
+
+    &__sub {
+      margin: 4px 0 0;
+    }
+  }
+
+  &__input {
+    margin: 46px 0 0;
+  }
+
+  &__button {
+    margin: 0 0 0;
+  }
+
+
+  &__nickname_label {
+    margin: 12px 0 0;
+  }
+}
+
+.signup__layout__children {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.signup__layout__gender_select_box {
+  display: flex;
+
+}
+
+.auth_text {
+  border-bottom: 2px solid #D9D9D9;
+  margin: 0 0 0 4px;
+}

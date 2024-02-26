@@ -1,0 +1,546 @@
+@import "../variables.scss";
+
+
+@mixin button-style($options) {
+  $background: map-get($options, background);
+  $color: map-get($options, color);
+  $border: map-get($options, border);
+  $maxWidth: map-get($options, maxWidth);
+  $radius: map-get($options, radius);
+  $maxHeight: map-get($options, maxHeight);
+
+  background-color: $background;
+  border: $border;
+  color: $color;
+  max-width: $maxWidth;
+  border-radius: $radius;
+  height: $maxHeight;
+}
+
+@mixin image-button-style($options) {
+  $background: map-get($options, background);
+  $color: map-get($options, color);
+  $border: map-get($options, border);
+  $maxWidth: map-get($options, maxWidth);
+  $radius: map-get($options, radius);
+  $maxHeight: map-get($options, maxHeight);
+
+  background-color: $background;
+  border: $border;
+  color: $color;
+  max-width: $maxWidth;
+  border-radius: $radius;
+  height: $maxHeight;
+}
+
+
+.default__button__layout {
+  cursor: pointer;
+  margin: 0;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+
+  // text 선택 안되게 하는거
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+
+
+  &.large_primary {
+    cursor: pointer;
+
+    .label__text {
+      padding: 16px 0;
+    }
+    @extend %bold__button__font;
+    @include button-style((
+            background: map-get($primary-colors, 400),
+            color: $white__color,
+            border: 1px solid map-get($primary-colors, 400),
+            maxWidth: 341px,
+            radius: 8px,
+            maxHeight: 54px,
+    ))
+  }
+
+  &.large_primary_border {
+    cursor: pointer;
+
+    .label__text {
+      padding: 16px 0;
+    }
+    @extend %bold__button__font;
+    @include button-style((
+            background: $white__color,
+            color: map-get($primary-colors, 400),
+            border: 1px solid map-get($primary-colors, 400),
+            maxWidth: 341px,
+            radius: 8px,
+            maxHeight: 54px,
+    ))
+  }
+
+  &.large_gray {
+    .label__text {
+      padding: 16px 0;
+    }
+    @extend %bold__button__font;
+    @include button-style((
+            background: map-get($gray-colors, 30),
+            color: $white__color,
+            border: 1px solid map-get($gray-colors, 300),
+            maxWidth: 341px,
+            radius: 8px,
+            maxHeight: 54px,
+    ))
+  }
+
+  &.large_gray_border {
+    .label__text {
+      padding: 16px 0;
+    }
+    @extend %bold__button__font;
+    @include button-style((
+            background: $white__color,
+            color: map-get($gray-colors, 40),
+            border: 1px solid map-get($gray-colors, 40),
+            maxWidth: 341px,
+            radius: 8px,
+            maxHeight: 54px,
+    ))
+  }
+
+  &.medium_primary {
+    .label__text {
+      padding: 16px 0;
+    }
+    @extend %bold__button__font;
+    @include button-style((
+            background: map-get($primary-colors, 400),
+            color: $white__color,
+            border: 1px solid map-get($primary-colors, 400),
+            maxWidth: 166px,
+            radius: 8px,
+            maxHeight: 54px,
+    ))
+  }
+
+  &.medium_primary_border {
+    .label__text {
+      padding: 16px 0;
+    }
+    @extend %bold__button__font;
+    @include button-style((
+            background: $white__color,
+            color: map-get($primary-colors, 400),
+            border: 1px solid map-get($primary-colors, 400),
+            maxWidth: 166px,
+            maxHeight: 54px,
+            radius: 8px,
+    ))
+  }
+
+  &.medium_gray {
+    .label__text {
+      padding: 16px 0;
+    }
+    @extend %bold__button__font;
+    @include button-style((
+            background: map-get($gray-colors, 30),
+            color: $white__color,
+            border: 1px solid map-get($gray-colors, 300),
+            maxWidth: 166px,
+            radius: 8px,
+            maxHeight: 54px,
+    ))
+  }
+
+  &.medium_gray_border {
+    .label__text {
+      padding: 16px 0;
+    }
+    @extend %bold__button__font;
+    @include button-style((
+            background:  $white__color,
+            color: map-get($gray-colors, 40),
+            border: 1px solid map-get($gray-colors, 40),
+            maxWidth: 166px,
+            radius: 8px,
+            maxHeight: 54px,
+    ))
+  }
+
+  // sub button styles
+
+  &.sub_large_primary {
+    .label__text {
+      padding: 15px 0;
+    }
+    @extend %button__font;
+    @include button-style((
+            background: map-get($primary-colors, 50),
+            color: map-get($primary-colors, 800),
+            border: 1px solid map-get($primary-colors, 100),
+            maxWidth: 166px,
+            radius: 15px,
+            maxHeight: 50px,
+    ))
+  }
+  &.sub_medium_primary {
+    .label__text {
+      padding: 12px 0;
+    }
+    @extend %button__font;
+    @include button-style((
+            background: map-get($primary-colors, 50),
+            color: map-get($primary-colors, 800),
+            border: 1px solid map-get($primary-colors, 100),
+            maxWidth: 107px,
+            radius: 15px,
+            maxHeight: 42px,
+    ))
+  }
+  &.sub_small_primary {
+    .label__text {
+      padding: 10px 0;
+    }
+    @extend %button__font;
+    @include button-style((
+            background: map-get($primary-colors, 50),
+            color: map-get($primary-colors, 800),
+            border: 1px solid map-get($primary-colors, 100),
+            maxWidth: 78px,
+            radius: 40px,
+            maxHeight: 38px,
+    ))
+  }
+
+  &.sub_large_gray {
+    .label__text {
+      padding: 15px 0;
+    }
+    @extend %button__font;
+    @include button-style((
+            background: map-get($gray-colors, 10),
+            color: map-get($gray-colors, 40),
+            border: 1px solid map-get($gray-colors, 10),
+            maxWidth: 166px,
+            radius: 15px,
+            maxHeight: 50px,
+    ))
+  }
+
+  &.sub_medium_gray {
+    .label__text {
+      padding: 12px 0;
+    }
+    @extend %button__font;
+    @include button-style((
+            background: map-get($gray-colors, 10),
+            color: map-get($gray-colors, 40),
+            border: 1px solid map-get($gray-colors, 10),
+            maxWidth: 107px,
+            radius: 15px,
+            maxHeight: 42px,
+    ))
+
+  }
+  &.sub_small_gray {
+    .label__text {
+      padding: 10px 0;
+    }
+    @extend %button__font;
+    @include button-style((
+            background: map-get($gray-colors, 10),
+            color: map-get($gray-colors, 40),
+            border: 1px solid map-get($gray-colors, 10),
+            maxWidth: 78px,
+            radius: 40px,
+            maxHeight: 38px,
+    ))
+
+  }
+
+  &.sub_large_gray_border {
+    .label__text {
+      padding: 15px 0;
+    }
+    @extend %button__font;
+    @include button-style((
+            background: $white__color,
+            color: map-get($gray-colors, 60),
+            border: 1px solid map-get($gray-colors, 20),
+            maxWidth: 166px,
+            radius: 15px,
+            maxHeight: 50px,
+    ))
+
+  }
+  &.sub_medium_gray_border {
+    .label__text {
+      padding: 15px 0;
+    }
+    @extend %button__font;
+    @include button-style((
+            background: $white__color,
+            color: map-get($gray-colors, 60),
+            border: 1px solid map-get($gray-colors, 20),
+            maxWidth: 107px,
+            radius: 15px,
+            maxHeight: 42px,
+    ))
+
+  }
+  &.sub_small_gray_border {
+    .label__text {
+      padding: 15px 0;
+    }
+    @extend %button__font;
+    @include button-style((
+            background: $white__color,
+            color: map-get($gray-colors, 60),
+            border: 1px solid map-get($gray-colors, 20),
+            maxWidth: 78px,
+            radius: 40px,
+            maxHeight: 38px,
+    ))
+  }
+
+
+
+  // image button styles
+
+  &.image_large_primary {
+    .label__text {
+      padding: 10px 2px;
+    }
+
+    .button__image {
+      width: 24px;
+      height: 24px;
+    }
+    @extend %bold__button__font;
+    @include button-style((
+            background: map-get($primary-colors, 400),
+            color: $white__color,
+            border: 1px solid map-get($primary-colors, 400),
+            maxWidth: 341px,
+            radius: 8px,
+            maxHeight: 54px,
+    ))
+  }
+
+  &.image_primary {
+    .label__text {
+      padding: 10px 2px;
+    }
+    @extend %button__font;
+    @include button-style((
+            background: map-get($primary-colors, 400),
+            color: $white__color,
+            border: 1px solid map-get($primary-colors, 400),
+            maxWidth: 101px,
+            radius: 40px,
+            maxHeight: 38px,
+    ))
+  }
+
+  &.image_primary_border {
+    .label__text {
+      padding: 10px 2px;
+    }
+    @extend %button__font;
+    @include button-style((
+            background: map-get($primary-colors, 50),
+            color: map-get($primary-colors, 800),
+            border: 1px solid map-get($primary-colors, 100),
+            maxWidth: 101px,
+            radius: 40px,
+            maxHeight: 38px,
+    ))
+  }
+
+  &.image_gray {
+    .label__text {
+      padding: 10px 2px;
+    }
+    @extend %button__font;
+    @include button-style((
+            background: map-get($gray-colors, 10),
+            color: map-get($gray-colors, 40),
+            border: 1px solid map-get($gray-colors, 10),
+            maxWidth: 101px,
+            radius: 40px,
+            maxHeight: 38px,
+    ))
+  }
+
+
+  &.image_gray_border {
+    .label__text {
+      padding: 10px 2px;
+    }
+    @extend %button__font;
+    @include button-style((
+            background: $white__color,
+            color: map-get($gray-colors, 60),
+            border: 1px solid map-get($gray-colors, 20),
+            maxWidth: 101px,
+            radius: 40px,
+            maxHeight: 38px,
+    ))
+  }
+
+  &.kakao_login {
+    .label__text {
+      padding: 10px 2px;
+    }
+
+    .button__image {
+      width: 24px;
+      height: 24px;
+    }
+    @extend %bold__button__font;
+    @include button-style((
+            background: #FEE500,
+            color: rgba(0, 0, 0, 0.8),
+            border: 1px solid #FEE500,
+            maxWidth: 341px,
+            radius: 8px,
+            maxHeight: 54px,
+    ))
+  }
+
+  &.naver_login {
+    .label__text {
+      padding: 10px 2px;
+    }
+
+    .button__image {
+      width: 24px;
+      height: 24px;
+    }
+    @extend %bold__button__font;
+    @include button-style((
+            background: #03C75A,
+            color: $white__color,
+            border: 1px solid 03C75A,
+            maxWidth: 341px,
+            radius: 8px,
+            maxHeight: 54px,
+    ))
+  }
+
+  &.google_login {
+    .label__text {
+      padding: 10px 2px;
+    }
+
+    .button__image {
+      width: 24px;
+      height: 24px;
+    }
+    @extend %bold__button__font;
+    @include button-style((
+            background: $white__color,
+            color: #666,
+            border: 1px solid map-get($gray-colors, 30),
+            maxWidth: 341px,
+            radius: 8px,
+            maxHeight: 54px,
+    ))
+  }
+
+  &.history_button {
+    .label__text {
+      padding: 10px 2px;
+    }
+
+    @extend %font-style;
+    font: 400 12px "Pretendard Variable";
+    @include button-style((
+            background: $white__color,
+            color: map-get($gray-colors, 60),
+            border: 1px solid map-get($gray-colors, 20),
+            maxWidth: 100%,
+            radius: 40px,
+            maxHeight: 30px,
+    ))
+  }
+
+
+  // 추가된 버튼들
+
+  // price
+
+  &.price_button {
+    .label__text {
+      padding: 10px 2px;
+    }
+    @extend %button__font;
+    @include button-style((
+            background: map-get($sub-colors, 900),
+            color: $white__color,
+            border: 1px solid map-get($sub-colors, 900),
+            maxWidth: 91px,
+            radius: 40px,
+            maxHeight: 38px,
+    ))
+  }
+
+  &.price_button_border {
+    .label__text {
+      padding: 10px 2px;
+    }
+    @extend %button__font;
+    @include button-style((
+            background: $white__color,
+            color: map-get($gray-colors, 60),
+            border: 1px solid map-get($gray-colors, 20),
+            maxWidth: 91px,
+            radius: 40px,
+            maxHeight: 38px,
+    ))
+
+  }
+
+  &.small_product_button {
+    .label__text {
+      padding: 10px 2px;
+    }
+    @extend %button__font;
+    @include button-style((
+            background: $white__color,
+            color: map-get($gray-colors, 80),
+            border: 1px solid map-get($gray-colors, 30),
+            maxWidth: 104px,
+            radius: 6px,
+            maxHeight: 36px,
+    ))
+  }
+
+  &.medium_product_button {
+    .label__text {
+      padding: 10px 2px;
+    }
+    @extend %button__font;
+    @include button-style((
+            background: $white__color,
+            color: map-get($gray-colors, 80),
+            border: 1px solid map-get($gray-colors, 30),
+            maxWidth: 163px,
+            radius: 6px,
+            maxHeight: 36px,
+    ))
+  }
+
+
+}
+
+.button__image {
+  cursor: pointer;
+  padding: 0 2px;
+}

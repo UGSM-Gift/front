@@ -1,0 +1,114 @@
+@import "../variables.scss";
+
+@mixin select-style($options) {
+  $background: map-get($options, background);
+  $border: map-get($options, border);
+  $radius: map-get($options, radius);
+  $height: map-get($options, height);
+
+
+  border-radius: $radius;
+  background-color: $background;
+  border: $border;
+  height: $height;
+}
+
+.default_select__layout {
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
+  align-items: center;
+  color: map-get($gray-colors, 100);
+
+  cursor: pointer;
+  white-space: nowrap;
+
+
+  margin: 0;
+  // text 선택 안되게 하는거
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+
+
+  &.select_primary {
+    width: 313px;
+    padding: 0 14px 0;
+    @include select-style((
+            border: 1px solid map-get($primary-colors, 400),
+            background: $white__color,
+            radius: 8px,
+            height: 54px
+    ))
+  }
+
+  &.select_gray_border {
+    width: 313px;
+    padding: 0 14px 0;
+
+    @include select-style((
+            border: 1px solid map-get($gray-colors, 20),
+            background: $white__color,
+            radius: 8px,
+            height: 54px
+    ))
+  }
+
+
+  &.select_primary_half {
+    width: 136px;
+    padding: 0 14px 0;
+    @include select-style((
+            border: 1px solid map-get($primary-colors, 400),
+            background: $white__color,
+            radius: 8px,
+            height: 54px
+    ))
+  }
+
+  &.select_gray_border_half {
+    width: 136px;
+    padding: 0 14px 0;
+
+    @include select-style((
+            border: 1px solid map-get($gray-colors, 20),
+            background: $white__color,
+            radius: 8px,
+            height: 54px
+    ))
+  }
+
+  &.circle_select_primary_half {
+    padding: 0 14px 0;
+    @include select-style((
+            border: 1px solid map-get($primary-colors, 400),
+            background: $white__color,
+            radius: 40px,
+            height: 38px
+    ))
+  }
+
+  &.circle_select_gray_border_half {
+    padding: 0 14px 0;
+
+    @include select-style((
+            border: 1px solid map-get($gray-colors, 20),
+            background: $white__color,
+            radius: 40px,
+            height: 38px
+    ))
+  }
+
+
+
+
+
+
+}
+
+.default_select__layout__left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
