@@ -57,9 +57,14 @@ const EventType = ({clickAddEvent}: EventTypeProps) => {
     const clickSelect = (item: EventListState | UserJobProps | UserChoiceProps) => {
         console.log(eventType, testStage, item, useTestStore.getState())
 
-        useTestStore.setState({eventText: item.name})
+        if ('name' in item) {
+            useTestStore.setState({eventText: item.name})
+        }
+
+        if ('date' in item) {
+            useTestStore.setState({eventDay: item.date})
+        }
         useTestStore.setState({eventType: item.id})
-        useTestStore.setState({eventDay: item.date})
 
         setSelectEvent(item.id)
     }
