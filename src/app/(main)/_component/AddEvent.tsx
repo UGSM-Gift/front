@@ -54,7 +54,7 @@ const AddEvent = () => {
                             <div key={item.id}
                                  className={selectImage === item.id ?  'add_event__layout__image_true' : 'add_event__layout__image_false'}
                                  onClick={() => clickImage(item)}>
-                                <Image src={item.imageUrl} alt={'x'} width={48} height={48}/>
+                                <Image src={item.imageUrl || 'fire_craker_icon.svg'} alt={'x'} width={48} height={48}/>
                             </div>
                         ))
                     }
