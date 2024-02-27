@@ -50,6 +50,19 @@
   }
 }
 
+
+.test_page__calendar {
+  width: 343px;
+  height: 61px;
+  position: fixed;
+  bottom: 0;
+  padding: 16px 16px 10px;
+  background-color: #fff;
+  box-shadow: 0px -8px 12px 0px #0000000A;
+
+}
+
+
 .test_page__calendar_down {
   width: 343px;
   height: 61px;
@@ -59,8 +72,6 @@
   background-color: #fff;
   box-shadow: 0px -8px 12px 0px #0000000A;
 
-  left: 50%;
-  transform: translateX(-50%);
   animation: slideDown 1s ease forwards; /* slideDown 애니메이션 적용 */
 }
 
@@ -68,8 +79,6 @@
 .test_page__calendar_up {
   position: fixed;
   bottom: 61px; /* 초기에는 화면 아래에 숨겨진 상태 */
-  left: 50%;
-  transform: translateX(-50%);
   //width: 343px;
   //padding: 16px 16px 10px;
   padding: 0;

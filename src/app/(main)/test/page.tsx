@@ -4,7 +4,7 @@ import './test.scss'
 import EventType from "@/app/(main)/test/_component/EventType";
 import DefaultButton from "@/app/_component/DefaultButton";
 import {useEventList, useTestStore} from "@/app/zustand/testStore";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import DateDetail from "@/app/(main)/test/_component/dateDetail";
 import Calendar from "@/app/(main)/_component/Calendar";
 import UserJob from "@/app/(main)/test/_component/UserJob";
@@ -12,6 +12,8 @@ import UserHobby from "@/app/(main)/test/_component/UserHobby";
 import AddEvent from "@/app/(main)/_component/AddEvent";
 import UserHobbyDetail from "@/app/(main)/test/_component/UserHobbyDetail";
 import UserCategory from "@/app/(main)/test/_component/UserCategory";
+import {getAnniversaryList, postAnniversary} from "@/app/api/anniversary";
+import {getHobbyList} from "@/app/api/UGTest";
 
 
 
@@ -40,26 +42,10 @@ const TestPage = () => {
     const eventText = useTestStore(state => state.eventText);
     const eventDay = useTestStore(state => state.eventDay);
     const userJob = useTestStore(state => state.userJob);
+    const userHobby = useTestStore(state => state.userHobby);
+    const userInterest = useTestStore(state => state.userInterest);
+    const eventImageId = useTestStore(state => state.eventImageId);
 
-    const testStageController = () => {
-        switch (testStage) {
-            case 1:
-                if (eventType !== 0) {
-                    return true
-                }
-                return false
-            case 2:
-                return
-            case 3:
-                return
-            case 4:
-                return
-            case 5:
-                return
-            case 6:
-                return
-        }
-    }
 
     const [footerContent, setFooterContent] = useState(0)
 
@@ -68,14 +54,53 @@ const TestPage = () => {
     const { eventList, updateEventList } = useEventList() as EventListHookReturnType;
 
 
-    const testing = () => {
-        console.log(visible, eventDay , 'vent' , eventText, eventDay, userJob)
+    useEffect(()=> {
+        initEventList()
+    }, [])
+
+    const initEventList = async () => {
+        const initList = await getAnniversaryList('2024-02')
+        updateEventList(initList.data)
     }
 
+
+    const testing = () => {
+        console.log(
+            'visible', visible,
+            'eventDay', eventDay ,
+            'eventText' , eventText,
+            'userJob', userJob,
+            'testStage', testStage,
+            'userHobby', userHobby,
+            'userInterest', userInterest,
+            )
+    }
+
+
+    const postEventList = async () => {
+        try {
+            const formattedDate = String(eventDay).replace(/(\d{2})(\d{2})(\d{2})/, '20$1-$2-$3');
+
+            const postData = {
+                name: eventText,
+                imageId: eventImageId,
+                date: formattedDate,
+            }
+
+            const newArr = await postAnniversary(postData)
+
+            console.log(newArr)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+
     // 푸터 버튼 클릭시
-    const clickFooterButton = () => {
+    const clickFooterButton = async () => {
         console.log('outer')
-        if (visible && eventDay !== 0 && footerContent === 0) {
+
+        if (visible && eventDay !== '' && footerContent === 0) {
             console.log('1deps')
 
             return setFooterContent(1)
@@ -87,23 +112,51 @@ const TestPage = () => {
                 // 이전으로 돌아가기
                 return setFooterContent(0)
             } else {
-                const nextId = eventList.length + 1
-                const updatedEventList = [...eventList, {
-                    id: nextId,
-                    title: eventText,
-                    image: '/circle_input_icon_false.svg',
-                    type: 'select_gray_border',
-                    userImage: '/add_event_heart.svg'
-                }];
-                console.log('heellooo')
-                clickAddEvent()
-                return updateEventList(updatedEventList);
+
+                await postEventList()
+                await initEventList()
+                return clickAddEvent()
             }
-        } else if (testStageController()) {
+        }
+
+
+
+        if (testStage === 1 && eventText !== '') {
             useTestStore.setState((prevState) => ({
                 testStage: prevState.testStage + 1
             }));
         }
+
+        if (testStage === 2 && userJob !== '') {
+            useTestStore.setState((prevState) => ({
+                testStage: prevState.testStage + 1
+            }));
+        }
+
+        if (testStage === 3 && userHobby.length !== 0) {
+            useTestStore.setState((prevState) => ({
+                testStage: prevState.testStage + 1
+            }));
+        }
+
+        if (testStage === 4 && userInterest.length !== 0) {
+
+
+
+            useTestStore.setState((prevState) => ({
+                testStage: prevState.testStage + 1
+            }));
+        }
+
+        // detail => category
+        if (testStage === 5) {
+            useTestStore.setState((prevState) => ({
+                testStage: prevState.testStage + 1
+            }));
+        }
+
+
+
 
     }
 
@@ -133,10 +186,108 @@ const TestPage = () => {
             </div>
         } else if (visible) {
             return <DefaultButton label={'다음'} type={'large_primary'} buttonClick={clickFooterButton}/>
-        } else if (testStageController()) {
+        }
+
+
+        if (testStage === 1 && eventText !== '') {
             return <DefaultButton label={'확인'} type={'large_primary'} buttonClick={clickFooterButton}/>
         }
-        return <DefaultButton label={'확인'} type={'large_gray_border'} buttonClick={clickFooterButton}/>
+
+        if (testStage === 1 && eventText === '') {
+            return <DefaultButton label={'확인'} type={'large_gray_border'} buttonClick={clickFooterButton}/>
+        }
+
+        if (testStage === 2 && userJob === '') {
+            return <div className={'test_page__footer__inner__button'}>
+                <div className={'test_page__footer__inner__button_box'}>
+                    <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={clickFooterButton}/>
+                </div>
+                <div className={'test_page__footer__inner__button_box'}>
+                    <DefaultButton label={'다음'} type={'medium_gray'} buttonClick={clickFooterButton}/>
+                </div>
+            </div>
+        }
+
+        if (testStage === 2 && userJob !== '') {
+            return <div className={'test_page__footer__inner__button'}>
+                <div className={'test_page__footer__inner__button_box'}>
+                    <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={clickFooterButton}/>
+                </div>
+                <div className={'test_page__footer__inner__button_box'}>
+                    <DefaultButton label={'다음'} type={'medium_primary'} buttonClick={clickFooterButton}/>
+                </div>
+            </div>
+        }
+
+        if (testStage === 3 && userHobby.length !== 0) {
+            return <div className={'test_page__footer__inner__button'}>
+                <div className={'test_page__footer__inner__button_box'}>
+                    <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={clickFooterButton}/>
+                </div>
+                <div className={'test_page__footer__inner__button_box'}>
+                    <DefaultButton label={'다음'} type={'medium_primary'} buttonClick={clickFooterButton}/>
+                </div>
+            </div>
+        }
+
+        if (testStage === 3 && userHobby.length === 0) {
+            return <div className={'test_page__footer__inner__button'}>
+                <div className={'test_page__footer__inner__button_box'}>
+                    <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={clickFooterButton}/>
+                </div>
+                <div className={'test_page__footer__inner__button_box'}>
+                    <DefaultButton label={'다음'} type={'medium_gray'} buttonClick={clickFooterButton}/>
+                </div>
+            </div>
+        }
+
+        if (testStage === 4 && userInterest.length !== 0) {
+            return <div className={'test_page__footer__inner__button'}>
+                <div className={'test_page__footer__inner__button_box'}>
+                    <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={clickFooterButton}/>
+                </div>
+                <div className={'test_page__footer__inner__button_box'}>
+                    <DefaultButton label={'다음'} type={'medium_primary'} buttonClick={clickFooterButton}/>
+                </div>
+            </div>
+        }
+
+        if (testStage === 4 && userInterest.length === 0) {
+            return <div className={'test_page__footer__inner__button'}>
+                <div className={'test_page__footer__inner__button_box'}>
+                    <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={clickFooterButton}/>
+                </div>
+                <div className={'test_page__footer__inner__button_box'}>
+                    <DefaultButton label={'다음'} type={'medium_gray'} buttonClick={clickFooterButton}/>
+                </div>
+            </div>
+        }
+
+
+        if (testStage === 5 ) {
+            return <div className={'test_page__footer__inner__button'}>
+                <div className={'test_page__footer__inner__button_box'}>
+                    <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={clickFooterButton}/>
+                </div>
+                <div className={'test_page__footer__inner__button_box'}>
+                    <DefaultButton label={'다음'} type={'medium_primary'} buttonClick={clickFooterButton}/>
+                </div>
+            </div>
+        }
+
+
+        if (testStage === 6 ) {
+            return <div className={'test_page__footer__inner__button'}>
+                <div className={'test_page__footer__inner__button_box'}>
+                    <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={clickFooterButton}/>
+                </div>
+                <div className={'test_page__footer__inner__button_box'}>
+                    <DefaultButton label={'다음'} type={'medium_primary'} buttonClick={clickFooterButton}/>
+                </div>
+            </div>
+        }
+
+        // return <DefaultButton label={'확인'} type={'large_gray_border'} buttonClick={clickFooterButton}/>
 
 
         // switch (testStage) {
@@ -169,6 +320,8 @@ const TestPage = () => {
         val5: string | JSX.Element
         val6: string | JSX.Element
     }
+
+
     const testStageSwitchReturn = ({val1, val2, val3, val4, val5, val6} :testStageSwitchReturnProps) => {
         switch (testStage) {
             case 1:
@@ -182,13 +335,14 @@ const TestPage = () => {
             case 5:
                 return val5
             case 6:
-                return val5
+                return val6
         }
     }
 
 
     const clickAddEvent = () => {
         if (visible) {
+            setFooterContent(0)
             setVisible(false)
             setTestPageFooterClassName('test_page__calendar_down')
             setFooterClassName('test_page__footer')
@@ -198,14 +352,19 @@ const TestPage = () => {
             setFooterClassName('test_page__footer__none_border')
         }
     }
+
+
+
+
+
     const renderTestComponent = () => {
         return testStageSwitchReturn({
             val1: <EventType clickAddEvent={clickAddEvent}/>,
-            val2: <UserCategory/>,
-            val3: <UserJob/>,
-            val4:<UserHobby/>,
-            val5:<UserHobbyDetail/>,
-            val6:<EventType/>
+            val2: <UserJob/>,
+            val3: <UserHobby type={'hobby'}/>,
+            val4: <UserHobby type={'interest'}/>,
+            val5: <UserHobbyDetail/>,
+            val6: <UserCategory/>
         })
     }
 
@@ -233,12 +392,12 @@ const TestPage = () => {
 
 
     let [visible, setVisible] = useState(false)
-    let [testPageFooterClassName, setTestPageFooterClassName] = useState('test_page__calendar_down')
+    let [testPageFooterClassName, setTestPageFooterClassName] = useState('test_page__calendar')
     let [footerClassName, setFooterClassName] = useState('test_page__footer')
 
     const clickBack = () => {
         setFooterContent(0)
-        useTestStore.setState({eventDay: 0});
+        useTestStore.setState({eventDay: ''});
         clickAddEvent()
     }
 

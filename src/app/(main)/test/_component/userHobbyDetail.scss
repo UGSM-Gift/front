@@ -1,9 +1,20 @@
 
 .user_hobby_detail__layout__main_title {
-  width: 108px;
+  width: 128px;
 }
 
 .user_hobby_detail__layout {
+  overflow: scroll;
+  height: calc(100dvh - 350px);
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+
+}
+
+.user_hobby_detail__layout__select {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 14px 10px;

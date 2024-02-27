@@ -2,9 +2,15 @@
 import './addEvent.scss'
 import Image from "next/image";
 import DefaultInput from "@/app/_component/DefaultInput";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useTestStore} from "@/app/zustand/testStore";
+import {getAnniversaryImage} from "@/app/api/anniversary";
 
+
+interface addEventImageProps {
+    imageUrl: string
+    id: number
+}
 const AddEvent = () => {
 
     const [eventText, setEventText] = useState('')
@@ -13,22 +19,42 @@ const AddEvent = () => {
         setEventText(text)
     }
 
-    const ImageArr = [
-        {imageUrl: '/add_event_gift_box.svg'},
-        {imageUrl: '/add_event_fire.svg'},
-        {imageUrl: '/add_event_heart.svg'},
-        {imageUrl: '/add_event_flower.svg'},
-        {imageUrl: '/add_event_balloon.svg'},
-    ]
+
+    const [imageArr, setImageArr] = useState<addEventImageProps[]>([])
+
+    useEffect(() => {
+        getImageArr();
+    }, []);
+
+    const getImageArr = async () => {
+        try {
+            const imageArrData = await getAnniversaryImage();
+            setImageArr(imageArrData.data);
+        } catch (error) {
+            console.error('Error fetching image array:', error);
+        }
+    };
+
+
+    const [selectImage, setSelectImage] = useState(0)
+    const clickImage = (item: addEventImageProps) => {
+        console.log(item)
+        setSelectImage(item.id)
+        useTestStore.setState({eventImageId: item.id})
+    }
+
+
     return (
         <div className={'add_event__layout'}>
             <div>
                 <h6 className={'mt_6 mb_10 ml_2'}>이미지 선택</h6>
-                <div className={'add_event__layout__image'}>
+                <div className={'add_event__layout__image_box'}>
                     {
-                        ImageArr.map((item) => (
-                            <div key={item.imageUrl} className={'mr_14'}>
-                                <Image src={item.imageUrl} alt={'x'} width={66} height={66}/>
+                        imageArr.map((item) => (
+                            <div key={item.id}
+                                 className={selectImage === item.id ?  'add_event__layout__image_true' : 'add_event__layout__image_false'}
+                                 onClick={() => clickImage(item)}>
+                                <Image src={item.imageUrl} alt={'x'} width={48} height={48}/>
                             </div>
                         ))
                     }

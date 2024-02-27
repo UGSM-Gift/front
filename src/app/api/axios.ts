@@ -2,11 +2,11 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_PUBLIC_BASE_URL,
+  baseURL: 'https://www.ugsm.co.kr',
 });
 
 instance.interceptors.request.use((config) => {
-  const token = localStorage.getItem('accessToken');
+  const token = localStorage.getItem('token');
 
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -14,4 +14,13 @@ instance.interceptors.request.use((config) => {
   return config;
 });
 
+//
+// const token = localStorage.getItem('token');
+
+const headers = {
+  'Content-Type': 'application/json',
+  // "Authorization": `Bearer ${token}`
+}
+
 export default instance;
+export { headers };

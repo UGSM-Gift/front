@@ -1,9 +1,10 @@
 'use client'
 import './eventType.scss'
 import DefaultSelect from "@/app/_component/DefaultSelect";
-import {MouseEventHandler, useState} from "react";
+import {MouseEventHandler, useEffect, useState} from "react";
 import DefaultInput from "@/app/_component/DefaultInput";
 import {useEventList, useTestStore} from "@/app/zustand/testStore";
+import {getAnniversaryList} from "@/app/api/anniversary";
 
 interface EventTypeProps {
     // clickAddEvent?: MouseEventHandler<HTMLDivElement>;
@@ -13,10 +14,9 @@ interface EventTypeProps {
 
 interface EventListState {
     id: number
-    title: string
-    image: string
-    type: string
-    userImage: string
+    name: string
+    date: string
+    imageUrl: string
 }
 
 type EventListHookReturnType = {
@@ -27,90 +27,52 @@ type EventListHookReturnType = {
 const EventType = ({clickAddEvent}: EventTypeProps) => {
 
     const {eventType} = useTestStore.getState();
-    const eventText = useTestStore(state => state.eventText); // 상태 구독독
-    const testStage = useTestStore(state => state.testStage); // 상태 구독
-
+    const eventText = useTestStore(state => state.eventText); // 상태 구독
+    const testStage = useTestStore(state => state.testStage);
 
     const {eventList, updateEventList} = useEventList() as EventListHookReturnType;
+
+
+    const [selectEvent, setSelectEvent] = useState(0)
+
 
     const inputEventName = (item: string) => {
         useTestStore.setState({eventText: item})
     }
 
-    const clickSelect = (item: string) => {
-        console.log(eventType, testStage, item)
+    interface UserJobProps {
+        id: number
+        name: string
+        hasOtherName?: boolean
 
-        useTestStore.setState({eventText: item})
-        useTestStore.setState({eventType: 1})
-
-        const updateEventMap = eventList.map((ele) => {
-            if (ele.title === item) {
-                console.log('hello?', ele)
-                return {
-                    ...ele,
-                    image: '/circle_input_icon_true.svg',
-                    type: 'select_primary',
-                }
-            }
-            return {
-                ...ele,
-                image: '/circle_input_icon_false.svg',
-                type: 'select_gray_border',
-            }
-        })
-
-        updateEventList(updateEventMap)
-
-
-        // switch (item) {
-        //     case '생일':
-        //         useTestStore.setState({eventText: '생일'})
-        //         useTestStore.setState({eventType: 1})
-        //
-        //         // 업데이트 함수를 사용하여 이벤트 목록 업데이트
-        //         updateEventList([{
-        //             id: 1,
-        //             title: '정서윤 생일 (02.14)',
-        //             image: '/circle_input_icon_true.svg',
-        //             type: 'select_primary',
-        //             userImage: '/add_event_heart.svg'
-        //         },]);
-        //
-        //         break;
-        //     default:
-        //         useTestStore.setState({eventText: '그 외'})
-        //         useTestStore.setState({eventType: 1})
-        //         updateEventList([
-        //             {
-        //                 id: 1,
-        //                 title: '정서윤 생일 (02.14)',
-        //                 image: '/circle_input_icon_true.svg',
-        //                 type: 'select_gray_border',
-        //                 userImage: '/add_event_heart.svg'
-        //             },
-        //         ]);
-        //
-        //
-        //         break;
-        // }
     }
+
+
+    interface UserChoiceProps {
+        id: number
+        content: string
+    }
+
+
+    const clickSelect = (item: EventListState | UserJobProps | UserChoiceProps) => {
+        console.log(eventType, testStage, item, useTestStore.getState())
+
+        useTestStore.setState({eventText: item.name})
+        useTestStore.setState({eventType: item.id})
+        useTestStore.setState({eventDay: item.date})
+
+        setSelectEvent(item.id)
+    }
+
 
     const onClickAddEvent = (text: string) => {
         useTestStore.setState({eventType: 0})
-        updateEventList([
-            {
-                id: 1,
-                title: '정서윤 생일 (02.14)',
-                image: '/circle_input_icon_false.svg',
-                type: 'select_gray_border',
-                userImage: '/add_event_heart.svg'
-            },
-        ]);
 
         if (clickAddEvent) {
             clickAddEvent(text)
         }
     }
+
 
     return (
         <div>
@@ -120,11 +82,12 @@ const EventType = ({clickAddEvent}: EventTypeProps) => {
                     eventList.map((item: EventListState) => (
                         <div key={item.id} className={'event_type__layout__button_wrapper mb_12'}>
                             <DefaultSelect
-                                leftImage={item.userImage}
-                                imageUrl={item.image}
-                                type={item.type}
+                                item={item}
+                                leftImage={item.imageUrl}
+                                imageUrl={selectEvent === item.id ? '/circle_input_icon_true.svg' : '/circle_input_icon_false.svg'}
+                                type={selectEvent === item.id ? 'select_primary' : 'select_gray_border'}
                                 clickSelect={clickSelect}
-                                title={item.title}
+                                title={item.name}
                             />
                         </div>
                     ))
@@ -133,7 +96,7 @@ const EventType = ({clickAddEvent}: EventTypeProps) => {
                     <DefaultSelect
                         imageUrl={'/add_event_plus.svg'}
                         type={'select_gray_border'}
-                        clickSelect={onClickAddEvent}
+                        clickSelectText={onClickAddEvent}
                         title={'이벤트 추가'}
                     />
                 </div>

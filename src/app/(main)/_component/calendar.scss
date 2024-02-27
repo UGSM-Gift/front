@@ -36,3 +36,14 @@
   border: 1px solid #C2005F;
   color: #C2005F;
 }
+
+.calendar__grid_week {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+}
+
+
+.calendar__grid_day {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}

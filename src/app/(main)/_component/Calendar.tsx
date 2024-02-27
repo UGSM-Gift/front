@@ -17,114 +17,91 @@ interface TestElement {
 
 const Calendar = () => {
 
-    const [today, setToday] = useState(dayjs());
-    const [currentMonth, setCurrentMonth] = useState(dayjs());
-
-    const daysInMonth = currentMonth.daysInMonth();
-    const firstDayOfMonth = dayjs(currentMonth).startOf('month').locale('ko');
-
-    const dayStartOfMonth = dayjs(currentMonth).startOf('month').day();
-
-
-    const changeDayForm = (day: string) => {
-        if (day.length === 1) {
-            return `0${day}`
-        }
-        return day
-    }
-
-
-
-    // const [makeTestArr, setMakeTestArr] = useState<TestElement[]>([{year: '', month: '', day: '', select: false}]);
-
-    const startRender = () => {
-        let arr = [];
-        for (let i = 1; i <= firstDayOfMonth.day(); i++) {
-            arr.push({year: '', month: '', day: '', select: false});
-        }
-
-        for (let i = 0; i < daysInMonth; i++) {
-            arr.push({
-                year: currentMonth.format('YY'),
-                month: currentMonth.format('MM'),
-                day: changeDayForm(String(Number(dayjs(currentMonth).startOf('month').format('DD')) + Number(i))),
-                select: false
-            });
-        }
-        return arr;
-    }
-
-    const [makeTestArr, setMakeTestArr] = useState<TestElement[]>(startRender());
+    const [calendar, setCalendar] = useState<number[][]>([[]]);
+    const [currentMonth, setCurrentMonth] = useState<dayjs.Dayjs>(dayjs());
 
 
     useEffect(() => {
-        setMakeTestArr(startRender());
+        generateCalendar(currentMonth);
     }, [currentMonth]);
 
+    const generateCalendar = (selectedMonth: dayjs.Dayjs) => {
+        const today = dayjs();
+        const daysInMonth = selectedMonth.daysInMonth();
+        const firstDayOfMonth = selectedMonth.startOf('month').day();
+        const prevMonthDays = selectedMonth.subtract(1, 'month').daysInMonth();
 
+        let date = 1;
+        let tempCalendar: number[][] = [];
 
-    const prevMonth = () => {
-        setCurrentMonth((prev) => prev.subtract(1, 'month'));
-    }
-
-    const nextMonth = () => {
-        setCurrentMonth((prev) => prev.add(1, 'month'));
-    }
-
-
-    const eventDay = useTestStore(state => state.eventDay); // 상태 구독
-
-    const calendarDayClassName = (date: TestElement) => {
-        const currentDay = Number(`${today.format('YYMMD')}`)
-        const calendarDay = Number(`${date.year}${date.month}${date.day}`)
-
-        console.log(currentDay, calendarDay, date.month)
-        if (currentDay > calendarDay) {
-            // 현재 날짜 이전
-            return `gray__color__40 calendar__day`
-        } else if (currentDay === calendarDay) {
-            // 현재 날짜
-            return `gray__color__100 calendar__current_day calendar__day`;
+        // Generate calendar
+        for (let i = 0; i < 6; i++) {
+            let row: number[] = [];
+            for (let j = 0; j < 7; j++) {
+                if (i === 0 && j < firstDayOfMonth) {
+                    // Empty cells before the first day of the month
+                    console.log(prevMonthDays, prevMonthDays - firstDayOfMonth + j + 1, )
+                    row.push(0);
+                } else if (date > daysInMonth) {
+                    // Empty cells after the last day of the month
+                    row.push(0);
+                    date++;
+                } else {
+                    row.push(date);
+                    date++;
+                }
+            }
+            tempCalendar.push(row);
         }
 
-        // if (eventDay === calendarDay) {
-        //     선택된 날짜
-            // return ` gray__color__60  calendar__day calendar__select_day`;
-        // }
+        setCalendar(tempCalendar);
+    };
 
-        return ` gray__color__100 calendar__day `;
+    const goToPreviousMonth = () => {
+        setCurrentMonth(currentMonth.subtract(1, 'month'));
+    };
 
-    }
+    const goToNextMonth = () => {
+        setCurrentMonth(currentMonth.add(1, 'month'));
+    };
+
+    const isPreviousMonth = (day: number): boolean => {
+        return currentMonth.isBefore(dayjs(), 'month') || (currentMonth.isSame(dayjs(), 'month') && day < dayjs().date());
+    };
+
+    const getCellStyle = (day: number) => {
+        const today = dayjs();
+        const isToday = day === today.date() && currentMonth.isSame(today, 'month');
+        const isPast = day < today.date() && currentMonth.isSame(today, 'month');
 
 
-    const selectDayClassName = (date: TestElement) => {
-        const calendarDay = Number(`${date.year}${date.month}${date.day}`)
-
-        if (eventDay !== 0 && eventDay === calendarDay) {
-        //     선택된 날짜
-            return ` gray__color__60  calendar__day calendar__select_day`;
+        if (selectDay === day) {
+            return 'calendar__day gray__color__60 calendar__select_day';
         }
+        if (isToday) {
+            return 'calendar__day primary__color__600';
+        } else if (isPast || isPreviousMonth(day)) {
+            return 'calendar__day gray__color__60';
+        } else {
+            return 'calendar__day gray__color__100';
+        }
+    };
+
+    const [selectDay, setSelectDay] = useState(Number(currentMonth.format('D')))
+
+    const selectClickDay = (day: number) => {
+        setSelectDay(day)
+        useTestStore.setState({eventDay: `${currentMonth.format('YYYY-MM')}-${day}`})
     }
 
-
-    const clickDay = (date: TestElement) => {
-        const calendarDay = Number(`${date.year}${date.month}${date.day}`)
-        useTestStore.setState({eventDay: calendarDay});
-    }
-
-
-    const testing = () => {
-
-        console.log(today.day(), today.month(), today.year(), dayjs(), today.format('YYYYMMD'),)
-    }
     return (
         <div>
             <article className={'calendar__nav__layout'}>
-                <div onClick={prevMonth}>
+                <div onClick={goToPreviousMonth}>
                     <Image src={'calendar_left_icon.svg'} alt={'<'} width={24} height={24}/>
                 </div>
-                <h4 className={'pl_8 pr_8 gray__color__100'}>{currentMonth.format('MM')}월</h4>
-                <div onClick={nextMonth}>
+                <h4 className={'pl_8 pr_8 gray__color__100'}>{currentMonth.format('MMMM YYYY')}월</h4>
+                <div onClick={goToNextMonth}>
                     <Image src={'calendar_right_icon.svg'} alt={'<'} width={24} height={24}/>
                 </div>
             </article>
@@ -136,14 +113,18 @@ const Calendar = () => {
                     </div>
                 ))}
             </div>
-            <div className={'calendar__grid'}>
-                {makeTestArr.map((date, index) => (
-                    <div key={index} onClick={() => clickDay(date)}
-                         className={`${calendarDayClassName(date)} ${selectDayClassName(date)}`}
-                    >
-                        {
-                            date.day.startsWith('0') ? date.day.substring(1) : date.day
-                        }
+
+            <div className={'calendar__grid_week'}>
+                {calendar.map((week, index) => (
+                    <div key={index} className={'calendar__grid_day '}>
+                        {week.map((day, idx) => (
+                            <div key={idx}
+                                className={getCellStyle(day)}
+                                onClick={() => selectClickDay(day)}
+                            >
+                                {day === 0 ? '' : day}
+                            </div>
+                        ))}
                     </div>
                 ))}
             </div>

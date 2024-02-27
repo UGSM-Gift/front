@@ -4,6 +4,8 @@ import {useEffect, useState} from "react";
 import DefaultInput from "@/app/_component/DefaultInput";
 import DefaultButton from "@/app/_component/DefaultButton";
 import {useRouter} from "next/navigation";
+import {checkNicknameDuplication} from "@/app/api/account";
+import {PutUserData} from "@/app/api/userData";
 
 const SignupPage = () => {
 
@@ -276,8 +278,14 @@ const SignupPage = () => {
     // stage 1 logic
 
     const [userNickName, setUserNickName] = useState('')
-    const inputUserNickName = (value:string) => {
+    const inputUserNickName = async (value:string) => {
         setUserNickName(value)
+        try {
+            const valid = await checkNicknameDuplication(value)
+            console.log(valid)
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     const onClickSetNickName = () => {
@@ -323,13 +331,47 @@ const SignupPage = () => {
         console.log(birthDay)
     }
 
-    const onClickSetBirthDay = () => {
+
+    interface PutUserDataProps {
+        name: string
+        nickname: string
+        mobile: string,
+        birthdate: string
+        gender: string
+        email: string
+    }
+
+
+    const onClickSetBirthDay = async () => {
         // 생일 길이 유효한경우 , 이거 에러핸들링 리팩토링 해야함
         if (birthDay.length === 8 && userGender !== '0') {
             console.log('유효한지 체크 , 다음으로 넘기기 ', birthDay)
+
             localStorage.setItem('userBirthDay', birthDay)
             localStorage.setItem('userGender', userGender)
-            onClickNextStage()
+            // test version에서는 생년월일 까지 체크한 후 바로 test 페이지로 이동
+            // onClickNextStage()
+
+            try {
+                let localUserBirthDay = localStorage.getItem('userBirthDay') || ''
+                const formattedBirthDay = localUserBirthDay.replace(/^(\d{2})\.(\d{2})\.(\d{2})$/, '19$1-$2-$3');
+
+                const putUserData = {
+                    name: localStorage.getItem('userName'),
+                    nickname: localStorage.getItem('userNickName'),
+                    mobile: "010-8899-8822",
+                    birthdate: formattedBirthDay,
+                    gender: 'MALE',
+                    email: "37101@gmail.com"
+                }
+
+                const valid =  await PutUserData(putUserData)
+
+                await router.push('/test')
+
+            } catch (err) {
+                console.log(err)
+            }
         } else {
             console.log('& 유요하지않은 경우, 추가', birthDay)
         }

@@ -19,10 +19,14 @@ export const phoneAuthPut = async (phoneAuthNumber: string, phone: string, setTi
   }
 };
 
+
+
+
+
 // 닉네임 중복검사
 export const checkNicknameDuplication = async (nickname: string) => {
   try {
-    const response = await instance.get(`https://www.ugsm.co.kr/api/user/check-nickname/${nickname}`);
+    const response = await instance.get(`${process.env.API_URL}/api/user/check-nickname/${nickname}`);
     return response.data.data.valid;
   } catch (error) {
     console.error('Nickname duplication check failed:', error);
