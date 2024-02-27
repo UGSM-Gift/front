@@ -11,9 +11,22 @@
   flex-direction: column;
   align-items: center;
 }
+
 .user_category__layout__content__image {
-  width: 106px;
-  height: 106px;
+  width: 104px;
+  height: 104px;
   overflow: hidden;
   border-radius: 8px;
+  border: 1px solid #fff;
+
+}
+
+.image_border {
+  border: 1px solid #FF2882;
+}
+
+
+.user_category__layout__content__check_image {
+  position: absolute;
+  margin: 4px 0 0 74px;
 }

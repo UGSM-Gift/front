@@ -21,9 +21,7 @@ const DefaultButton = ({label, type, image = '', override, buttonClick}: Default
     return (
         <div className={buttonClassName} onClick={buttonClick}>
             {image !== '' ?
-
                     <Image
-
                         src={image} alt={'x'}
                         className={'button__image'}
                         width={16}

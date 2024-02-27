@@ -7,6 +7,7 @@ interface LetterBoxComponentProps {
     date?: string
     clickLetterBox?: MouseEventHandler<HTMLDivElement>
 }
+
 const LetterBoxComponent = ({userName = '', date = '', clickLetterBox}: LetterBoxComponentProps) => {
 
     return (
@@ -26,3 +27,6 @@ const LetterBoxComponent = ({userName = '', date = '', clickLetterBox}: LetterBo
 }
 
 export default LetterBoxComponent
+
+
+
