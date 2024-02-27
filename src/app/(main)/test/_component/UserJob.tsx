@@ -75,15 +75,32 @@ const UserJob = () => {
         hasOtherName?: boolean
     }
 
-    const clickSelect = (item: UserJobProps) => {
-        useTestStore.setState({userJob: item.name});
-        setSelectJob(item.id)
 
-        if (item.name === '기타') {
-            setVisibleInput(true)
-        } else {
-            setVisibleInput(false)
+
+    interface UserChoiceProps {
+        id: number
+        content: string
+    }
+    interface EventListState {
+        id: number
+        name: string
+        date: string
+        imageUrl: string
+    }
+
+
+    const clickSelect = (item: EventListState | UserJobProps | UserChoiceProps) => {
+        if ('name' in item ) {
+            useTestStore.setState({userJob: item.name});
+            setSelectJob(item.id)
+
+            if (item.name === '기타') {
+                setVisibleInput(true)
+            } else {
+                setVisibleInput(false)
+            }
         }
+
     }
 
     const [userJob, setUserJob] = useState('')

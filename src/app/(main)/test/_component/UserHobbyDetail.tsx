@@ -110,8 +110,7 @@ const UserHobbyDetail = () => {
 
     const [selected, setSelected] = useState([])
 
-    const clickSelect = (choice) => {
-        console.log(choice)
+    const clickSelect = () => {
     }
 
 
