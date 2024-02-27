@@ -1,11 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // output: 'export',
   experimental: {
     appDir: true,
   },
-  images: {
-    domains: ['cloudfront.ugsm.co.kr'],
-  },
+  images: { unoptimized: true }
+
 }
 
 module.exports = nextConfig
