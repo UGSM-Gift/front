@@ -30,7 +30,6 @@ export const postAnniversary = async (addUserAnniversary: addUserAnniversaryProp
     }
 }
 
-
 export const getAnniversaryList = async (date : string) => {
 
     try {

@@ -8,6 +8,8 @@ const instance = axios.create({
 instance.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
 
+  config.headers.Authorization = `Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEyLCJsb2dpblR5cGUiOiJLQUtBTyIsImlhdCI6MTcwODk5ODUzNiwiZXhwIjoxNzEwNzk4NTM2fQ.Df1gh2wGXMr6_LEsJNMCgAX9eshFX7w9ou-QvCF6rvY`;
+
   if (token) {
     config.headers.Authorization = `Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEyLCJsb2dpblR5cGUiOiJLQUtBTyIsImlhdCI6MTcwODk5ODUzNiwiZXhwIjoxNzEwNzk4NTM2fQ.Df1gh2wGXMr6_LEsJNMCgAX9eshFX7w9ou-QvCF6rvY`;
   }
