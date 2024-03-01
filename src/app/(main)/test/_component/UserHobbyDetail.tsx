@@ -3,16 +3,20 @@ import './userHobbyDetail.scss'
 import DefaultButton from "@/app/_component/DefaultButton";
 import DefaultSelect from "@/app/_component/DefaultSelect";
 import {getQuestionList} from "@/app/api/UGTest";
-import {useTestStore} from "@/app/zustand/testStore";
+import {usePostTestResultDataStore, useTestStore} from "@/app/zustand/testStore";
 import {number} from "prop-types";
 import {useEffect, useState} from "react";
 const UserHobbyDetail = () => {
 
 
-    const {userHobby, userInterest} = useTestStore.getState();
-
+    const userHobby = useTestStore(state => state.userHobby); // 상태 구독
+    const userInterest = useTestStore(state => state.userInterest); // 상태 구독
+    const userJobId = useTestStore(state => state.userJobId); // 상태 구독
+    const userJob = useTestStore(state => state.userJob); // 상태 구독
+    const eventType = useTestStore(state => state.eventType); // 상태 구독
 
     const getHobbyDetail = async () => {
+
         let idList: number[] = []
 
         try {
@@ -23,6 +27,7 @@ const UserHobbyDetail = () => {
                 idList.push(ele.id)
             })
 
+            console.log(idList, userHobby, userInterest, 'check idlist and s')
 
             const list = await getQuestionList(idList.join(','))
 
@@ -108,28 +113,118 @@ const UserHobbyDetail = () => {
     }, [])
 
 
-    const [selected, setSelected] = useState([])
+    interface AnsweredCategories {
+        id: number
+        otherName: string | null
+    }
+    interface QuestionsWithAnswers {
+        questionId: number
+        answerId: number
+        otherAnswer: string | null
+    }
 
-    const clickSelect = () => {
+    interface TestResultData {
+        anniversaryId: number
+        answeredCategories: AnsweredCategories[]
+        questionsWithAnswers: QuestionsWithAnswers[]
     }
 
 
+    const [testResultData, setTestResultData] = useState<TestResultData>({
+        anniversaryId: eventType,
+        answeredCategories: [
+            // {
+            //     id: 0,
+            //     otherName: null
+            // },
+            {
+                id: userJobId,
+                otherName: userJob
+            }
+        ],
+        questionsWithAnswers: [
+            // {
+            //     questionId: 0,
+            //     answerId: 0,
+            //     otherAnswer: null
+            // }
+        ]
+    })
+
+    interface IdCollectorProps {
+        category: number
+        question: number
+        answer: number
+    }
+
+
+    const clickSelect = (item: IdCollectorProps) => {
+        console.log(item, '부모임', item.question, testResultData)
+
+        setTestResultData((prev)=> {
+
+            const answerDuplicate = prev.answeredCategories.filter((ele)=> {
+                console.log(ele.id, item.category)
+                if (ele.id !== item.category) {
+                    return ele
+                }
+            })
+
+            const questionDuplicate = prev.questionsWithAnswers.filter((ele)=> {
+                console.log(ele.questionId, item.category)
+                if (ele.questionId !== item.question) {
+                    return ele
+                }
+            })
+
+            return {
+                ...prev,
+                answeredCategories: [...answerDuplicate, {id: item.category, otherName: null}],
+                questionsWithAnswers: [
+                    ...questionDuplicate,
+                    {
+                        questionId: item.question,
+                        answerId: item.answer,
+                        otherAnswer: null
+                    }]
+            }
+        })
+
+        usePostTestResultDataStore.setState(testResultData)
+    }
+
+    const renderSelectClassName = (items:number, choice: number) => {
+        console.log(items, choice)
+
+        let check = false
+        testResultData.questionsWithAnswers.forEach((ele)=> {
+            if (ele.questionId === items && ele.answerId === choice) {
+                check = true
+            }
+        })
+
+        if (check) {
+            return 'radius_select_primary_half'
+        } else {
+            return 'radius_select_gray_border_half'
+        }
+    }
+
     const testing = () => {
-        console.log(useTestStore.getState())
+        // console.log(item, '부모임')
+        // console.log(useTestStore.getState())
     }
 
     return (
-        <div className={'user_hobby_detail__layout'}>
-            <div onClick={testing}>checkdsfasd</div>
+        <div onClick={testing} className={'user_hobby_detail__layout mt_8'}>
             {
                 hobbyDetailArr.map((item)=> (
-                    <div key={item.category.id} >
-                        <div className={'user_hobby_detail__layout__main_title mb_14'}>
+                    <div key={item.category.id}>
+                        <div className={'user_hobby_detail__layout__main_title mb_22'}>
                             <DefaultSelect
                                 leftImage={'/select_left_icon_true.svg'}
                                 leftImageSize={16}
                                 type={'circle_select_primary_half'}
-                                clickSelect={clickSelect}
                                 title={item.category.name}
                             />
                         </div>
@@ -137,14 +232,15 @@ const UserHobbyDetail = () => {
                             {item.questions.map((items)=> (
                                 <div key={items.id}>
                                     <h6 className={'mb_10'}>{items.content}</h6>
-                                    <div className={'user_hobby_detail__layout__select mb_20'}>
+                                    <div className={'user_hobby_detail__layout__select__box mb_20'}>
                                         {items.choices.map((choice)=> (
-                                            <div key={choice.id} className={''}>
+                                            <div key={choice.id} className={'user_hobby_detail__layout__select'}>
                                                 <DefaultSelect
-                                                    type={'select_gray_border_half'}
-                                                    clickSelect={clickSelect}
+                                                    type={renderSelectClassName(items.id, choice.id)}
+                                                    clickSelectIdCollector={clickSelect}
                                                     title={choice.content}
-                                                    item={choice}
+                                                    idCollector={{category: item.category.id, question: items.id, answer:choice.id}}
+                                                    textCenter={true}
                                                 />
                                             </div>
                                         ))}

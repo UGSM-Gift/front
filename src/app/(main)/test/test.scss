@@ -131,3 +131,31 @@
 .test_page__footer__inner__button_box {
   width: 166px;
 }
+
+
+.test_page__layout__dim {
+  width: 375px;
+  height: 100%;
+  background-color: black;
+  opacity: 50%;
+  position: absolute;
+  top: 0;
+
+}
+
+.test_page__layout__dim__image {
+  position: fixed;
+  top: 40%;
+  left: calc(50% - 3vw);
+  opacity: 100%;
+}
+
+.test_page__layout__dim__text {
+  transform: translateX(-30px);
+  width: 200px;
+  color: #fff;
+}
+.test_page__layout__none {
+  display: none;
+}
+

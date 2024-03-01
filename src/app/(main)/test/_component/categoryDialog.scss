@@ -1,0 +1,58 @@
+.title_category_more{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.category_dialog__layout__menu{
+  display: flex;
+  flex-direction: row;
+  padding: 0 12px;
+  width: 340px;
+  overflow: scroll;
+}
+
+.category_dialog__layout__menu__select {
+  width: fit-content;
+  margin: 12px 4px 0;
+  border-radius: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end
+}
+
+.category_dialog__layout__content__select{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 8px 4px;
+  padding:  0 16px;
+}
+
+.category_dialog__layout__box {
+  height: 500px;
+  overflow: scroll;
+}
+
+.divider_8px{
+  width: 100%;
+  height: 8px;
+  background-color: #F2F4F5;
+  margin: 4px 0 24px ;
+}
+
+.category_dialog__layout__menu__select__number {
+  width: 18px;
+  height: 18px;
+  border: 1px solid #fff;
+  background-color: #ee0067;
+  color: #fff;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font: 600 11px "Pretendard Variable";
+
+
+  position: relative;
+  bottom: 44px;
+}

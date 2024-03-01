@@ -70,7 +70,7 @@ const UserHobby = ({type}: UserHobbyProps) => {
         },
         {
             id: 12,
-            name: '관심사/음악',
+            name: '관심사',
         },
         {
             id: 13,
@@ -104,7 +104,7 @@ const UserHobby = ({type}: UserHobbyProps) => {
         } else {
             getUserInterest()
         }
-    }, [])
+    }, [type])
 
     const getUserHobby = async () => {
         try {
@@ -137,27 +137,97 @@ const UserHobby = ({type}: UserHobbyProps) => {
 
 
     const onClickAddEvent = (item: UserHobbyArr) => {
-        setSelected((prev) => {
-            return [...prev, item.id];
-        })
 
-        if (type === 'hobby') {
+        console.log(selected)
 
-            useTestStore.setState((prevState) => {
-                return {
-                    ...prevState,
-                    userHobby: [...prevState.userHobby, item]
-                };
-            });
-        } else if (type === 'interest') {
-            useTestStore.setState((prevState) => {
-                return {
-                    ...prevState,
-                    userInterest: [...prevState.userInterest, item]
-                };
-            });
+        if (selected.includes(item.id)) {
+
+            const delArr: number[] = []
+
+            selected.forEach((ele)=> {
+                if (item.id !== ele) {
+                    delArr.push(ele)
+                }
+            })
+
+            console.log(delArr, 'check del arr')
+
+            setSelected(delArr)
+            interface userHobbyProps {
+                id: number
+                name: string
+                hasOtherName?: boolean
+            }
+
+
+            if (type === 'hobby') {
+
+                useTestStore.setState((prevState) => {
+                    const delHobbyArr: userHobbyProps[] = []
+                    prevState.userHobby.forEach((ele)=> {
+                        if (ele.id !== item.id) {
+                            delHobbyArr.push(ele)
+                        }
+                    })
+                    return {
+                        ...prevState,
+                        userHobby: delHobbyArr
+                    };
+                });
+
+            } else if (type === 'interest') {
+                useTestStore.setState((prevState) => {
+                    const delInterestArr: userHobbyProps[] = []
+                    prevState.userInterest.forEach((ele)=> {
+                        if (ele.id !== item.id) {
+                            delInterestArr.push(ele)
+                        }
+                    })
+                    return {
+                        ...prevState,
+                        userInterest: delInterestArr
+                    };
+                });
+            }
+
+            const { userHobby } = useTestStore.getState()
+            console.log(userHobby, 'check user hobby', selected)
+
+        } else {
+            setSelected((prev) => {
+                return [...prev, item.id];
+            })
+
+            if (type === 'hobby') {
+                useTestStore.setState((prevState) => {
+                    return {
+                        ...prevState,
+                        userHobby: [...prevState.userHobby, item]
+                    };
+                });
+
+            } else if (type === 'interest') {
+                useTestStore.setState((prevState) => {
+                    return {
+                        ...prevState,
+                        userInterest: [...prevState.userInterest, item]
+                    };
+                });
+            }
         }
+
+
     }
+    useEffect(()=> {
+        useTestStore.setState((prevState)=> {
+            return {
+                ...prevState,
+                userInterest: [],
+                userHobby: []
+            }
+        })
+    }, [])
+
 
     const changeArr = () => {
         if (type === 'hobby') {
@@ -165,7 +235,7 @@ const UserHobby = ({type}: UserHobbyProps) => {
                 <div key={item.id} className={'user_hobby__layout__select_box'}>
                     <DefaultSelect
                         leftImage={selected.includes(item.id) ? '/select_left_icon_true.svg' : '/select_left_icon_false.svg'}
-                        type={selected.includes(item.id) ? 'circle_select_primary_half' : 'circle_select_gray_border_half'}
+                        type={selected.includes(item.id) ? 'circle_select_primary_border_half' : 'circle_select_gray_border_half'}
                         clickSelect={() => onClickAddEvent(item)}
                         title={item.name}
                         leftImageSize={16}
@@ -178,7 +248,7 @@ const UserHobby = ({type}: UserHobbyProps) => {
             <div key={item.id} className={'user_hobby__layout__select_box'}>
                 <DefaultSelect
                     leftImage={selected.includes(item.id) ? '/select_left_icon_true.svg' : '/select_left_icon_false.svg'}
-                    type={selected.includes(item.id) ? 'circle_select_primary_half' : 'circle_select_gray_border_half'}
+                    type={selected.includes(item.id) ? 'circle_select_primary_border_half' : 'circle_select_gray_border_half'}
                     clickSelect={() => onClickAddEvent(item)}
                     title={item.name}
                     leftImageSize={16}

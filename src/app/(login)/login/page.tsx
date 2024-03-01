@@ -8,17 +8,15 @@ import {useRouter} from "next/navigation";
 const Login = () => {
 
 
-    const [loginHistory, setLoginHistory] = useState(true)
+    const [loginHistory, setLoginHistory] = useState('')
 
 
     const [loginHistoryLabel, setLoginHistoryLabel] = useState('')
     const [loginHistoryImage, setLoginHistoryImage] = useState('')
 
     const changeLoginHistoryLabel = () => {
-        let platform = ""
-        platform = 'naver'
 
-        switch (platform) {
+        switch (loginHistory) {
             case "kakao":
                 setLoginHistoryLabel('카카오로 로그인 한 적이 있어요!')
                 setLoginHistoryImage('/kakao_small_icon.svg')
@@ -56,14 +54,15 @@ const Login = () => {
             </section>
 
             {
-                loginHistory ?
+                loginHistory === '' ?
+                    <div className={'none__history'}></div> :
                     <section className={'history__button__section'}>
                         <DefaultButton
                             label={loginHistoryLabel}
                             type={'history_button'}
                             image={loginHistoryImage}
                         />
-                    </section> : <div className={'none__history'}></div>
+                    </section>
             }
 
 

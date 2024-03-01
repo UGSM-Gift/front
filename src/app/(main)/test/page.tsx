@@ -3,9 +3,14 @@ import NavLayout from "@/app/(main)/_component/NavLayout";
 import './test.scss'
 import EventType from "@/app/(main)/test/_component/EventType";
 import DefaultButton from "@/app/_component/DefaultButton";
-import {useEventList, useTestStore} from "@/app/zustand/testStore";
+import {
+    useAddCategoryList,
+    useCategoryStore,
+    useEventList,
+    usePostTestResultDataStore,
+    useTestStore
+} from "@/app/zustand/testStore";
 import {useEffect, useState} from "react";
-import DateDetail from "@/app/(main)/test/_component/dateDetail";
 import Calendar from "@/app/(main)/_component/Calendar";
 import UserJob from "@/app/(main)/test/_component/UserJob";
 import UserHobby from "@/app/(main)/test/_component/UserHobby";
@@ -13,7 +18,9 @@ import AddEvent from "@/app/(main)/_component/AddEvent";
 import UserHobbyDetail from "@/app/(main)/test/_component/UserHobbyDetail";
 import UserCategory from "@/app/(main)/test/_component/UserCategory";
 import {getAnniversaryList, postAnniversary} from "@/app/api/anniversary";
-import {getHobbyList} from "@/app/api/UGTest";
+import {getHobbyList, postAddCategoryList, postTestResult} from "@/app/api/UGTest";
+import Image from "next/image";
+import {useRouter} from "next/navigation";
 
 
 
@@ -42,9 +49,32 @@ const TestPage = () => {
     const eventText = useTestStore(state => state.eventText);
     const eventDay = useTestStore(state => state.eventDay);
     const userJob = useTestStore(state => state.userJob);
+    const userJobId = useTestStore(state => state.userJobId);
+
     const userHobby = useTestStore(state => state.userHobby);
     const userInterest = useTestStore(state => state.userInterest);
     const eventImageId = useTestStore(state => state.eventImageId);
+
+
+    const anniversaryId = usePostTestResultDataStore(state => state.anniversaryId);
+    const answeredCategories = usePostTestResultDataStore(state => state.answeredCategories);
+    const questionsWithAnswers = usePostTestResultDataStore(state => state.questionsWithAnswers);
+
+
+    const testResultData = usePostTestResultDataStore.getState()
+
+    const categoryLoading = useCategoryStore(state => state.loading)
+    const categoryId = useCategoryStore(state => state.categoryId)
+
+    const addCategoryList = useAddCategoryList(state => state.addCategory)
+
+    const categoryDialog = useCategoryStore(state => state.categoryDialog)
+
+
+    const selectCategory = useCategoryStore(state => state.selectCategory)
+
+
+
 
 
     const [footerContent, setFooterContent] = useState(0)
@@ -70,9 +100,11 @@ const TestPage = () => {
             'eventDay', eventDay ,
             'eventText' , eventText,
             'userJob', userJob,
+            'userJobId', userJobId,
             'testStage', testStage,
             'userHobby', userHobby,
             'userInterest', userInterest,
+            'eventList', eventList
             )
     }
 
@@ -95,6 +127,30 @@ const TestPage = () => {
         }
     }
 
+
+    const postQuestionResult = async () => {
+        try {
+            await postTestResult(testResultData)
+        } catch (err) {
+            console.log(err,' err dodhd')
+        }
+    }
+
+    const postAddCategory = async () => {
+        try {
+
+            const addList = await postAddCategoryList(categoryId, selectCategory)
+
+            console.log(addList)
+            useCategoryStore.setState({categoryDialog: false})
+
+
+        }catch (err) {
+            console.log(err)
+        }
+    }
+
+    const router = useRouter()
 
     // 푸터 버튼 클릭시
     const clickFooterButton = async () => {
@@ -150,14 +206,36 @@ const TestPage = () => {
 
         // detail => category
         if (testStage === 5) {
+            console.log(testResultData, 'tjdrhd')
+
+            const postData = await postQuestionResult()
+
+            console.log(postData)
             useTestStore.setState((prevState) => ({
                 testStage: prevState.testStage + 1
             }));
         }
 
 
+        // 모달창 올라와있을때
+        if (testStage === 6 && categoryDialog) {
+            useCategoryStore.setState({categoryDialog: false})
+        }
 
+        // 내려가있을때
+        if (testStage === 6 && !categoryDialog) {
+            const postAddCategoryData = await postAddCategory()
+            console.log(postAddCategoryData)
+            router.push('/test/complete')
+        }
+    }
 
+    const clickFooterButtonBack = () => {
+        if (testStage <= 6) {
+            useTestStore.setState((prevState) => ({
+                testStage: prevState.testStage - 1
+            }));
+        }
     }
 
 
@@ -200,7 +278,7 @@ const TestPage = () => {
         if (testStage === 2 && userJob === '') {
             return <div className={'test_page__footer__inner__button'}>
                 <div className={'test_page__footer__inner__button_box'}>
-                    <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={clickFooterButton}/>
+                    <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={clickFooterButtonBack}/>
                 </div>
                 <div className={'test_page__footer__inner__button_box'}>
                     <DefaultButton label={'다음'} type={'medium_gray'} buttonClick={clickFooterButton}/>
@@ -211,7 +289,7 @@ const TestPage = () => {
         if (testStage === 2 && userJob !== '') {
             return <div className={'test_page__footer__inner__button'}>
                 <div className={'test_page__footer__inner__button_box'}>
-                    <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={clickFooterButton}/>
+                    <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={clickFooterButtonBack}/>
                 </div>
                 <div className={'test_page__footer__inner__button_box'}>
                     <DefaultButton label={'다음'} type={'medium_primary'} buttonClick={clickFooterButton}/>
@@ -222,7 +300,7 @@ const TestPage = () => {
         if (testStage === 3 && userHobby.length !== 0) {
             return <div className={'test_page__footer__inner__button'}>
                 <div className={'test_page__footer__inner__button_box'}>
-                    <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={clickFooterButton}/>
+                    <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={clickFooterButtonBack}/>
                 </div>
                 <div className={'test_page__footer__inner__button_box'}>
                     <DefaultButton label={'다음'} type={'medium_primary'} buttonClick={clickFooterButton}/>
@@ -233,7 +311,7 @@ const TestPage = () => {
         if (testStage === 3 && userHobby.length === 0) {
             return <div className={'test_page__footer__inner__button'}>
                 <div className={'test_page__footer__inner__button_box'}>
-                    <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={clickFooterButton}/>
+                    <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={clickFooterButtonBack}/>
                 </div>
                 <div className={'test_page__footer__inner__button_box'}>
                     <DefaultButton label={'다음'} type={'medium_gray'} buttonClick={clickFooterButton}/>
@@ -244,7 +322,7 @@ const TestPage = () => {
         if (testStage === 4 && userInterest.length !== 0) {
             return <div className={'test_page__footer__inner__button'}>
                 <div className={'test_page__footer__inner__button_box'}>
-                    <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={clickFooterButton}/>
+                    <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={clickFooterButtonBack}/>
                 </div>
                 <div className={'test_page__footer__inner__button_box'}>
                     <DefaultButton label={'다음'} type={'medium_primary'} buttonClick={clickFooterButton}/>
@@ -255,7 +333,7 @@ const TestPage = () => {
         if (testStage === 4 && userInterest.length === 0) {
             return <div className={'test_page__footer__inner__button'}>
                 <div className={'test_page__footer__inner__button_box'}>
-                    <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={clickFooterButton}/>
+                    <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={clickFooterButtonBack}/>
                 </div>
                 <div className={'test_page__footer__inner__button_box'}>
                     <DefaultButton label={'다음'} type={'medium_gray'} buttonClick={clickFooterButton}/>
@@ -267,25 +345,33 @@ const TestPage = () => {
         if (testStage === 5 ) {
             return <div className={'test_page__footer__inner__button'}>
                 <div className={'test_page__footer__inner__button_box'}>
-                    <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={clickFooterButton}/>
+                    <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={clickFooterButtonBack}/>
                 </div>
                 <div className={'test_page__footer__inner__button_box'}>
                     <DefaultButton label={'다음'} type={'medium_primary'} buttonClick={clickFooterButton}/>
                 </div>
             </div>
+        }
+
+
+
+
+        if (testStage === 6 && categoryDialog) {
+            return  <DefaultButton label={`${selectCategory.length}개 확인`} type={'large_primary'} buttonClick={clickFooterButton}/>
         }
 
 
         if (testStage === 6 ) {
             return <div className={'test_page__footer__inner__button'}>
                 <div className={'test_page__footer__inner__button_box'}>
-                    <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={clickFooterButton}/>
+                    <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={clickFooterButtonBack}/>
                 </div>
                 <div className={'test_page__footer__inner__button_box'}>
-                    <DefaultButton label={'다음'} type={'medium_primary'} buttonClick={clickFooterButton}/>
+                    <DefaultButton label={`${selectCategory.length}개 확인`} type={'medium_primary'} buttonClick={clickFooterButton}/>
                 </div>
             </div>
         }
+
 
         // return <DefaultButton label={'확인'} type={'large_gray_border'} buttonClick={clickFooterButton}/>
 
@@ -403,11 +489,12 @@ const TestPage = () => {
 
 
     return (
-        <div>
-            <NavLayout
-                rightIconArr={['heart']}
-            />
-            <div onClick={testing}>testing</div>
+        <div >
+            <div onClick={testing}>
+                <NavLayout
+                    rightIconArr={['heart']}
+                />
+            </div>
             <article className={'test_page__layout__progress'}>
                 <div className={'test_page__layout__progress_bar'}>
                     <div className={'test_page__layout__progress_bar__inner'}
@@ -416,13 +503,16 @@ const TestPage = () => {
                     </div>
                 </div>
             </article>
-            <section className={'mb_30 p_14'}>
+            <section className={'mb_4 p_14'}>
                 <h2 className={'gray__color__100 mb_3'}>
                     {mainTitle()}
                 </h2>
                 <h2 className={'gray__color__100 '}>
                     {subTitle()}
                 </h2>
+                {
+
+                }
             </section>
 
             <section className={'test_page__layout'}>
@@ -452,6 +542,15 @@ const TestPage = () => {
             </footer>
             <div className={footerClassName} >
                 {renderFooterButton()}
+            </div>
+            <div className={testStage === 6 ? categoryLoading ? '' : 'test_page__layout__dim' : ''}>
+
+            </div>
+            <div
+                className={testStage === 6 ? categoryLoading ? 'test_page__layout__none' : 'test_page__layout__dim__image' : 'test_page__layout__none'}>
+                <Image src={'/loading_icon.svg'} alt={'x'} width={80} height={80}/>
+                <div className={testStage === 6 ? categoryLoading ? 'test_page__layout__none' : 'test_page__layout__dim__text' : 'test_page__layout__none'}>
+                    상품 카테고리 도출 중</div>
             </div>
         </div>
     )

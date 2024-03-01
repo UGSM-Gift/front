@@ -8,10 +8,10 @@ const instance = axios.create({
 instance.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
 
-  config.headers.Authorization = `Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEyLCJsb2dpblR5cGUiOiJLQUtBTyIsImlhdCI6MTcwODk5ODUzNiwiZXhwIjoxNzEwNzk4NTM2fQ.Df1gh2wGXMr6_LEsJNMCgAX9eshFX7w9ou-QvCF6rvY`;
+  config.headers.Authorization = `Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEyLCJsb2dpblR5cGUiOiJLQUtBTyIsImlhdCI6MTcwOTE5MTYwNSwiZXhwIjozNTA5MTkxNjA1fQ.E6wlZTCpv8zyysK0yXTAbE68k97Sfm0dwl_7d-oMvdU`;
 
   if (token) {
-    config.headers.Authorization = `Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEyLCJsb2dpblR5cGUiOiJLQUtBTyIsImlhdCI6MTcwODk5ODUzNiwiZXhwIjoxNzEwNzk4NTM2fQ.Df1gh2wGXMr6_LEsJNMCgAX9eshFX7w9ou-QvCF6rvY`;
+    config.headers.Authorization = `Bearer eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjEyLCJsb2dpblR5cGUiOiJLQUtBTyIsImlhdCI6MTcwOTE5MTYwNSwiZXhwIjozNTA5MTkxNjA1fQ.E6wlZTCpv8zyysK0yXTAbE68k97Sfm0dwl_7d-oMvdU`;
   }
   return config;
 });

@@ -27,25 +27,53 @@ interface IdCollectorProps {
     answer: number
 }
 
+interface DialogCategoryChildrenProps extends UserChoiceProps{
+    children: null | DialogCategoryChildrenProps[]
+    parentId: number
+}
+
+export type ClickSelectProps = EventListState | UserJobProps | UserChoiceProps | DialogCategoryChildrenProps;
+
+
 interface DefaultSelectProps {
     imageUrl?: string
     type: string
-    clickSelect?: (item: EventListState | UserJobProps | UserChoiceProps) => void
+    clickSelect?: (item: ClickSelectProps ) => void
     clickSelectText?: (item: string) => void
     title: string
     leftImage?: string
     leftImageSize?: number
     item?: EventListState | UserJobProps | UserChoiceProps
-    // idCollector?: IdCollectorProps[]
-    // clickSelectIdCollector?: (item: IdCollectorProps[]) => void
+    idCollector?: IdCollectorProps
+    clickSelectIdCollector?: (item: IdCollectorProps) => void
+    textCenter?: boolean
 }
-const DefaultSelect = ({imageUrl = '', type, clickSelect, clickSelectText, title, leftImage, leftImageSize = 40, item}: DefaultSelectProps) => {
+const DefaultSelect = (
+    {
+        idCollector,
+        clickSelectIdCollector,
+        imageUrl = '',
+        type,
+        clickSelect,
+        clickSelectText,
+        title,
+        leftImage,
+        leftImageSize = 40,
+        item,
+        textCenter = false,
+    }: DefaultSelectProps) => {
 
-    const selectClassName = `default_select__layout ${type}`
+    const selectClassName = `default_select__layout ${type} ${textCenter ? 'default_select__layout__text_center': ''}`
+
+    const textClassName = `text__font `
+
 
     const checkClickType = () => {
+        // console.log(idCollector, '자식임')
 
-
+        if (idCollector && clickSelectIdCollector) {
+            clickSelectIdCollector(idCollector)
+        }
 
         if (clickSelect && item) {
             clickSelect(item)
@@ -59,9 +87,15 @@ const DefaultSelect = ({imageUrl = '', type, clickSelect, clickSelectText, title
         <div className={selectClassName} onClick={checkClickType}>
             <div className={'default_select__layout__left'}>
                 {
-                    leftImage && <Image src={leftImage} alt={'x'} width={leftImageSize} height={leftImageSize} className={'mr_4'}/>
+                    leftImage && <Image src={leftImage}
+                                        alt={'x'}
+                                        width={leftImageSize}
+                                        height={leftImageSize}
+                                        className={'mr_4'}/>
                 }
-                <p className={'text__font'}>{title}</p>
+                <p className={textClassName}>
+                    {title}
+                </p>
             </div>
             {
                 imageUrl && <Image src={imageUrl} alt={'o'} width={24} height={24}/>

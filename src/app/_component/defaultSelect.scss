@@ -5,12 +5,14 @@
   $border: map-get($options, border);
   $radius: map-get($options, radius);
   $height: map-get($options, height);
+  $color: map-get($options, color);
 
 
   border-radius: $radius;
   background-color: $background;
   border: $border;
   height: $height;
+  color: $color;
 }
 
 .default_select__layout {
@@ -39,7 +41,8 @@
             border: 1px solid map-get($primary-colors, 400),
             background: $white__color,
             radius: 8px,
-            height: 54px
+            height: 54px,
+            color: map-get($gray-colors, 100)
     ))
   }
 
@@ -51,7 +54,8 @@
             border: 1px solid map-get($gray-colors, 20),
             background: $white__color,
             radius: 8px,
-            height: 54px
+            height: 54px,
+            color: map-get($gray-colors, 100)
     ))
   }
 
@@ -61,9 +65,10 @@
     padding: 0 14px 0;
     @include select-style((
             border: 1px solid map-get($primary-colors, 400),
-            background: $white__color,
+            background: #FFE4EE66,
             radius: 8px,
-            height: 54px
+            height: 54px,
+            color: map-get($primary-colors, 800)
     ))
   }
 
@@ -75,7 +80,8 @@
             border: 1px solid map-get($gray-colors, 20),
             background: $white__color,
             radius: 8px,
-            height: 54px
+            height: 54px,
+            color: map-get($gray-colors, 100)
     ))
   }
 
@@ -83,9 +89,21 @@
     padding: 0 14px 0;
     @include select-style((
             border: 1px solid map-get($primary-colors, 400),
+            background: #FFE4EE66,
+            radius: 40px,
+            height: 38px,
+            color: map-get($primary-colors, 800)
+    ))
+  }
+
+  &.circle_select_primary_border_half {
+    padding: 0 14px 0;
+    @include select-style((
+            border: 1px solid map-get($primary-colors, 400),
             background: $white__color,
             radius: 40px,
-            height: 38px
+            height: 38px,
+            color: map-get($gray-colors, 100)
     ))
   }
 
@@ -96,9 +114,74 @@
             border: 1px solid map-get($gray-colors, 20),
             background: $white__color,
             radius: 40px,
-            height: 38px
+            height: 38px,
+            color: map-get($gray-colors, 100)
     ))
   }
+
+
+  &.circle_select_sub_half {
+    padding: 0 14px 0;
+    @include select-style((
+            border: 1px solid map-get($sub-colors, 700),
+            background: map-get($sub-colors, 700),
+            radius: 40px,
+            height: 38px,
+            color: map-get($sub-colors, 50)
+    ))
+  }
+
+  &.circle_select_sub_border_half {
+    padding: 0 14px 0;
+
+    @include select-style((
+            border: 1px solid map-get($gray-colors, 20),
+            background: $white__color,
+            radius: 40px,
+            height: 38px,
+            color: map-get($gray-colors, 60)
+    ))
+  }
+
+  &.circle_select_sub_border_half_selected {
+    padding: 0 14px 0;
+
+    @include select-style((
+            border: 1px solid map-get($sub-colors, 700),
+            background: $white__color,
+            radius: 40px,
+            height: 38px,
+            color: map-get($sub-colors, 700)
+    ))
+  }
+
+
+
+  &.radius_select_primary_half {
+    padding: 0 14px 0;
+    @include select-style((
+            border: 1px solid map-get($primary-colors, 100),
+            background: #FFE4EE66,
+            radius: 15px,
+            height: 52px,
+            color: map-get($primary-colors, 800)
+    ))
+  }
+
+  &.radius_select_gray_border_half {
+    padding: 0 14px 0;
+
+    @include select-style((
+            border: 1px solid map-get($gray-colors, 20),
+            background: $white__color,
+            radius: 15px,
+            height: 52px,
+            color: map-get($gray-colors, 60)
+
+    ))
+  }
+
+
 
 
 
@@ -111,4 +194,8 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+
+.default_select__layout__text_center {
+  justify-content: center;
 }
