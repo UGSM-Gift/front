@@ -1,6 +1,7 @@
 .test_page__layout {
   padding: 14px;
 
+
 }
 
 .test_page__layout__progress {
@@ -84,13 +85,11 @@
   padding: 0;
   width: 375px;
 
-  height: 500px;
+  height: 530px;
   background-color: #ffffff;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
   animation: slideUp 0.5s ease forwards; /* slideUp 애니메이션 적용 */
 
-
-  border: 1px solid red;
 }
 
 
@@ -123,11 +122,13 @@
   background-color: #fff;
 
 }
+
 .test_page__footer__inner__button {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
+
 .test_page__footer__inner__button_box {
   width: 166px;
 }
@@ -155,6 +156,7 @@
   width: 200px;
   color: #fff;
 }
+
 .test_page__layout__none {
   display: none;
 }

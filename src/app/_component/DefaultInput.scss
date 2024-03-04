@@ -66,13 +66,12 @@
 .default__input {
   width: 309px;
   height: 14px;
-  padding: 20px 16px;
+  padding: 20px 16px 20px 16px;
   border-radius: 8px;
   @extend %font-style;
   font: 400 16px "Pretendard Variable";
   color: map-get($gray-colors, 90);
   border: 1px solid map-get($gray-colors, 30);
-
 
   &::placeholder {
     color: map-get($gray-colors, 40);
@@ -107,8 +106,6 @@
   }
 }
 
-
-
 @mixin button-style($options) {
   $position: map-get($options, position);
   $right: map-get($options, right);
@@ -120,7 +117,6 @@
   transform: $transform;
   right: $right;
 }
-
 
 .input__button__layout {
   width: 80px;
@@ -147,11 +143,11 @@
   padding: 7px 0;
 }
 
-
 @mixin max-length-style($options) {
   $top: map-get($options, top);
   top: $top;
 }
+
 .max__length__layout {
   position: absolute;
   right: 12px;

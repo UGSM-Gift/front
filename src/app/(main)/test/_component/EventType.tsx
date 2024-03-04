@@ -80,8 +80,7 @@ const EventType = ({clickAddEvent}: EventTypeProps) => {
 
 
     return (
-        <div>
-
+        <div className={'event_type__layout'}> 
             <section>
                 {
                     eventList.map((item: EventListState) => (
@@ -107,7 +106,7 @@ const EventType = ({clickAddEvent}: EventTypeProps) => {
                 </div>
             </section>
             <div></div>
-            <section>
+            <section className={'pb_50'}>
                 {
 
                     eventType === 4 ?

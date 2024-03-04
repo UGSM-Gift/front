@@ -216,7 +216,7 @@ const UserHobbyDetail = () => {
     }
 
     return (
-        <div onClick={testing} className={'user_hobby_detail__layout mt_8'}>
+        <div onClick={testing} className={'user_hobby_detail__layout mt_8 pb_50'}>
             {
                 hobbyDetailArr.map((item)=> (
                     <div key={item.category.id}>

@@ -70,11 +70,7 @@ const TestPage = () => {
 
     const categoryDialog = useCategoryStore(state => state.categoryDialog)
 
-
     const selectCategory = useCategoryStore(state => state.selectCategory)
-
-
-
 
 
     const [footerContent, setFooterContent] = useState(0)
@@ -138,7 +134,6 @@ const TestPage = () => {
 
     const postAddCategory = async () => {
         try {
-
             const addList = await postAddCategoryList(categoryId, selectCategory)
 
             console.log(addList)
@@ -292,7 +287,7 @@ const TestPage = () => {
                     <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={clickFooterButtonBack}/>
                 </div>
                 <div className={'test_page__footer__inner__button_box'}>
-                    <DefaultButton label={'다음'} type={'medium_primary'} buttonClick={clickFooterButton}/>
+                    <DefaultButton label={'다음ㅇㅇ'} type={'medium_primary'} buttonClick={clickFooterButton}/>
                 </div>
             </div>
         }
@@ -357,7 +352,7 @@ const TestPage = () => {
 
 
         if (testStage === 6 && categoryDialog) {
-            return  <DefaultButton label={`${selectCategory.length}개 확인`} type={'large_primary'} buttonClick={clickFooterButton}/>
+            return  <DefaultButton label={`${selectCategory.length}개 추가`} type={'large_primary'} buttonClick={clickFooterButton}/>
         }
 
 
@@ -492,7 +487,7 @@ const TestPage = () => {
         <div >
             <div onClick={testing}>
                 <NavLayout
-                    rightIconArr={['heart']}
+                    centerText={testStage === 6 ? '카테고리 선택' : '은근테스트'}
                 />
             </div>
             <article className={'test_page__layout__progress'}>

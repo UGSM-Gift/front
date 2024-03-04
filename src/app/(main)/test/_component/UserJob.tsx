@@ -91,13 +91,17 @@ const UserJob = () => {
 
     const clickSelect = (item: EventListState | UserJobProps | UserChoiceProps) => {
         if ('name' in item ) {
+
             useTestStore.setState({userJob: item.name});
             useTestStore.setState({userJobId: item.id});
             setSelectJob(item.id)
 
             if (item.name === '기타') {
+
                 setVisibleInput(true)
+
             } else {
+
                 setVisibleInput(false)
             }
         }

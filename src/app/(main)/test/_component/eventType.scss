@@ -1,2 +1,8 @@
 .event_type__layout__button_wrapper {
 }
+
+
+.event_type__layout {
+  height: calc(100vh - 300px);
+  overflow-y: scroll;
+}
