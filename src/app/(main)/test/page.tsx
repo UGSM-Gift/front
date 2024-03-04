@@ -287,7 +287,7 @@ const TestPage = () => {
                     <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={clickFooterButtonBack}/>
                 </div>
                 <div className={'test_page__footer__inner__button_box'}>
-                    <DefaultButton label={'다음ㅇㅇ'} type={'medium_primary'} buttonClick={clickFooterButton}/>
+                    <DefaultButton label={'다음'} type={'medium_primary'} buttonClick={clickFooterButton}/>
                 </div>
             </div>
         }
