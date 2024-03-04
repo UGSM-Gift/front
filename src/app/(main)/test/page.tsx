@@ -180,25 +180,30 @@ const TestPage = () => {
 
 
         if (testStage === 1 && eventText !== '') {
+            setProgressWidth('80px')
+
             useTestStore.setState((prevState) => ({
                 testStage: prevState.testStage + 1
             }));
         }
 
         if (testStage === 2 && userJob !== '') {
+            setProgressWidth('120px')
             useTestStore.setState((prevState) => ({
                 testStage: prevState.testStage + 1
             }));
         }
 
         if (testStage === 3 && userHobby.length !== 0) {
+            setProgressWidth('160px')
+
             useTestStore.setState((prevState) => ({
                 testStage: prevState.testStage + 1
             }));
         }
 
         if (testStage === 4 && userInterest.length !== 0) {
-
+            setProgressWidth('180px')
 
             useTestStore.setState((prevState) => ({
                 testStage: prevState.testStage + 1
@@ -208,6 +213,7 @@ const TestPage = () => {
         // detail => category
         if (testStage === 5) {
             console.log(testResultData, 'tjdrhd')
+            setProgressWidth('240px')
 
             const postData = await postQuestionResult()
 
@@ -220,6 +226,7 @@ const TestPage = () => {
 
         // worry
         if (testStage === 6 && userWorry.length !== 0) {
+            setProgressWidth('240px')
 
             useTestStore.setState((prevState) => ({
                 testStage: prevState.testStage + 1
@@ -227,6 +234,7 @@ const TestPage = () => {
         }
 
         if (testStage === 7) {
+            setProgressWidth('300px')
 
             useTestStore.setState((prevState) => ({
                 testStage: prevState.testStage + 1
@@ -480,12 +488,16 @@ const TestPage = () => {
             case 3:
                 return val3
             case 4:
+
                 return val4
             case 5:
+
                 return val5
             case 6:
+
                 return val6
             case 7:
+
                 return val7
             case 8:
                 return val8
