@@ -1,0 +1,11 @@
+.user_worry_detail__layout {
+  overflow: scroll;
+  height: calc(100dvh - 330px);
+
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+
+}

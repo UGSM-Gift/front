@@ -41,7 +41,7 @@ export const getWorryList = async () => {
         const response = await instance.get(`/api/personal-category/worry`);
         return response.data;
     } catch (error) {
-        console.error('Nickname duplication check failed:', error);
+        console.error('worry list false:', error);
     }
 };
 

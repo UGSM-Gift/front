@@ -18,6 +18,7 @@ interface TestState {
     userJob: string
     userInterest: userHobbyProps[]
     userHobby: userHobbyProps[]
+    userWorry: userHobbyProps[]
     eventImageId: number
     userJobId: number
 }
@@ -33,7 +34,8 @@ export const useTestStore = create<TestState>((set) => ({
     userJobId: 0,
     userInterest: [],
     userHobby: [],
-    eventImageId: 0
+    eventImageId: 0,
+    userWorry: []
 }));
 
 

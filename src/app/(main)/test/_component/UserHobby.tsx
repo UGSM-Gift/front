@@ -3,7 +3,7 @@ import './userHobby.scss'
 import DefaultSelect from "@/app/_component/DefaultSelect";
 import {useTestStore} from "@/app/zustand/testStore";
 import {useEffect, useState} from "react";
-import {getHobbyList, getInterestList} from "@/app/api/UGTest";
+import {getHobbyList, getInterestList, getWorryList} from "@/app/api/UGTest";
 
 interface UserHobbyArr {
     id: number

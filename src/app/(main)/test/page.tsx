@@ -21,6 +21,8 @@ import {getAnniversaryList, postAnniversary} from "@/app/api/anniversary";
 import {getHobbyList, postAddCategoryList, postTestResult} from "@/app/api/UGTest";
 import Image from "next/image";
 import {useRouter} from "next/navigation";
+import UserWorry from "@/app/(main)/test/_component/UserWorry";
+import UserWorryDetail from "@/app/(main)/test/_component/UserWorryDetail";
 
 
 
@@ -52,6 +54,8 @@ const TestPage = () => {
     const userJobId = useTestStore(state => state.userJobId);
 
     const userHobby = useTestStore(state => state.userHobby);
+
+    const userWorry = useTestStore(state => state.userWorry);
     const userInterest = useTestStore(state => state.userInterest);
     const eventImageId = useTestStore(state => state.eventImageId);
 
@@ -100,7 +104,10 @@ const TestPage = () => {
             'testStage', testStage,
             'userHobby', userHobby,
             'userInterest', userInterest,
-            'eventList', eventList
+            'eventList', eventList,
+            'userWorry', userWorry,
+            'questionsWithAnswers', questionsWithAnswers,
+            'answeredCategories', answeredCategories,
             )
     }
 
@@ -193,7 +200,6 @@ const TestPage = () => {
         if (testStage === 4 && userInterest.length !== 0) {
 
 
-
             useTestStore.setState((prevState) => ({
                 testStage: prevState.testStage + 1
             }));
@@ -212,21 +218,42 @@ const TestPage = () => {
         }
 
 
+        // worry
+        if (testStage === 6 && userWorry.length !== 0) {
+
+            useTestStore.setState((prevState) => ({
+                testStage: prevState.testStage + 1
+            }));
+        }
+
+        if (testStage === 7) {
+
+            useTestStore.setState((prevState) => ({
+                testStage: prevState.testStage + 1
+            }));
+        }
+
+
+
+
+
         // 모달창 올라와있을때
-        if (testStage === 6 && categoryDialog) {
+        if (testStage === 8 && categoryDialog) {
             useCategoryStore.setState({categoryDialog: false})
         }
 
         // 내려가있을때
-        if (testStage === 6 && !categoryDialog) {
+        if (testStage === 8 && !categoryDialog) {
             const postAddCategoryData = await postAddCategory()
             console.log(postAddCategoryData)
             router.push('/test/complete')
         }
     }
 
+
+
     const clickFooterButtonBack = () => {
-        if (testStage <= 6) {
+        if (testStage <= 8) {
             useTestStore.setState((prevState) => ({
                 testStage: prevState.testStage - 1
             }));
@@ -351,12 +378,51 @@ const TestPage = () => {
 
 
 
-        if (testStage === 6 && categoryDialog) {
+        /// worry
+
+
+        if (testStage === 6 && userWorry.length === 0) {
+            return <div className={'test_page__footer__inner__button'}>
+                <div className={'test_page__footer__inner__button_box'}>
+                    <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={clickFooterButtonBack}/>
+                </div>
+                <div className={'test_page__footer__inner__button_box'}>
+                    <DefaultButton label={'다음'} type={'medium_gray'} buttonClick={clickFooterButton}/>
+                </div>
+            </div>
+        }
+
+        if (testStage === 6 && userWorry.length !== 0) {
+            return <div className={'test_page__footer__inner__button'}>
+                <div className={'test_page__footer__inner__button_box'}>
+                    <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={clickFooterButtonBack}/>
+                </div>
+                <div className={'test_page__footer__inner__button_box'}>
+                    <DefaultButton label={'다음'} type={'medium_primary'} buttonClick={clickFooterButton}/>
+                </div>
+            </div>
+        }
+
+
+        if (testStage === 7 ) {
+            return <div className={'test_page__footer__inner__button'}>
+                <div className={'test_page__footer__inner__button_box'}>
+                    <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={clickFooterButtonBack}/>
+                </div>
+                <div className={'test_page__footer__inner__button_box'}>
+                    <DefaultButton label={'다음'} type={'medium_primary'} buttonClick={clickFooterButton}/>
+                </div>
+            </div>
+        }
+
+
+
+        if (testStage === 8 && categoryDialog) {
             return  <DefaultButton label={`${selectCategory.length}개 추가`} type={'large_primary'} buttonClick={clickFooterButton}/>
         }
 
 
-        if (testStage === 6 ) {
+        if (testStage === 8 ) {
             return <div className={'test_page__footer__inner__button'}>
                 <div className={'test_page__footer__inner__button_box'}>
                     <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={clickFooterButtonBack}/>
@@ -400,10 +466,12 @@ const TestPage = () => {
         val4: string | JSX.Element
         val5: string | JSX.Element
         val6: string | JSX.Element
+        val7: string | JSX.Element
+        val8: string | JSX.Element
     }
 
 
-    const testStageSwitchReturn = ({val1, val2, val3, val4, val5, val6} :testStageSwitchReturnProps) => {
+    const testStageSwitchReturn = ({val1, val2, val3, val4, val5, val6, val7, val8} :testStageSwitchReturnProps) => {
         switch (testStage) {
             case 1:
                 return val1
@@ -417,6 +485,10 @@ const TestPage = () => {
                 return val5
             case 6:
                 return val6
+            case 7:
+                return val7
+            case 8:
+                return val8
         }
     }
 
@@ -445,7 +517,9 @@ const TestPage = () => {
             val3: <UserHobby type={'hobby'}/>,
             val4: <UserHobby type={'interest'}/>,
             val5: <UserHobbyDetail/>,
-            val6: <UserCategory/>
+            val6: <UserWorry/>,
+            val7: <UserWorryDetail/>,
+            val8: <UserCategory/>
         })
     }
 
@@ -456,7 +530,9 @@ const TestPage = () => {
             val3: 'user님 만의 취미를',
             val4:'user님은 평소 어디에',
             val5:'선택하신 취미/관심사에 관한',
-            val6:'user님에게 맞는'
+            val6:'user님의  현재 고민은',
+            val7:'현재 고민에 대한',
+            val8:'user님에게 맞는'
         })
     }
     const subTitle = () => {
@@ -466,7 +542,9 @@ const TestPage = () => {
             val3: '알려주세요',
             val4: '관심이 있나요?',
             val5: '상세 질문에 답을 해주세요',
-            val6: '카테고리를 추천해드려요!'
+            val6: '무엇인가요?',
+            val7: '상세 질문에 답을 해주세요',
+            val8: '카테고리를 추천해드려요!',
         })
     }
 
@@ -487,7 +565,7 @@ const TestPage = () => {
         <div >
             <div onClick={testing}>
                 <NavLayout
-                    centerText={testStage === 6 ? '카테고리 선택' : '은근테스트'}
+                    centerText={testStage === 8 ? '카테고리 선택' : '은근테스트'}
                 />
             </div>
             <article className={'test_page__layout__progress'}>
@@ -538,13 +616,13 @@ const TestPage = () => {
             <div className={footerClassName} >
                 {renderFooterButton()}
             </div>
-            <div className={testStage === 6 ? categoryLoading ? '' : 'test_page__layout__dim' : ''}>
+            <div className={testStage === 8 ? categoryLoading ? '' : 'test_page__layout__dim' : ''}>
 
             </div>
             <div
-                className={testStage === 6 ? categoryLoading ? 'test_page__layout__none' : 'test_page__layout__dim__image' : 'test_page__layout__none'}>
+                className={testStage === 8 ? categoryLoading ? 'test_page__layout__none' : 'test_page__layout__dim__image' : 'test_page__layout__none'}>
                 <Image src={'/loading_icon.svg'} alt={'x'} width={80} height={80}/>
-                <div className={testStage === 6 ? categoryLoading ? 'test_page__layout__none' : 'test_page__layout__dim__text' : 'test_page__layout__none'}>
+                <div className={testStage === 8 ? categoryLoading ? 'test_page__layout__none' : 'test_page__layout__dim__text' : 'test_page__layout__none'}>
                     상품 카테고리 도출 중</div>
             </div>
         </div>

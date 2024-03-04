@@ -11,7 +11,9 @@ interface DefaultInputProps {
     max_length?: number
     text_area?: boolean
     placeholder?: string
-    onChangeValue: (value: string) => void;
+    onChangeValue?: (value: string) => void;
+    onChangeEvent?: (e: ChangeEvent<HTMLInputElement>) => void;
+    onChangeTextAreaEvent?: (e: ChangeEvent<HTMLTextAreaElement>) => void
     imageClick?: MouseEventHandler<HTMLDivElement>;
     value?: string
 }
@@ -26,6 +28,8 @@ const DefaultInput = (
         text_area = false,
         placeholder = 'place holder',
         onChangeValue,
+        onChangeEvent,
+        onChangeTextAreaEvent,
         imageClick,
         value
     }: DefaultInputProps) => {
@@ -39,12 +43,23 @@ const DefaultInput = (
     const [inputLength, setInputLength] = useState(0)
     const onChangeInputLength = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputLength(e.target.value.length)
-        onChangeValue(e.target.value)
+        if (onChangeValue) {
+            onChangeValue(e.target.value)
+        }
+        if (onChangeEvent) {
+            onChangeEvent(e)
+        }
     }
 
     const onInputLength = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setInputLength(e.target.value.length)
-        onChangeValue(e.target.value)
+        if (onChangeValue) {
+            onChangeValue(e.target.value)
+        }
+        if (onChangeTextAreaEvent) {
+            onChangeTextAreaEvent(e)
+        }
+
     }
 
     return (

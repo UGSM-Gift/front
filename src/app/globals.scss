@@ -149,7 +149,7 @@ h6 {
   opacity: 50%;
 }
 
-@for $i from 1 through 50 {
+@for $i from 1 through 150 {
   .mb_#{$i} {
     margin-bottom: #{$i}px;
   }
