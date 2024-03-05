@@ -89,7 +89,7 @@ const TestPage = () => {
     }, [])
 
     const initEventList = async () => {
-        const initList = await getAnniversaryList('2024-03')
+        const initList = await getAnniversaryList('')
         updateEventList(initList.data)
     }
 
