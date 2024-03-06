@@ -19,7 +19,7 @@ const UserJob = () => {
     const router = useRouter()
     const clickFooterButton = (value:string) => {
         if (value === '이전') {
-            router.back()
+            router.replace('/test')
         } else {
             router.replace('/test/userHobby')
         }

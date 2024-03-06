@@ -43,7 +43,7 @@ const UserCategory = () => {
         if (!categoryDialog) {
 
             if (value === '이전') {
-                router.back()
+                router.replace('/test/')
             } else {
                 const postAddCategoryData = await postAddCategory()
                 console.log(postAddCategoryData)

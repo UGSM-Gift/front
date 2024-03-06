@@ -26,7 +26,7 @@ const UserWorry = () => {
 
     const clickFooterButton = async (value:string) => {
         if (value === '이전') {
-            router.back()
+            router.replace('/test/userHobbyDetail')
         } else {
             await postQuestionResult()
 

@@ -17,7 +17,7 @@ const UserInterest = () => {
 
     const clickFooterButton = (value: string) => {
         if (value === '이전') {
-            router.back()
+            router.replace('/test/userHobby')
         } else {
             router.replace('/test/userHobbyDetail')
         }
