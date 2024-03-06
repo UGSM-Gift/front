@@ -7,6 +7,7 @@ import {usePostTestResultDataStore, useTestStore} from "@/app/zustand/testStore"
 import TestPageHeader from "@/app/(main)/test/_component/TestPageHeader";
 import DefaultButton from "@/app/_component/DefaultButton";
 import {useRouter} from "next/navigation";
+import TestPageFooterButton from "@/app/(main)/test/_component/TestPageFooterButton";
 
 interface UserWorryArr {
     id: number
@@ -124,6 +125,17 @@ const UserWorry = () => {
 
     }
 
+    const [buttonActive, setButtonActive] = useState(false)
+
+    useEffect(() => {
+        if (selected.length === 0) {
+            setButtonActive(false)
+        } else {
+            setButtonActive(true)
+        }
+    }, [selected])
+
+
     return (
         <div>
             <TestPageHeader
@@ -154,16 +166,12 @@ const UserWorry = () => {
                 </div>
             </section>
 
-            <section className={'test_page__footer'}>
-                <div className={'test_page__footer__inner__button'}>
-                    <div className={'test_page__footer__inner__button_box'}>
-                        <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={() => clickFooterButton('이전')}/>
-                    </div>
-                    <div className={'test_page__footer__inner__button_box'}>
-                        <DefaultButton label={'다음'} type={'medium_primary'} buttonClick={() => clickFooterButton('다음')}/>
-                    </div>
-                </div>
-            </section>
+            <TestPageFooterButton
+                clickFooterButton={clickFooterButton}
+                leftButtonTitle={'이전'}
+                rightButtonTitle={'다음'}
+                state={buttonActive}
+            />
         </div>
     )
 }
