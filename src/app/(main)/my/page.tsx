@@ -16,7 +16,7 @@ const MyPage = () => {
 
     const router = useRouter()
     const clickSetting = () => {
-        router.push('/my/setting')
+        router.replace('/my/setting')
     }
 
 

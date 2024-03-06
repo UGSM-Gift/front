@@ -81,7 +81,7 @@ const GiftListLetter = () => {
     }
 
     const clickLetterBox = () => {
-        router.push('/main/letter/detail')
+        router.replace('/main/letter/detail')
     }
     return (
         <div>

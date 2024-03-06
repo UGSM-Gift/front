@@ -18,7 +18,7 @@ const UserWorryDetail = () => {
         if (value === '이전') {
             router.back()
         } else {
-            router.push('/test/category')
+            router.replace('/test/category')
         }
     }
 

@@ -47,13 +47,13 @@ const FooterLayout = ({currentPage}: FooterLayoutProps) => {
     const onClickTap = (item: FooterLayoutArr) => {
         switch (item.name) {
             case '홈':
-                router.push('/main')
+                router.replace('/main')
                 break;
             case '리스트':
-                router.push('/list')
+                router.replace('/list')
                 break;
             case 'MY':
-                router.push('/my')
+                router.replace('/my')
                 break;
 
         }

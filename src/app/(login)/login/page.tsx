@@ -38,7 +38,7 @@ const Login = () => {
     },[])
 
     const onClickLoginKaKao = () => {
-        router.push('/signup')
+        router.replace('/signup')
     }
 
 

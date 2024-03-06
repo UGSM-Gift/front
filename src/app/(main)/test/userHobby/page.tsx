@@ -19,7 +19,7 @@ const UserHobby = () => {
         if (value === '이전') {
             router.back()
         } else {
-            router.push('/test/userInterest')
+            router.replace('/test/userInterest')
         }
     }
 
@@ -153,16 +153,7 @@ const UserHobby = () => {
 
 
     useEffect(() => {
-
-
         getUserHobby()
-    }, [])
-
-
-
-    useEffect(() => {
-
-
     }, [])
 
 

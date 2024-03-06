@@ -10,7 +10,7 @@ const GiftListLetterDetail = () => {
     const router = useRouter()
 
     const clickBack = () => {
-        router.push('/main/letter')
+        router.replace('/main/letter')
     }
 
     return (

@@ -19,7 +19,7 @@ const UserInterest = () => {
         if (value === '이전') {
             router.back()
         } else {
-            router.push('/test/userHobbyDetail')
+            router.replace('/test/userHobbyDetail')
         }
     }
 

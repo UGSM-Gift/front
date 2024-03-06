@@ -25,9 +25,9 @@ const MyPageSetting = () => {
 
     const clickMenu = (title:string) => {
         if (title === '회원 정보 수정') {
-            router.push('/my/setting/member')
+            router.replace('/my/setting/member')
         } else if (title === '회원탈퇴') {
-            router.push('/my/setting/out')
+            router.replace('/my/setting/out')
         }
     }
     return (

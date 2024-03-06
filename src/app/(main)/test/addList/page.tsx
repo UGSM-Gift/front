@@ -136,13 +136,13 @@ const AddList = () => {
                     <DefaultButton label={'확인'} type={'large_primary'} buttonClick={() => clickFooterButton('확인')}/>
                 </div>
             case 1:
-                return <div className={'test_page__footer__inner__button pr_16 pl_16'}>
+                return <div className={'test_page__footer__inner__button '}>
                     <div className={'add_list_page__full__button'}>
                         <DefaultButton label={'확인'} type={'large_primary'} buttonClick={() => clickFooterButton('다음')}/>
                     </div>
                 </div>
             case 2:
-                return <div className={'test_page__footer__inner__button pr_16 pl_16'}>
+                return <div className={'test_page__footer__inner__button '}>
                     <div className={'test_page__footer__inner__button_box'}>
                         <DefaultButton label={'이전'} type={'medium_primary_border'} buttonClick={() => clickFooterButton('이전')}/>
                     </div>
@@ -171,7 +171,7 @@ const AddList = () => {
             )
     }
     return (
-        <div className={'borderRed'} onClick={test}>
+        <div>
             <TestPageHeader
                 navText={'은근테스트'}
                 title={'어떤 이벤트로'}

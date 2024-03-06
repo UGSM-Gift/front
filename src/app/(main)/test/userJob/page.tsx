@@ -21,7 +21,7 @@ const UserJob = () => {
         if (value === '이전') {
             router.back()
         } else {
-            router.push('/test/userHobby')
+            router.replace('/test/userHobby')
         }
     }
 
@@ -80,7 +80,10 @@ const UserJob = () => {
             const list = await getJobList();
             if (list.data) {
                 await setJobArr(list.data);
-                await setButtonActive(true)
+
+                if (userJob !== '') {
+                    await setButtonActive(true)
+                }
 
                 // 타 페이지에서 되돌아왔을때 store 의 값 매핑
                 if (userJobId === 35) {
@@ -98,7 +101,6 @@ const UserJob = () => {
     const clickSelect = (item: EventListState | UserJobProps | UserChoiceProps) => {
         if ('name' in item ) {
             useTestStore.setState({userJobId: item.id});
-            setButtonActive(true)
 
             if (item.name === '기타') {
                 useTestStore.setState({userJob: ''});
@@ -107,6 +109,8 @@ const UserJob = () => {
             } else {
                 useTestStore.setState({userJob: item.name});
                 setVisibleInput(false)
+                setButtonActive(true)
+
             }
         }
     }

@@ -429,11 +429,11 @@ const SignupPage = () => {
     const onClickSetAuthNumber = () => {
         // 인증 성공 로직
         if (authNumber.length === 6) {
-            router.push('/main')
+            router.replace('/main')
             console.log('유효한지 체크 , 다음으로 넘기기 ', authNumber)
         } else {
             console.log('& 유요하지않은 경우, 추가')
-            router.push('/main')
+            router.replace('/main')
         }
     }
 

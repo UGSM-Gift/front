@@ -37,7 +37,7 @@ const UserHobbyDetail = () => {
         if (value === '이전') {
             router.back()
         } else {
-            router.push('/test/userWorry')
+            router.replace('/test/userWorry')
         }
     }
 

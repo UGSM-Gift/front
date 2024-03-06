@@ -30,7 +30,7 @@ const UserWorry = () => {
         } else {
             await postQuestionResult()
 
-            await router.push('/test/userWorryDetail')
+            await router.replace('/test/userWorryDetail')
         }
     }
 
@@ -69,7 +69,43 @@ const UserWorry = () => {
 
         const delArr: number[] = []
 
-        if (selected.includes(item.id)) {
+        if (selected.length < 3) {
+            if (selected.includes(item.id)) {
+                selected.forEach((ele)=> {
+                    if (item.id !== ele) {
+                        delArr.push(ele)
+                    }
+                })
+
+                useTestStore.setState((prevState) => {
+                    const delWorryArr: UserHobbyProps[] = []
+                    prevState.userWorry.forEach((ele)=> {
+                        if (ele.id !== item.id) {
+                            delWorryArr.push(ele)
+                        }
+                    })
+                    return {
+                        ...prevState,
+                        userWorry: delWorryArr
+                    };
+                });
+
+                setSelected(delArr)
+
+            } else {
+                setSelected((prev) => {
+                    return [...prev, item.id];
+                })
+
+                useTestStore.setState((prevState) => {
+                    return {
+                        ...prevState,
+                        userWorry: [...prevState.userWorry, item]
+                    };
+                });
+            }
+        } else {
+
             selected.forEach((ele)=> {
                 if (item.id !== ele) {
                     delArr.push(ele)
@@ -90,19 +126,9 @@ const UserWorry = () => {
             });
 
             setSelected(delArr)
-
-        } else {
-            setSelected((prev) => {
-                return [...prev, item.id];
-            })
-
-            useTestStore.setState((prevState) => {
-                return {
-                    ...prevState,
-                    userWorry: [...prevState.userWorry, item]
-                };
-            });
         }
+
+
 
     }
 
@@ -129,7 +155,7 @@ const UserWorry = () => {
                 navText={'은근테스트'}
                 title={'username 님의 현재 고민은'}
                 subTitle={'무엇인가요?'}
-                content={'3개 이상 선택'}
+                content={'최대 3개까지 선택 가능'}
                 progressWidth={'240px'}
             />
 

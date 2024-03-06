@@ -50,14 +50,14 @@ const Main = () => {
     const router = useRouter()
 
     const onClickHeartIcon = () => {
-        router.push('/main/heart')
+        router.replace('/main/heart')
     }
 
     const clickPresentListBox = () => {
-        router.push('/giftList')
+        router.replace('/giftList')
     }
     const clickLetterBox = () => {
-        router.push('/main/letter')
+        router.replace('/main/letter')
     }
 
     return (

@@ -16,7 +16,7 @@ const MyList = () => {
 
     const router = useRouter()
     const clickPresentListBox = () => {
-        router.push('/giftList')
+        router.replace('/giftList')
     }
 
     return (
