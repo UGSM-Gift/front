@@ -151,8 +151,23 @@ const UserHobby = () => {
     }, [selected])
 
 
+
+
     useEffect(() => {
+
+
         getUserHobby()
+    }, [])
+
+
+
+    useEffect(() => {
+        if (performance.navigation.type === 1) {
+
+            console.log('Page was refreshed' , performance);
+            // Do something when page is refreshed
+        }
+
     }, [])
 
 

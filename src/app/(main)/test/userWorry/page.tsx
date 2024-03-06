@@ -8,17 +8,13 @@ import TestPageHeader from "@/app/(main)/test/_component/TestPageHeader";
 import DefaultButton from "@/app/_component/DefaultButton";
 import {useRouter} from "next/navigation";
 import TestPageFooterButton from "@/app/(main)/test/_component/TestPageFooterButton";
-
-interface UserWorryArr {
-    id: number
-    name: string
-    hasOtherName?: boolean
-}
+import {UserHobbyProps} from "@/app/type";
 
 const UserWorry = () => {
 
 
     const testResultData = usePostTestResultDataStore.getState()
+    const router = useRouter()
 
     const postQuestionResult = async () => {
         try {
@@ -28,19 +24,11 @@ const UserWorry = () => {
         }
     }
 
-
-    const router = useRouter()
     const clickFooterButton = async (value:string) => {
         if (value === '이전') {
             router.back()
         } else {
-
-            console.log(testResultData, 'tjdrhd')
-
-            const postData = await postQuestionResult()
-
-            console.log(postData)
-
+            await postQuestionResult()
 
             await router.push('/test/userWorryDetail')
         }
@@ -50,7 +38,8 @@ const UserWorry = () => {
 
 
     const [selected, setSelected] = useState<number[]>([])
-    const [worryArr, setWorryArr] = useState<UserWorryArr[]>([
+
+    const [worryArr, setWorryArr] = useState<UserHobbyProps[]>([
         {
             id: 1,
             name: '고민거리 mok',
@@ -62,20 +51,14 @@ const UserWorry = () => {
         try {
             const list = await getWorryList()
             await setWorryArr(list.data)
-            console.log(list, 'check worry list')
         } catch (err) {
-            console.log(err, 'err worry list ')
+            console.log('fail get worry list ')
         }
 
     }
 
-    useEffect(()=> {
-        getWorryArr()
-    }, [])
 
-
-    const onClickAddEvent = (item: UserWorryArr) => {
-        console.log(item)
+    const onClickAddEvent = (item: UserHobbyProps) => {
 
         const delArr: number[] = []
 
@@ -86,14 +69,8 @@ const UserWorry = () => {
                 }
             })
 
-            interface userHobbyProps {
-                id: number
-                name: string
-                hasOtherName?: boolean
-            }
-
             useTestStore.setState((prevState) => {
-                const delWorryArr: userHobbyProps[] = []
+                const delWorryArr: UserHobbyProps[] = []
                 prevState.userWorry.forEach((ele)=> {
                     if (ele.id !== item.id) {
                         delWorryArr.push(ele)
@@ -108,7 +85,6 @@ const UserWorry = () => {
             setSelected(delArr)
 
         } else {
-            console.log('false')
             setSelected((prev) => {
                 return [...prev, item.id];
             })
@@ -121,8 +97,6 @@ const UserWorry = () => {
             });
         }
 
-        console.log(selected, delArr)
-
     }
 
     const [buttonActive, setButtonActive] = useState(false)
@@ -134,6 +108,12 @@ const UserWorry = () => {
             setButtonActive(true)
         }
     }, [selected])
+
+
+    useEffect(()=> {
+        getWorryArr()
+    }, [])
+
 
 
     return (
