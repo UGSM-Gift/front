@@ -86,6 +86,7 @@
   }
 
   &.circle_select_primary_half {
+    width: fit-content;
     padding: 0 14px 0;
     @include select-style((
             border: 1px solid map-get($primary-colors, 400),
@@ -97,6 +98,8 @@
   }
 
   &.circle_select_primary_border_half {
+    width: fit-content;
+
     padding: 0 14px 0;
     @include select-style((
             border: 1px solid map-get($primary-colors, 400),
@@ -109,6 +112,7 @@
 
   &.circle_select_gray_border_half {
     padding: 0 14px 0;
+    width: fit-content;
 
     @include select-style((
             border: 1px solid map-get($gray-colors, 20),

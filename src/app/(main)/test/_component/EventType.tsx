@@ -28,7 +28,6 @@ const EventType = ({clickAddEvent}: EventTypeProps) => {
 
     const {eventType} = useTestStore.getState();
     const eventText = useTestStore(state => state.eventText); // 상태 구독
-    const testStage = useTestStore(state => state.testStage);
 
     const {eventList, updateEventList} = useEventList() as EventListHookReturnType;
 
@@ -55,7 +54,6 @@ const EventType = ({clickAddEvent}: EventTypeProps) => {
 
 
     const clickSelect = (item: EventListState | UserJobProps | UserChoiceProps) => {
-        console.log(eventType, testStage, item, useTestStore.getState())
 
         if ('name' in item) {
             useTestStore.setState({eventText: item.name})

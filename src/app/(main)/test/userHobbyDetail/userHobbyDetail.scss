@@ -1,0 +1,34 @@
+.user_hobby_detail__layout__main_title {
+  width: 128px;
+
+}
+
+.user_hobby_detail__layout {
+  overflow: scroll;
+  height: calc(100dvh - 350px);
+  width: 100%;
+
+
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+
+}
+
+.user_hobby_detail__layout__select__box {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px 10px;
+}
+
+
+
+.user_hobby__layout {
+  width: 343px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 14px 0 0 0;
+}
+

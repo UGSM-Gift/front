@@ -1,0 +1,43 @@
+
+
+.test_page__footer__inner__button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.add_list_page__full__button {
+  width: 100%;
+  z-index: 3;
+}
+
+.test_page__footer__inner__button_box {
+  width: 166px;
+  z-index: 3;
+}
+
+
+.test_page__footer {
+  width: 343px;
+  height: 61px;
+  position: fixed;
+  bottom: 0;
+  padding: 16px 16px 10px;
+  background-color: #fff;
+  box-shadow: 0px -8px 12px 0px #0000000A;
+}
+
+
+
+
+.user_hobby__layout {
+  width: 343px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 14px 0 0 0;
+}
+
+.user_hobby__layout__select_box {
+  margin: 5px;
+}

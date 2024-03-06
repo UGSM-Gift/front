@@ -1,0 +1,265 @@
+.user_category__layout {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px 4px;
+  height: calc(100dvh - 350px);
+  overflow: scroll;
+}
+
+
+
+.user_category__layout__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.user_category__layout__content__image {
+  width: 104px;
+  height: 104px;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid #fff;
+}
+
+.image_border {
+  border: 1px solid #FF2882;
+}
+
+.user_category__layout__content__text {
+}
+
+.user_category__layout__content__check_image {
+  position: relative;
+  bottom: 100px;
+  left: 35px;
+  height: 0;
+}
+
+.user_category__layout__content__text_loading {
+  width: 106px;
+  height: 18px;
+  background-color: #f2f4f5;
+  border-radius: 4px;
+}
+
+.user_category__dialog_up {
+  position: fixed;
+  bottom: 100px;
+  padding: 0;
+  width: 375px;
+  transform: translateX(-15px);
+  height: 800px;
+  background-color: #ffffff;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.5s ease forwards; /* slideUp 애니메이션 적용 */
+
+  //border: 1px solid red;
+}
+
+
+.user_category__dialog_down {
+  position: fixed;
+  bottom: 100px;
+  padding: 0;
+  width: 375px;
+  transform: translateX(-15px);
+  height: 0px;
+  background-color: #ffffff;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.5s ease forwards; /* slideUp 애니메이션 적용 */
+
+  //border: 1px solid red;
+}
+
+
+
+
+/// asdd
+
+
+
+
+
+.test_page__footer__inner__button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.add_list_page__full__button {
+  width: 100%;
+  z-index: 3;
+}
+
+.test_page__footer__inner__button_box {
+  width: 166px;
+  z-index: 3;
+}
+
+
+.test_page__footer {
+  width: 343px;
+  height: 61px;
+  position: fixed;
+  bottom: 0;
+  padding: 16px 16px 10px;
+  background-color: #fff;
+  box-shadow: 0px -8px 12px 0px #0000000A;
+}
+
+
+
+
+.user_hobby__layout {
+  width: 343px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 14px 0 0 0;
+}
+
+.user_hobby__layout__select_box {
+  margin: 5px;
+}
+
+
+
+.test_page__layout {
+  padding: 14px;
+}
+
+
+/* slideUp 애니메이션 정의 */
+@keyframes slideUp {
+  from {
+    bottom: -100%; /* 시작 지점: 화면 아래 */
+    opacity: 1; /* 시작 시 투명도를 0으로 설정하여 사라진 상태에서 시작 */
+  }
+  to {
+    bottom: 0; /* 종료 지점: 화면 상단에 나타남 */
+    opacity: 1; /* 종료 시 투명도를 1로 설정하여 완전히 나타나게 함 */
+  }
+}
+
+/* slideDown 애니메이션 정의 */
+@keyframes slideDown {
+  from {
+    bottom: calc(0% + 200px); /* 시작 지점: 화면 상단에 있음 */
+    opacity: 1; /* 시작 시 투명도를 1로 설정하여 완전히 나타난 상태에서 시작 */
+  }
+  to {
+    bottom: 0; /* 시작 지점: 화면 아래 */
+    opacity: 1; /* 시작 시 투명도를 0으로 설정하여 사라진 상태에서 시작 */
+  }
+}
+
+
+.test_page__calendar {
+  width: 343px;
+  height: 61px;
+  position: fixed;
+  bottom: 0;
+  padding: 16px 16px 10px;
+  background-color: #fff;
+  box-shadow: 0px -8px 12px 0px #0000000A;
+
+}
+
+
+.test_page__calendar_down {
+  width: 343px;
+  height: 61px;
+  position: fixed;
+  bottom: 0;
+  padding: 16px 16px 10px;
+  background-color: #fff;
+  box-shadow: 0px -8px 12px 0px #0000000A;
+
+  animation: slideDown 1s ease forwards; /* slideDown 애니메이션 적용 */
+}
+
+
+.test_page__calendar_up {
+  position: fixed;
+  bottom: 61px; /* 초기에는 화면 아래에 숨겨진 상태 */
+  padding: 0;
+  width: 375px;
+
+  height: 530px;
+  background-color: #ffffff;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.5s ease forwards; /* slideUp 애니메이션 적용 */
+
+}
+
+
+.test_page__footer {
+  width: 343px;
+  height: 61px;
+  position: fixed;
+  bottom: 0;
+  padding: 16px 16px 10px;
+  background-color: #fff;
+  box-shadow: 0px -8px 12px 0px #0000000A;
+}
+
+
+.test_page__footer__inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 14px;
+
+}
+
+.test_page__footer__none_border {
+  width: 343px;
+  height: 61px;
+  position: fixed;
+  bottom: 0;
+  padding: 16px 16px 10px;
+  background-color: #fff;
+
+}
+
+.test_page__footer__inner__button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.test_page__footer__inner__button_box {
+  width: 166px;
+}
+
+
+.test_page__layout__dim {
+  width: 375px;
+  height: 100%;
+  background-color: black;
+  opacity: 50%;
+  position: absolute;
+  top: 0;
+
+}
+
+.test_page__layout__dim__image {
+  position: fixed;
+  top: 40%;
+  left: calc(50% - 3vw);
+  opacity: 100%;
+}
+
+.test_page__layout__dim__text {
+  transform: translateX(-30px);
+  width: 200px;
+  color: #fff;
+}
+
+.test_page__layout__none {
+  display: none;
+}
+

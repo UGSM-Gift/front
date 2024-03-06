@@ -98,11 +98,11 @@ const Calendar = () => {
         <div>
             <article className={'calendar__nav__layout'}>
                 <div onClick={goToPreviousMonth}>
-                    <Image src={'calendar_left_icon.svg'} alt={'<'} width={24} height={24}/>
+                    <Image src={'/calendar_left_icon.svg'} alt={'<'} width={24} height={24}/>
                 </div>
                 <h4 className={'pl_8 pr_8 gray__color__100'}>{currentMonth.format('MMMM YYYY')}월</h4>
                 <div onClick={goToNextMonth}>
-                    <Image src={'calendar_right_icon.svg'} alt={'<'} width={24} height={24}/>
+                    <Image src={'/calendar_right_icon.svg'} alt={'>'} width={24} height={24}/>
                 </div>
             </article>
             <div className={'calendar__grid'}>

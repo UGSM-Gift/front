@@ -2,15 +2,7 @@
 import './DefaultButton.scss'
 import {MouseEventHandler, useState} from "react";
 import Image from "next/image";
-
-
-interface DefaultButtonProps {
-    label: string,
-    type: string,
-    image?: string
-    override?: object
-    buttonClick?: MouseEventHandler<HTMLDivElement>;
-}
+import {DefaultButtonProps} from "@/app/type";
 
 const DefaultButton = ({label, type, image = '', override, buttonClick}: DefaultButtonProps) => {
 

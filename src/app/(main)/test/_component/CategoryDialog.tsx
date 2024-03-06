@@ -1,13 +1,19 @@
 'use client'
 import './categoryDialog.scss'
-import DefaultSelect, {ClickSelectProps} from "@/app/_component/DefaultSelect";
+import DefaultSelect from "@/app/_component/DefaultSelect";
 import NavLayout from "@/app/(main)/_component/NavLayout";
 import Image from "next/image";
 import {getAddCategory} from "@/app/api/UGTest";
 import {useAddCategoryList, useCategoryStore} from "@/app/zustand/testStore";
-import {useEffect, useState} from "react";
+import {MouseEventHandler, useEffect, useState} from "react";
+import {ClickSelectProps} from "@/app/type/component/select/select";
 
-const CategoryDialog = () => {
+
+interface CategoryDialogProps {
+    closeDialog: MouseEventHandler<HTMLDivElement>;
+}
+
+const CategoryDialog = ({closeDialog}: CategoryDialogProps) => {
     const clickSelect = () => {
 
     }
@@ -20,6 +26,7 @@ const CategoryDialog = () => {
 
     const addCategory = async () => {
         try {
+
             const list = await getAddCategory(categoryId)
             console.log(list, 'check dialog list data ')
             setCategoryTitle(list.data)
@@ -145,18 +152,13 @@ const CategoryDialog = () => {
     }, [])
 
 
-    const categoryDialog = useCategoryStore(state => state.categoryDialog)
-    const test = () => {
-        useCategoryStore.setState({categoryDialog: false})
-        console.log(categoryDialog)
-        console.log(selectedContent,  addCategoryList)
-    }
+
     return (
         <div className={"category_dialog__layout"}>
             <NavLayout
                 rightIconArr={['close']}
                 centerText='카테고리 추가 선택'
-                clickClose={test}
+                clickClose={closeDialog}
             />
 
             <div className='category_dialog__layout__menu w100'>
