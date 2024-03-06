@@ -80,6 +80,14 @@ const EventType = ({clickAddEvent}: EventTypeProps) => {
     return (
         <div className={'event_type__layout'}> 
             <section>
+                <div className={'mb_12'}>
+                    <DefaultSelect
+                        imageUrl={'/add_event_plus.svg'}
+                        type={'select_gray_border'}
+                        clickSelectText={onClickAddEvent}
+                        title={'이벤트 추가'}
+                    />
+                </div>
                 {
                     eventList.map((item: EventListState) => (
                         <div key={item.id} className={'event_type__layout__button_wrapper mb_12'}>
@@ -94,14 +102,6 @@ const EventType = ({clickAddEvent}: EventTypeProps) => {
                         </div>
                     ))
                 }
-                <div>
-                    <DefaultSelect
-                        imageUrl={'/add_event_plus.svg'}
-                        type={'select_gray_border'}
-                        clickSelectText={onClickAddEvent}
-                        title={'이벤트 추가'}
-                    />
-                </div>
             </section>
             <div></div>
             <section className={'pb_50'}>
