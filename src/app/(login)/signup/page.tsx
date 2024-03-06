@@ -16,7 +16,7 @@ const SignupPage = () => {
     const onClickBackImage = () => {
         if (stage === 0 ) {
             // 로그인 방법 선택하는곳으로 리다이렉트
-            router.push('/')
+            router.replace('/')
         }
         return setStage(prevStage => prevStage - 1)
     }
@@ -367,7 +367,7 @@ const SignupPage = () => {
 
                 const valid =  await PutUserData(putUserData)
 
-                await router.push('/test')
+                await router.replace('/test')
 
             } catch (err) {
                 console.log(err)
