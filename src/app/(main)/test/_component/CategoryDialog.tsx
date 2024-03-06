@@ -97,6 +97,9 @@ const CategoryDialog = ({closeDialog}: CategoryDialogProps) => {
 
     const clickSelectContent = (item: EventListState | UserJobProps | UserChoiceProps | DialogCategoryChildrenProps) => {
 
+        console.log(item)
+
+
         if (isDialogCategoryProps(item)) {
             useCategoryStore.setState((prevState) => {
                 let updatedSelectCategory = [...prevState.selectCategory]; // 이전 상태를 복사하여 수정할 배열을 생성합니다.

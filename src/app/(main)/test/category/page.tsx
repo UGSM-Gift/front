@@ -3,7 +3,7 @@ import './category.scss'
 import Image from "next/image";
 import {getCategoryList, postAddCategoryList} from "@/app/api/UGTest";
 import {useEffect, useState} from "react";
-import {useCategoryStore, usePostTestResultDataStore} from "@/app/zustand/testStore";
+import {useAddCategoryList, useCategoryStore, usePostTestResultDataStore} from "@/app/zustand/testStore";
 import CategoryDialog from "@/app/(main)/test/_component/CategoryDialog";
 import TestPageHeader from "@/app/(main)/test/_component/TestPageHeader";
 import DefaultButton from "@/app/_component/DefaultButton";
@@ -17,6 +17,11 @@ const UserCategory = () => {
     const selectCategory = useCategoryStore(state => state.selectCategory)
 
     const router = useRouter()
+
+
+    const addCategoryList = useAddCategoryList(state => state.addCategory)
+
+
 
 
     const postAddCategory = async () => {
@@ -34,6 +39,7 @@ const UserCategory = () => {
 
 
     const clickFooterButton = async (value: string) => {
+        console.log(addCategoryList)
         // 모달창 올라와있을때
         if (categoryDialog) {
             setCategoryDialog(false)
@@ -57,37 +63,46 @@ const UserCategory = () => {
         {
             id: 1,
             name: '',
+            imageUrl: '/gift_list_main_image.svg'
         },
         {
             id: 2,
             name: '',
+            imageUrl: '/gift_list_main_image.svg'
         },
         {
             id: 3,
             name: '',
+            imageUrl: '/gift_list_main_image.svg'
         }, {
             id: 4,
             name: '',
+            imageUrl: '/gift_list_main_image.svg'
         },
         {
             id: 5,
             name: '',
+            imageUrl: '/gift_list_main_image.svg'
         },
         {
             id: 6,
             name: '',
+            imageUrl: '/gift_list_main_image.svg'
         },
         {
             id: 7,
             name: '',
+            imageUrl: '/gift_list_main_image.svg'
         },
         {
             id: 8,
             name: '',
+            imageUrl: '/gift_list_main_image.svg'
         },
         {
             id: 9,
             name: '',
+            imageUrl: '/gift_list_main_image.svg'
         },
     ])
 
@@ -113,6 +128,7 @@ const UserCategory = () => {
     interface CategoryItem {
         id: number
         name: string
+        imageUrl: string
     }
 
 
@@ -120,6 +136,7 @@ const UserCategory = () => {
 
     const clickCategory = (item: CategoryItem) => {
 
+        console.log(item, ' check item list ')
 
         useCategoryStore.setState((prevState) => {
             let updatedSelectCategory = [...prevState.selectCategory];
@@ -160,26 +177,19 @@ const UserCategory = () => {
     const clickAllCategory = () => {
         console.log(selectedCategory, ' finish')
         console.log(categoryArr)
-
-
     }
 
 
     const clickAddCategory = () => {
         setCategoryDialog(true)
-
     }
 
     const renderFooterButton = () => {
         if (categoryDialog) {
             return <div className={'test_page__footer__inner__button'}>
-                <div className={'test_page__footer__inner__button_box'}>
-                    <DefaultButton label={'이전'} type={'medium_primary_border'}
-                                   buttonClick={() => clickFooterButton('이전')}/>
-                </div>
-                <div className={'test_page__footer__inner__button_box'}>
-                    <DefaultButton label={'다음'} type={'medium_primary'}
-                                   buttonClick={() => clickFooterButton('다음')}/>
+                <div className={'add_list_page__full__button'}>
+                    <DefaultButton label={`${addCategoryList.length}개 추가`} type={'large_primary'}
+                                   buttonClick={() => clickFooterButton('추가')}/>
                 </div>
             </div>
         } else {
@@ -189,8 +199,8 @@ const UserCategory = () => {
                                    buttonClick={() => clickFooterButton('이전')}/>
                 </div>
                 <div className={'test_page__footer__inner__button_box'}>
-                    <DefaultButton label={'다음'} type={'medium_primary'}
-                                   buttonClick={() => clickFooterButton('다음')}/>
+                    <DefaultButton label={`${selectedCategory.length}개 확인`} type={'medium_primary'}
+                                   buttonClick={() => clickFooterButton('확인')}/>
                 </div>
             </div>
         }
@@ -198,11 +208,20 @@ const UserCategory = () => {
 
 
     const onClickCloseDialog = () => {
-
+        setCategoryDialog(false)
     }
 
+    function text() {
+
+    }
+    const testing = () => {
+        console.log(addCategoryList)
+    }
     return (
         <div>
+            <div onClick={testing}>
+                testing
+            </div>
             <TestPageHeader
                 navText={'은근테스트'}
                 title={'username 님에게 맞는'}
@@ -228,7 +247,10 @@ const UserCategory = () => {
                             >
                                 <div
                                     className={selectedCategory.includes(item.id) ? 'user_category__layout__content__image image_border' : 'user_category__layout__content__image'}>
-                                    <Image src={'/gift_list_main_image.svg'} alt={'x'} width={150} height={110}/>
+                                    <Image src={item.imageUrl === null ? '/gift_list_main_image.svg' : item.imageUrl}
+                                           alt={'x'}
+                                           width={106}
+                                           height={106}/>
                                 </div>
                                 {
                                     selectedCategory.includes(item.id) &&
