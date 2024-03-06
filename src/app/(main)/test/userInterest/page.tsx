@@ -8,6 +8,7 @@ import {useTestStore} from "@/app/zustand/testStore";
 import './userInterest.scss'
 import {useRouter} from "next/navigation";
 import {UserHobbyProps} from "@/app/type";
+import TestPageFooterButton from "@/app/(main)/test/_component/TestPageFooterButton";
 
 const UserInterest = () => {
 
@@ -131,6 +132,17 @@ const UserInterest = () => {
 
     }, [])
 
+
+    const [buttonActive, setButtonActive] = useState(false)
+
+    useEffect(() => {
+        if (selected.length === 0) {
+            setButtonActive(false)
+        } else {
+            setButtonActive(true)
+        }
+    }, [selected])
+
     return (
         <div>
             <TestPageHeader
@@ -159,18 +171,12 @@ const UserInterest = () => {
             </section>
 
 
-            <section className={'test_page__footer'}>
-                <div className={'test_page__footer__inner__button'}>
-                    <div className={'test_page__footer__inner__button_box'}>
-                        <DefaultButton label={'이전'} type={'medium_primary_border'}
-                                       buttonClick={() => clickFooterButton('이전')}/>
-                    </div>
-                    <div className={'test_page__footer__inner__button_box'}>
-                        <DefaultButton label={'다음'} type={'medium_primary'}
-                                       buttonClick={() => clickFooterButton('다음')}/>
-                    </div>
-                </div>
-            </section>
+            <TestPageFooterButton
+                clickFooterButton={clickFooterButton}
+                leftButtonTitle={'이전'}
+                rightButtonTitle={'다음'}
+                state={buttonActive}
+            />
         </div>
     )
 }

@@ -75,7 +75,6 @@ const UserHobby = () => {
 
     const userHobby = useTestStore(state => state.userHobby); // 상태 구독
 
-    const [buttonActive, setButtonActive] = useState(false)
 
     const getUserHobby = async () => {
         try {
@@ -99,7 +98,6 @@ const UserHobby = () => {
     }
 
     const onClickAddEvent = (item: UserHobbyProps) => {
-        setButtonActive(true)
 
         if (selected.includes(item.id)) {
             const delArr: number[] = []
@@ -139,13 +137,18 @@ const UserHobby = () => {
             });
         }
 
-        if (!selected) {
-            setButtonActive(false)
-        }
-
     }
 
 
+    const [buttonActive, setButtonActive] = useState(false)
+
+    useEffect(() => {
+        if (selected.length === 0) {
+            setButtonActive(false)
+        } else {
+            setButtonActive(true)
+        }
+    }, [selected])
 
 
     useEffect(() => {

@@ -89,7 +89,7 @@ const EventType = ({clickAddEvent}: EventTypeProps) => {
                                 imageUrl={selectEvent === item.id ? '/circle_input_icon_true.svg' : '/circle_input_icon_false.svg'}
                                 type={selectEvent === item.id ? 'select_primary' : 'select_gray_border'}
                                 clickSelect={clickSelect}
-                                title={`${item.name.slice(0, 10)} ${item.date}`}
+                                title={`${item.name.slice(0, 10)} ${item.date.slice(1,3)}`}
                             />
                         </div>
                     ))

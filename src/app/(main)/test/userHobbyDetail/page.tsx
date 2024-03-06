@@ -4,7 +4,6 @@ import DefaultButton from "@/app/_component/DefaultButton";
 import DefaultSelect from "@/app/_component/DefaultSelect";
 import {getQuestionList} from "@/app/api/UGTest";
 import {usePostTestResultDataStore, useTestStore} from "@/app/zustand/testStore";
-import {number} from "prop-types";
 import {useEffect, useState} from "react";
 import TestPageHeader from "@/app/(main)/test/_component/TestPageHeader";
 import {useRouter} from "next/navigation";
@@ -147,8 +146,6 @@ const UserHobbyDetail = () => {
     })
 
 
-
-
     const clickSelect = (item: IdCollectorProps) => {
         console.log(item, '부모임', item.question, testResultData)
 
@@ -208,8 +205,26 @@ const UserHobbyDetail = () => {
     }, [])
 
 
+    const [questionLength, setQuestionLength] = useState(0)
+
+    const testing = () => {
+
+        let leng = 0
+        hobbyDetailArr.forEach((ele)=> {
+            leng += ele.questions.length
+        })
+
+        setQuestionLength(leng)
+        console.log(questionLength, ' question length')
+    }
+
+    useEffect(()=> {
+
+    }, [questionLength])
+
     return (
         <div>
+            <div onClick={testing}>testing</div>
             <TestPageHeader
                 navText={'은근테스트'}
                 title={'선택하신 취미/관심사에 관한'}
@@ -219,7 +234,7 @@ const UserHobbyDetail = () => {
             />
 
             <section className={'p_14 user_hobby__layout'}>
-                <div className={'user_hobby_detail__layout mt_8 pb_50'}>
+                <div className={'user_hobby_detail__layout pl_16 mt_8 pb_50'}>
                     {
                         hobbyDetailArr.map((item)=> (
                             <div key={item.category.id}>
