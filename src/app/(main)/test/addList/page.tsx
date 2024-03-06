@@ -181,7 +181,7 @@ const AddList = () => {
             />
 
 
-            <section className={'p_14 pb_50'}>
+            <section className={'p_14'}>
                 <EventType clickAddEvent={clickAddEvent}/>
             </section>
 
