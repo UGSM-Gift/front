@@ -238,13 +238,12 @@
 
 .test_page__layout__dim {
   width: 200%;
-  height: 100dvh;
+  height: 100%;
   background-color: black;
   opacity: 50%;
   transform: translateX(-50%);
-  position: absolute;
+  position: fixed;
   top: 0;
-
 }
 
 .test_page__layout__dim__image {
