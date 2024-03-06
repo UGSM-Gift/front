@@ -29,6 +29,7 @@ const UserHobbyDetail = () => {
     const userJob = useTestStore(state => state.userJob); // 상태 구독
     const eventType = useTestStore(state => state.eventType); // 상태 구독
 
+    const [questionLength, setQuestionLength] = useState(0)
 
     const getHobbyDetail = async () => {
 
@@ -45,7 +46,13 @@ const UserHobbyDetail = () => {
             // id list 를 보내면 리스트에 맞는 관심사 답변을 제공함
             const list = await getQuestionList(idList.join(','))
 
-            setHobbyDetailArr(list.data)
+            await setHobbyDetailArr(list.data)
+
+            let leng = 0
+            hobbyDetailArr.forEach((ele)=> {
+                leng += ele.questions.length
+            })
+            await setQuestionLength(leng)
         } catch (err) {
             console.log('fail get question list')
         }
@@ -200,23 +207,21 @@ const UserHobbyDetail = () => {
 
 
 
-    useEffect(()=> {
-        getHobbyDetail()
-    }, [])
 
 
-    const [questionLength, setQuestionLength] = useState(0)
 
     const testing = () => {
 
-        let leng = 0
-        hobbyDetailArr.forEach((ele)=> {
-            leng += ele.questions.length
-        })
-
-        setQuestionLength(leng)
         console.log(questionLength, ' question length')
     }
+
+
+
+    useEffect(()=> {
+        getHobbyDetail()
+
+    }, [])
+
 
     useEffect(()=> {
 
