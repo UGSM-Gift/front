@@ -46,3 +46,4 @@ export interface TestResultData {
     answeredCategories: AnsweredCategories[]
     questionsWithAnswers: QuestionsWithAnswers[]
 }
+

@@ -7,9 +7,27 @@ import {usePostTestResultDataStore, useTestStore} from "@/app/zustand/testStore"
 import {useEffect, useState} from "react";
 import TestPageHeader from "@/app/(main)/test/_component/TestPageHeader";
 import {useRouter} from "next/navigation";
-import {IdCollectorProps, TestResultData} from "@/app/type";
+import {IdCollectorProps, TestResultData, UserHobbyProps} from "@/app/type";
+import TestPageFooterButton from "@/app/(main)/test/_component/TestPageFooterButton";
 
 
+interface ChoicesProps {
+    id: number
+    content: string
+}
+
+
+interface QuestionProps {
+    choices: ChoicesProps[]
+    content: string
+    hasMultipleChoices: boolean
+    id: number
+}
+
+interface HobbyDetailProps {
+    category: UserHobbyProps[]
+    questions: QuestionProps[]
+}
 const UserHobbyDetail = () => {
 
 
@@ -49,9 +67,12 @@ const UserHobbyDetail = () => {
             await setHobbyDetailArr(list.data)
 
             let leng = 0
-            hobbyDetailArr.forEach((ele)=> {
+
+            list.data.forEach((ele: HobbyDetailProps)=> {
+                console.log(ele)
                 leng += ele.questions.length
             })
+
             await setQuestionLength(leng)
         } catch (err) {
             console.log('fail get question list')
@@ -208,28 +229,25 @@ const UserHobbyDetail = () => {
 
 
 
-
-
-    const testing = () => {
-
-        console.log(questionLength, ' question length')
-    }
+    const [buttonActive, setButtonActive] = useState(false)
 
 
 
     useEffect(()=> {
         getHobbyDetail()
-
     }, [])
 
 
     useEffect(()=> {
-
-    }, [questionLength])
+        if (questionLength === testResultData.questionsWithAnswers.length) {
+            setButtonActive(true)
+        } else {
+            setButtonActive(false)
+        }
+    }, [questionLength, testResultData])
 
     return (
         <div>
-            <div onClick={testing}>testing</div>
             <TestPageHeader
                 navText={'은근테스트'}
                 title={'선택하신 취미/관심사에 관한'}
@@ -238,8 +256,8 @@ const UserHobbyDetail = () => {
                 progressWidth={'180px'}
             />
 
-            <section className={'p_14 user_hobby__layout'}>
-                <div className={'user_hobby_detail__layout pl_16 mt_8 pb_50'}>
+            <section className={' user_hobby__layout'}>
+                <div className={'user_hobby_detail__layout p_16 mt_8 pb_50'}>
                     {
                         hobbyDetailArr.map((item)=> (
                             <div key={item.category.id}>
@@ -278,18 +296,12 @@ const UserHobbyDetail = () => {
             </section>
 
 
-            <section className={'test_page__footer'}>
-                <div className={'test_page__footer__inner__button'}>
-                    <div className={'test_page__footer__inner__button_box'}>
-                        <DefaultButton label={'이전'} type={'medium_primary_border'}
-                                       buttonClick={() => clickFooterButton('이전')}/>
-                    </div>
-                    <div className={'test_page__footer__inner__button_box'}>
-                        <DefaultButton label={'다음'} type={'medium_primary'}
-                                       buttonClick={() => clickFooterButton('다음')}/>
-                    </div>
-                </div>
-            </section>
+            <TestPageFooterButton
+                clickFooterButton={clickFooterButton}
+                leftButtonTitle={'이전'}
+                rightButtonTitle={'다음'}
+                state={buttonActive}
+            />
         </div>
     )
 }

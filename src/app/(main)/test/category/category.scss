@@ -237,10 +237,11 @@
 
 
 .test_page__layout__dim {
-  width: 375px;
+  width: 200%;
   height: 100%;
   background-color: black;
   opacity: 50%;
+  transform: translateX(-50%);
   position: absolute;
   top: 0;
 
@@ -250,6 +251,7 @@
   position: fixed;
   top: 40%;
   left: calc(50% - 3vw);
+  transform: translateX(-50%);
   opacity: 100%;
 }
 

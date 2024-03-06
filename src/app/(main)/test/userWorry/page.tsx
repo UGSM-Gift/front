@@ -35,6 +35,7 @@ const UserWorry = () => {
     }
 
 
+    const userWorry = useTestStore(state => state.userWorry); // 상태 구독
 
 
     const [selected, setSelected] = useState<number[]>([])
@@ -51,6 +52,12 @@ const UserWorry = () => {
         try {
             const list = await getWorryList()
             await setWorryArr(list.data)
+
+            userWorry.forEach((ele)=> {
+                setSelected((prev)=> {
+                    return [...prev, ele.id]
+                })
+            })
         } catch (err) {
             console.log('fail get worry list ')
         }

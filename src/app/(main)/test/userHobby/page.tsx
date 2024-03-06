@@ -1,6 +1,5 @@
 'use client'
 import TestPageHeader from "@/app/(main)/test/_component/TestPageHeader";
-import DefaultButton from "@/app/_component/DefaultButton";
 import {useRouter} from "next/navigation";
 import './userHobby.scss'
 import {useEffect, useState} from "react";
