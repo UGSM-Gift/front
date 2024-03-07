@@ -6,6 +6,7 @@ import DefaultButton from "@/app/_component/DefaultButton";
 import {useRouter} from "next/navigation";
 import {checkNicknameDuplication} from "@/app/api/account";
 import {PutUserData} from "@/app/api/userData";
+import {getRandomNickname} from "@/app/api/sign";
 
 const SignupPage = () => {
 
@@ -26,7 +27,14 @@ const SignupPage = () => {
     }
 
 
-
+    const randomNickName = async () => {
+        try {
+            const nickname = await getRandomNickname()
+            setUserNickName(nickname.data)
+        } catch (err) {
+            console.log('fail get random nickname ')
+        }
+    }
 
 
     const renderComponentStage = () => {
@@ -240,6 +248,8 @@ const SignupPage = () => {
         const saveUserPhoneNumber = localStorage.getItem('userPhoneNumber') ?? ''
 
 
+        randomNickName()
+
         setUserName(saveUserName);
         setUserNickName(saveUserNickName);
         setBirthDay(saveUserBirthDay);
@@ -281,23 +291,21 @@ const SignupPage = () => {
     const inputUserNickName = async (value:string) => {
         setUserNickName(value)
         try {
-            const valid = await checkNicknameDuplication(value)
-            console.log(valid)
+
         } catch (err) {
             console.log(err)
         }
     }
 
-    const onClickSetNickName = () => {
-        // 이름이 너무 짧은경우
-        if (userNickName.length < 2) {
-            console.log('& 유요하지않은 경우, 추가')
-        } else {
+    const onClickSetNickName = async () => {
+        const valid = await checkNicknameDuplication(userNickName)
+
+        if (valid) {
             localStorage.setItem('userNickName', userNickName)
             onClickNextStage()
-            console.log('유효한지 체크 , 다음으로 넘기기 ', userNickName)
+        } else {
+            console.log('닉네임이 유효하지 않습니다.')
         }
-
     }
 
     const onClickSetNickNameImage = () => {

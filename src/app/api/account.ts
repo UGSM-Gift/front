@@ -26,8 +26,9 @@ export const phoneAuthPut = async (phoneAuthNumber: string, phone: string, setTi
 // 닉네임 중복검사
 export const checkNicknameDuplication = async (nickname: string) => {
   try {
-    const response = await instance.get(`${process.env.API_URL}/api/user/check-nickname/${nickname}`);
-    return response.data.data.valid;
+    const res = await instance.get(`/api/user/check-nickname/${nickname}`);
+    console.log(res, nickname,' ajdla ;;; ')
+    return res.data.data.valid
   } catch (error) {
     console.error('Nickname duplication check failed:', error);
   }
