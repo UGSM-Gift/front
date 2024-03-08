@@ -225,7 +225,6 @@ const UserCategory = () => {
     return (
         <div>
             <div onClick={testing}>
-                testing
             </div>
             <TestPageHeader
                 navText={'은근테스트'}
