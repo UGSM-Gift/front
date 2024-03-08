@@ -4,9 +4,10 @@ import {useEffect, useState} from "react";
 import DefaultInput from "@/app/_component/DefaultInput";
 import DefaultButton from "@/app/_component/DefaultButton";
 import {useRouter} from "next/navigation";
-import {checkNicknameDuplication} from "@/app/api/account";
+import {checkNicknameDuplication, getRandomNickname, postPhoneAuth, putPhoneAuth} from "@/app/api/account";
 import {PutUserData} from "@/app/api/userData";
-import {getRandomNickname} from "@/app/api/sign";
+import {atob} from "buffer";
+import './signupPage.scss'
 
 const SignupPage = () => {
 
@@ -15,7 +16,7 @@ const SignupPage = () => {
 
 
     const onClickBackImage = () => {
-        if (stage === 0 ) {
+        if (stage === 0) {
             // 로그인 방법 선택하는곳으로 리다이렉트
             router.replace('/')
         }
@@ -52,7 +53,7 @@ const SignupPage = () => {
                                 value={userName}
                             />
                         </section>
-                        <section className={'signup__layout__button'}>
+                        <section className={'signup__layout__button signup__layout__button__box'}>
                             {
                                 userName.length >= 2 ?
                                     <DefaultButton label={'다음'} type={'large_primary'}
@@ -81,7 +82,7 @@ const SignupPage = () => {
                             <p className={'bold__caption__font gray__color__60 signup__layout__nickname_label'}>
                                 * 2~16자의 한글, 영문으로만 사용해주세요</p>
                         </section>
-                        <section className={'signup__layout__button'}>
+                        <section className={'signup__layout__button signup__layout__button__box'}>
                             {
                                 userNickName.length >= 2 ?
                                     <DefaultButton label={'다음'} type={'large_primary'}
@@ -112,8 +113,8 @@ const SignupPage = () => {
                             <p className={'bold__caption__font gray__color__60 signup__layout__nickname_label'}>
                                 생년월일 6자리 숫자만 입력해주세요</p>
                             <h6 className={'mt_28 mb_10'}>성별</h6>
-                            <article className={'row w100'}>
-                                <div className={'w100'}>
+                            <article className={'row w100 '}>
+                                <div className={'w100 '}>
                                     {
                                         userGender === '1' ?
                                             <DefaultButton label={'남'} type={'sub_large_primary'}
@@ -139,7 +140,7 @@ const SignupPage = () => {
                                 </div>
                             </article>
                         </section>
-                        <section className={'signup__layout__button'}>
+                        <section className={'signup__layout__button signup__layout__button__box'}>
                             {
                                 birthDay.length === 8 && userGender !== '0' ?
                                     <DefaultButton label={'다음'} type={'large_primary'}
@@ -167,7 +168,7 @@ const SignupPage = () => {
                                 value={userPhoneNumber}
                             />
                         </section>
-                        <section className={'signup__layout__button'}>
+                        <section className={'signup__layout__button signup__layout__button__box'}>
                             {
                                 userNickName.length >= 2 ?
                                     <DefaultButton label={'다음'} type={'large_primary'}
@@ -195,24 +196,25 @@ const SignupPage = () => {
                             />
                             {
                                 authNumber.length !== 6 ?
-                                <div className={'mt_6'}>
-                                    <p className={'error__color bold__caption__font'}>
-                                        * 인증번호가 다릅니다. 다시 입력해주세요
-                                    </p>
-                                </div> : ''
+                                    <div className={'mt_6'}>
+                                        <p className={'error__color bold__caption__font'}>
+                                            * 인증번호가 다릅니다. 다시 입력해주세요
+                                        </p>
+                                    </div> : ''
                             }
 
                             <div className={'row  mt_16 flex-center'}>
                                 <p className={'button__font gray__color__70 mr_12'}>인증 문자가 오지 않나요?</p>
                                 <p className={'button__font gray__color__50 auth_text'}
+                                   onClick={phoneAuth}
                                 >재전송</p>
                             </div>
                         </section>
-                        <section className={'signup__layout__button'}>
+                        <section className={'signup__layout__button signup__layout__button__box'}>
                             <div className={'w100 row'}>
                                 <div className={'w100'}>
                                     <DefaultButton label={'번호 재입력'} type={'medium_primary_border'}
-                                                   buttonClick={onClickSetAuthNumber}
+                                                   buttonClick={onClickBackImage}
                                     />
                                 </div>
                                 <div className={'w100'}>
@@ -237,9 +239,6 @@ const SignupPage = () => {
     }
 
 
-
-
-
     useEffect(() => {
         const saveUserName = localStorage.getItem('userName') ?? ''
         const saveUserNickName = localStorage.getItem('userNickName') ?? ''
@@ -256,15 +255,13 @@ const SignupPage = () => {
         setUserGender(saveUserGender);
         setUserPhoneNumber(saveUserPhoneNumber);
 
-        }, []);
-
-
+    }, []);
 
 
     // stage 0 logic
     const [userName, setUserName] = useState('')
 
-    const inputUserName = (value:string) => {
+    const inputUserName = (value: string) => {
         setUserName(value)
     }
 
@@ -288,7 +285,7 @@ const SignupPage = () => {
     // stage 1 logic
 
     const [userNickName, setUserNickName] = useState('')
-    const inputUserNickName = async (value:string) => {
+    const inputUserNickName = async (value: string) => {
         setUserNickName(value)
         try {
 
@@ -318,7 +315,7 @@ const SignupPage = () => {
     // 유저 성별 0 선택되지않음 , 1 남자 , 2 여자
     const [userGender, setUserGender] = useState('')
 
-    const inputUserBirthDay = (value:string) => {
+    const inputUserBirthDay = (value: string) => {
 
         let input = value.replace(/\D/g, ""); // 숫자 이외의 문자 제거
         input = input.slice(0, 6); // 생년월일은 6자리로 제한
@@ -393,7 +390,7 @@ const SignupPage = () => {
     // stage 3 logic
     const [userPhoneNumber, setUserPhoneNumber] = useState('')
 
-    const inputUserPhoneNumber = (value:string) => {
+    const inputUserPhoneNumber = (value: string) => {
         let input = value.replace(/\D/g, ""); // 숫자 이외의 문자 제거
         input = input.slice(0, 11); // 핸드폰 번호는 11자리로 제한
         let formatted = "";
@@ -411,14 +408,26 @@ const SignupPage = () => {
         setUserPhoneNumber(formatted);
     }
 
-    const onClickSetPhoneNumber = () => {
-        //
+
+    const phoneAuth = async () => {
+        const numbersOnly = userPhoneNumber.replace(/\D/g, '')
+        try {
+            await postPhoneAuth({phoneNumber: numbersOnly})
+
+        } catch (err) {
+            console.log('fail get phone auth')
+        }
+    }
+
+    // 유저의 핸드폰 번호
+    const onClickSetPhoneNumber = async () => {
+
         if (userPhoneNumber.length === 13) {
+            await phoneAuth()
             localStorage.setItem('userPhoneNumber', userPhoneNumber)
-            onClickNextStage()
-            console.log('유효한지 체크 , 다음으로 넘기기 ', userPhoneNumber)
+            await onClickNextStage()
         } else {
-            console.log('& 유요하지않은 경우, 추가', userPhoneNumber)
+            console.log('& 유요하지않은 경우', userPhoneNumber)
         }
     }
 
@@ -430,14 +439,27 @@ const SignupPage = () => {
 
     const [authNumber, setAuthNumber] = useState('')
 
-    const inputUserAuthNumber = (value:string) => {
+    const inputUserAuthNumber = (value: string) => {
         setAuthNumber(value)
     }
 
-    const onClickSetAuthNumber = () => {
+
+    const onClickSetAuthNumber = async () => {
         // 인증 성공 로직
+        const numbersOnly = userPhoneNumber.replace(/\D/g, '')
+
         if (authNumber.length === 6) {
-            router.replace('/main')
+
+            console.log(numbersOnly)
+            try {
+                const putAuth = await putPhoneAuth(authNumber, {receiverPhoneNumber: numbersOnly})
+                console.log(putAuth)
+            } catch (err) {
+                console.log('fail', err)
+            }
+
+
+            // router.replace('/main')
             console.log('유효한지 체크 , 다음으로 넘기기 ', authNumber)
         } else {
             console.log('& 유요하지않은 경우, 추가')

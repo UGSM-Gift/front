@@ -5,6 +5,7 @@ import './login.scss'
 import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 
+
 const Login = () => {
 
 
@@ -37,8 +38,20 @@ const Login = () => {
         changeLoginHistoryLabel()
     },[])
 
-    const onClickLoginKaKao = () => {
-        router.replace('/signup')
+    const onClickLogin = (value: string) => {
+        // router.push(`https://www.ugsm.co.kr/api/login/oauth2/authorization/${value}`)
+        router.push('/signup')
+
+        // switch (value) {
+        //     case 'kakao':
+        //         break;
+        //     case 'naver':
+        //         break;
+        //     case 'google':
+        //         break;
+        //
+        // }
+        // router.replace('/signup')
     }
 
 
@@ -73,7 +86,7 @@ const Login = () => {
                         type={'kakao_login'}
                         image={'/kakao_icon.svg'}
                         override={{background: '#FEE500', color: '#000'}}
-                        buttonClick={onClickLoginKaKao}
+                        buttonClick={() => onClickLogin('kakao')}
                     />
                 </div>
                 <div className={'mb_16'}>
@@ -82,7 +95,7 @@ const Login = () => {
                         type={'naver_login'}
                         image={'/naver_icon.svg'}
                         override={{background: '#03C75A', color: '#fff'}}
-                        buttonClick={onClickLoginKaKao}
+                        buttonClick={() => onClickLogin('naver')}
                     />
                 </div>
                 <div>
@@ -90,7 +103,7 @@ const Login = () => {
                         label={'구글로 시작'}
                         type={'google_login'}
                         image={'/google_icon.svg'}
-                        buttonClick={onClickLoginKaKao}
+                        buttonClick={() => onClickLogin('google')}
                     />
                 </div>
             </section>

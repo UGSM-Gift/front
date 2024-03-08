@@ -31,6 +31,7 @@ const CategoryDialog = ({closeDialog}: CategoryDialogProps) => {
             console.log(list, 'check dialog list data ')
             setCategoryTitle(list.data)
         } catch (err) {
+            await addCategory()
             console.log(err)
         }
     }

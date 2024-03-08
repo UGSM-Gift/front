@@ -1,12 +1,13 @@
-import {Inter} from 'next/font/google'
-import DefaultButton from "@/app/_component/DefaultButton";
-import DefaultInput from "@/app/_component/DefaultInput";
+import {Inter} from 'next/font/google';
 import Login from "@/app/(login)/login/page";
 
 const inter = Inter({subsets: ['latin']})
 
-export default function LoginHome() {
-    return (
-            <Login/>
-    )
-}
+const LoginHome = () => {
+
+
+
+    return <Login/>;
+};
+
+export default LoginHome;

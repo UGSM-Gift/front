@@ -111,6 +111,11 @@ const UserCategory = () => {
 
     const getCategory = async () => {
         console.log('tsx dptj 실행하는거 ')
+
+        if (categoryId === 0) {
+            router.replace('/test')
+        }
+
         try {
             const list = await getCategoryList(categoryId)
             await setCategoryArr(list.data)

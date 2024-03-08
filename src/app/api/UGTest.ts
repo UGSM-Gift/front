@@ -1,6 +1,7 @@
 import instance, {headers} from './axios';
 import {number} from "prop-types";
 import {useCategoryStore} from "@/app/zustand/testStore";
+import {useRouter} from "next/navigation";
 
 
 export const getJobList = async () => {
@@ -78,7 +79,7 @@ interface TestResultData {
 export const postTestResult = async (postData: TestResultData) => {
     try {
         const response = await instance.post(`/api/survey`, postData, {headers});
-        console.log(response.data, ' post 할때 나오는 res. data ')
+        console.log(response.data, ' post 할때 나오는 res. data survey category id ')
         useCategoryStore.setState({categoryId: response.data.data})
 
         return response.data;
@@ -90,10 +91,14 @@ export const postTestResult = async (postData: TestResultData) => {
 
 export const getCategoryList = async (id:number) => {
     try {
+
         const res = await instance.get(`/api/survey/${id}/product-category/recommended`);
         console.log(res.data)
         return res.data
     } catch (err) {
+        setTimeout(()=> {
+            getCategoryList(id)
+        }, 30000)
         console.log('dlrjsms?')
         console.error('err', err)
     }
