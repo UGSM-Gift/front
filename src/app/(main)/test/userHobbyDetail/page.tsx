@@ -235,7 +235,7 @@ const UserHobbyDetail = () => {
 
     useEffect(()=> {
         getHobbyDetail()
-    }, [])
+    })
 
 
     useEffect(()=> {

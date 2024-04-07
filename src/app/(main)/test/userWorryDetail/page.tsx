@@ -56,8 +56,8 @@ const UserWorryDetail = () => {
         ]
     })
 
-    const inputWorryText = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setWorryText(event.target.value)
+    const inputWorryText = (value: string) => {
+        setWorryText(value)
     }
 
 
@@ -155,7 +155,7 @@ const UserWorryDetail = () => {
 
     useEffect(() => {
         getHobbyDetail()
-    }, [])
+    })
 
 
     interface AnsweredCategories {
@@ -316,7 +316,7 @@ const UserWorryDetail = () => {
                                                     <div className={'mb_130'}>
                                                         <DefaultInput
                                                             style={'default'}
-                                                            onChangeTextAreaEvent={(event) => inputWorryText(event )}
+                                                            onChangeTextAreaEvent={(value) => inputWorryText(value)}
                                                             text_area={true}
                                                             placeholder={'고민 작성'}
                                                             max_length={36}

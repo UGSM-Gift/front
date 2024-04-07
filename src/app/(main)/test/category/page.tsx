@@ -127,7 +127,7 @@ const UserCategory = () => {
 
     useEffect(() => {
         getCategory()
-    }, [])
+    })
 
 
     interface CategoryItem {

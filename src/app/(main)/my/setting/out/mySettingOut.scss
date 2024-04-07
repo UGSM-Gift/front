@@ -1,3 +1,29 @@
+
+
+/* slideUp 애니메이션 정의 */
+@keyframes slideUp {
+  from {
+    bottom: -30%; /* 시작 지점: 화면 아래 */
+    opacity: 1; /* 시작 시 투명도를 0으로 설정하여 사라진 상태에서 시작 */
+  }
+  to {
+    bottom: 0; /* 종료 지점: 화면 상단에 나타남 */
+    opacity: 1; /* 종료 시 투명도를 1로 설정하여 완전히 나타나게 함 */
+  }
+}
+
+/* slideDown 애니메이션 정의 */
+@keyframes slideDown {
+  from {
+    bottom: 87px; /* 시작 지점: 화면 상단에 있음 */
+    opacity: 1; /* 시작 시 투명도를 1로 설정하여 완전히 나타난 상태에서 시작 */
+  }
+  to {
+    bottom: -30%; /* 시작 지점: 화면 아래 */
+    opacity: 1; /* 시작 시 투명도를 0으로 설정하여 사라진 상태에서 시작 */
+  }
+}
+
 .my_setting_out__layout {
   padding: 14px;
 }
@@ -11,4 +37,35 @@
   padding: 16px 16px 10px;
   background-color: #fff;
   box-shadow: 0px -8px 12px 0px #0000000A;
+
 }
+
+.my_setting_out__dialog {
+  position: fixed;
+  bottom: 87px;
+  transform: translateX(-14px);
+  display: none;
+}
+
+
+.my_setting_out__dialog_up {
+  position: fixed;
+  bottom: 0;
+  transform: translateX(-14px);
+
+  animation: slideUp 0.5s ease forwards;
+  z-index: 2;
+}
+
+
+
+.my_setting_out__dialog_down {
+  position: fixed;
+  bottom: 87px;
+  height: 0;
+  transform: translateX(-14px);
+  animation: slideDown 1s ease forwards;
+  z-index: 2;
+
+}
+

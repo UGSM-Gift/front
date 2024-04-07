@@ -145,7 +145,7 @@ const UserWorry = () => {
 
     useEffect(()=> {
         getWorryArr()
-    }, [])
+    })
 
 
 

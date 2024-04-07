@@ -1,0 +1,62 @@
+// @import "../variables.scss";
+// color 지정 정말 어렵군요 시도했다가 대.실.패 ㅎ!
+
+@mixin text-style {
+    color : #697074;
+}
+
+// base
+.modal__base{
+    width: 343px;
+    height: fit-content;
+    background-color: white;
+    border: 1px solid red;
+    border-radius: 12px;
+    padding-top: 40px;
+    box-sizing: border-box;
+}
+
+
+// title, contents
+.modal__title, .modal__contents{
+    width: 311px;
+    text-align: center;
+    margin: 0 16px;
+}
+.modal__contents{
+    // height: fit-content;
+    margin-top: 16px;
+    margin-bottom: 32px;
+}
+
+
+// divider
+.modal__layout__divider {
+    background-color: #F2F4F5;
+    width: 100%;
+    height: 1px;
+  }
+
+// button
+.modal__button_default{
+    width: 100%;
+    height: fit-content;
+}
+.modal__button_primary, .modal__button_half{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+.modal__button_primary{
+    width: 343px;
+    height: 60px;
+}
+.modal__button_half{
+    width: 50%;
+    height: 100%;
+}
+.modal__button_half:first-child{
+    @include text-style;
+}

@@ -26,7 +26,6 @@ const DefaultSelect = (
 
     const checkClickType = () => {
         // console.log(idCollector, '자식임')
-
         if (idCollector && clickSelectIdCollector) {
             clickSelectIdCollector(idCollector)
         }

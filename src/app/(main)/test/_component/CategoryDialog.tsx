@@ -153,7 +153,7 @@ const CategoryDialog = ({closeDialog}: CategoryDialogProps) => {
 
     useEffect(() => {
         addCategory()
-    }, [])
+    })
 
 
 

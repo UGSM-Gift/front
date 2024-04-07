@@ -1,0 +1,41 @@
+.price_filter__layout{
+    background-color: aqua;
+
+    
+    border-radius: 12px 12px 0 0;
+    position: absolute;
+    bottom: 0;
+}
+.price_filter_content__layout{
+    width: 100%;
+    height: 320px;
+    // overflow: hidden;
+    padding: 0 16px;
+    box-sizing: border-box;
+}
+.price_content__checked, .price_content__default{
+    width: 100%;
+    height: 48px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+
+
+// divider
+.divider_1px{
+    width: 343px;
+    height: 1px;
+    background-color: #F2F4F5;
+}
+
+
+//footer
+.price_filter__layout__footer{
+    width: 343px;
+    height: 61px;
+    position: fixed;
+    bottom: 0;
+    padding: 16px 16px 10px;
+}

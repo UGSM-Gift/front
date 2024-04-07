@@ -130,7 +130,7 @@ const UserInterest = () => {
     useEffect(() => {
         getUserInterest()
 
-    }, [])
+    })
 
 
     const [buttonActive, setButtonActive] = useState(false)

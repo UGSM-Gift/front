@@ -1,5 +1,5 @@
 import instance, {headers} from './axios';
-import {number} from "prop-types";
+import {func, number} from "prop-types";
 import {useCategoryStore} from "@/app/zustand/testStore";
 import {useRouter} from "next/navigation";
 

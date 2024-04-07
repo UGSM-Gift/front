@@ -15,8 +15,12 @@ const Login = () => {
     const [loginHistoryLabel, setLoginHistoryLabel] = useState('')
     const [loginHistoryImage, setLoginHistoryImage] = useState('')
 
-    const changeLoginHistoryLabel = () => {
 
+
+
+
+
+    const changeLoginHistoryLabel = () => {
         switch (loginHistory) {
             case "kakao":
                 setLoginHistoryLabel('카카오로 로그인 한 적이 있어요!')
@@ -34,13 +38,11 @@ const Login = () => {
     }
 
     const router = useRouter()
-    useEffect(()=> {
-        changeLoginHistoryLabel()
-    },[])
+
 
     const onClickLogin = (value: string) => {
-        // router.push(`https://www.ugsm.co.kr/api/login/oauth2/authorization/${value}`)
-        router.push('/signup')
+        router.push(`https://www.ugsm.co.kr/api/login/oauth2/authorization/${value}`)
+        // router.push('/signup')
 
         // switch (value) {
         //     case 'kakao':
@@ -53,6 +55,10 @@ const Login = () => {
         // }
         // router.replace('/signup')
     }
+
+    useEffect(()=> {
+        changeLoginHistoryLabel()
+    })
 
 
     return (

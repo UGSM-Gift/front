@@ -10,7 +10,7 @@ export interface DefaultInputProps {
     placeholder?: string
     onChangeValue?: (value: string) => void;
     onChangeEvent?: (e: ChangeEvent<HTMLInputElement>) => void;
-    onChangeTextAreaEvent?: (e: ChangeEvent<HTMLTextAreaElement>) => void
+    onChangeTextAreaEvent?: (value: string) => void
     imageClick?: MouseEventHandler<HTMLDivElement>;
     value?: string
 }

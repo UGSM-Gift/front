@@ -157,7 +157,7 @@ const AddList = () => {
 
     useEffect(()=> {
         initEventList()
-    }, [])
+    })
 
 
     const test = () => {

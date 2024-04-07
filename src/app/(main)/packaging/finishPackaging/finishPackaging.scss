@@ -1,0 +1,29 @@
+.packaging_img__selected{
+    width: 343px;
+    height: 172px;
+    border-radius: 12px;
+}
+
+.finish_packaging__layout{
+    width: 100%;
+    overflow: hidden;
+    padding: 0 16px;
+    box-sizing: border-box;
+
+    & .finish_packaging_content{
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.toast__layout{
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    margin-left: -88px;
+    border-radius: 20px;
+    text-align: center;
+    background-color: rgb(18, 22, 22, 0.75);
+    position: absolute;
+    bottom: 88px;
+    left: 50%;
+}

@@ -78,3 +78,22 @@ export const putPhoneAuth = async (code: string, userPhoneNumber: PutPhoneAuth) 
     console.error('fail put phone auth ', err)
   }
 }
+
+
+interface userDataProps {
+  name: string,
+  nickname: string,
+  mobile: null | string,
+  birthdate: string,
+  gender: "MALE" | "FEMALE",
+  email: string
+  profileImageName: string
+}
+export const putUserInfo = async (userData: userDataProps) => {
+  try {
+    const res = await instance.put(`/api/user/me`, userData, {headers})
+  } catch (err) {
+    console.log('fail put user data')
+  }
+}
+

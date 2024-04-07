@@ -1,0 +1,51 @@
+// @import "../variables.scss";
+// color 지정 정말 어렵군요 시도했다가 대.실.패 ㅎ!
+
+@mixin text-style {
+    color : #697074;
+}
+
+// base
+.sheets__layout{
+    width: 100%;
+    height: fit-content;
+    background-color: white;
+    border-radius: 12px 12px 0 0;
+    padding-top: 24px;
+    box-sizing: border-box;
+    box-shadow: 0px -8px 12px 0px #0000000A;
+
+}
+
+
+// title, select button
+.bottomSheets__title{
+    width: 343px;
+    height: 54px;
+    line-height: 54px;
+    text-align: center;
+    margin: 0 16px;
+}
+
+.bottomSheets__select__buttons{
+    cursor: pointer;
+    width: 100%;
+    padding: 4px 16px 16px;
+    box-sizing: border-box;
+}
+.bottomSheets__select{
+    width: 100%;
+    height: 48px;
+    line-height: 48px;
+    text-align: left;
+
+    // margin: 0 16px;
+}
+
+// divider
+.modal__layout__divider {
+    background-color: #F2F4F5;
+    width: 100%;
+    height: 1px;
+    margin: 4px 0;
+  }

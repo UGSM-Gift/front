@@ -1,0 +1,28 @@
+.notication_contents__layout{
+    width: 100%;
+    overflow: hidden;
+}
+
+.notication__layout{
+    width: 100%;
+    padding: 16px;
+    box-sizing: border-box;
+    background-color: aqua;
+
+    & .notication__layout_top{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.noti_content{
+    width: 100%;
+}
+
+.notication_default{
+    background-color: #fff;
+}
+.notication_selected{
+    background-color: rgb(255, 228, 238, 0.4);
+}

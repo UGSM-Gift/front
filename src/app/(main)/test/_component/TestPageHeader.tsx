@@ -4,13 +4,14 @@ import './testPageHeader.scss'
 interface TestPageHeaderProps {
     navText: string
     title: string
-    subTitle: string
-    content: string
+    subTitle?: string
+    content?: string
     progressWidth: string
+    rightIconArr?: string[]
 }
 
 const TestPageHeader = (
-    {navText, title, subTitle, progressWidth, content} : TestPageHeaderProps
+    {navText, title, subTitle, progressWidth, content, rightIconArr} : TestPageHeaderProps
 ) => {
 
 
@@ -19,6 +20,7 @@ const TestPageHeader = (
             <div>
                 <NavLayout
                     centerText={navText}
+                    rightIconArr={rightIconArr}
                 />
             </div>
             <article className={'test_page__layout__progress'}>

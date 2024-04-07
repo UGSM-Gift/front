@@ -122,7 +122,7 @@ const UserJob = () => {
 
     useEffect(()=> {
         getUserJob()
-    }, [])
+    })
 
 
     return (

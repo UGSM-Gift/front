@@ -36,15 +36,19 @@ const DefaultInput = (
             onChangeEvent(e)
         }
     }
+    const [inputData, setInputData] = useState('')
 
     const onInputLength = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setInputLength(e.target.value.length)
+        setInputData(e.target.value)
+        console.log('adfasdf')
         if (onChangeValue) {
             onChangeValue(e.target.value)
         }
+
         if (onChangeTextAreaEvent) {
-            onChangeTextAreaEvent(e)
+            onChangeTextAreaEvent(e.target.value)
         }
+
 
     }
 
@@ -53,12 +57,11 @@ const DefaultInput = (
             {text_area ?
                 <textarea
                     className={textAreaClassName}
-                    onInput={onInputLength}
-                    maxLength={max_length}
+                    onChange={onInputLength}
+                    maxLength={max_length === 0 ? 100 : max_length}
                     placeholder={placeholder}
-                >
-
-                </textarea>
+                    value={value}
+                />
                 :
                 <input type={type}
                        value={value}

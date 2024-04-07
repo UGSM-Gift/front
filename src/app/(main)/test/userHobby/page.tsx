@@ -154,7 +154,7 @@ const UserHobby = () => {
 
     useEffect(() => {
         getUserHobby()
-    }, [])
+    })
 
 
     return (
