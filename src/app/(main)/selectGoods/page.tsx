@@ -7,8 +7,13 @@ import './selectGoods.scss'
 import {useEffect, useState} from "react";
 import TestPageHeader from "@/app/_component/TestPageHeader";
 import {useAddCategoryList, useCategoryStore, useTestStore} from "@/app/zustand/testStore";
-import {getSelectGoodsGiftList} from "@/app/api/giftList";
-import {useGoodsDetail, useUserCategory} from "@/app/zustand/goodsStore";
+import {getSelectGoodsGiftList, postBundleList} from "@/app/api/giftList";
+import {
+    useGoodsDetail,
+    useUserCategory,
+    useUserSelectGoods,
+    useUserSelectGoodsBundleData
+} from "@/app/zustand/goodsStore";
 import {UserJobProps} from "@/app/type";
 import PriceFilter from "@/app/_component/PriceFilter";
 import NavLayout from "@/app/_component/NavLayout";
@@ -27,6 +32,8 @@ const SelectGoods = () => {
         buyingUrl: string
         freeShipping: boolean
         isSoldOut: boolean
+        categoryId: number
+
     }
 
     const [goodsArr, setGoodsArr] = useState<GoodsArrProps[]>([
@@ -38,7 +45,8 @@ const SelectGoods = () => {
             brandName: "포켓몬 스토어 온라인",
             buyingUrl: "https://m.shopping.naver.com/gift/products/9949963691",
             freeShipping: false,
-            isSoldOut: false
+            isSoldOut: false,
+            categoryId: 1
         },
     ])
 
@@ -178,8 +186,53 @@ const SelectGoods = () => {
 
     const [checkedGoods, setCheckedGoods] = useState<number[]>([]);
 
+
+    const selectGoods = useUserSelectGoods(state => state.selectGoods); // 상태 구독
+
+
     const clickSelectGoods = (item: GoodsArrProps) => {
-        console.log(item, checkedGoods)
+        console.log(item, checkedGoods, 'select goods ', selectGoods)
+
+        interface GoodsIdProps {
+            categoryId: number
+            productId: number
+        }
+        interface SelectGoods {
+            selectGoods: GoodsIdProps[]
+        }
+
+
+
+        let includeProductChecker: number[] = []
+
+        selectGoods.forEach((ele)=> {
+            includeProductChecker.push(ele.productId)
+        })
+
+        if (includeProductChecker.includes(item.id)) {
+            useUserSelectGoods.setState((prevState) => {
+                let updatedSelectCategory = [...prevState.selectGoods];
+
+                updatedSelectCategory = updatedSelectCategory.filter((value) => {
+                    return value.productId !== item.id
+                })
+
+                return {
+                    selectGoods: updatedSelectCategory
+                }
+            })
+
+        } else {
+            useUserSelectGoods.setState((prevState)=>({
+                selectGoods: [
+                    ...prevState.selectGoods, {
+                        categoryId: item.categoryId,
+                        productId: item.id
+                    }
+                ]
+            }))
+        }
+
 
         if (checkedGoods.includes(item.id)) {
             const filterData = checkedGoods.filter((ele)=> {
@@ -209,11 +262,13 @@ const SelectGoods = () => {
     const [addCategoryArr, setAddCategoryArr] = useState<number[]>([])
 
     const selectCategory = useAddCategoryList(state => state.addCategory)
+    const multipleData = useUserSelectGoodsBundleData(state => state.multiple)
+    const singleData = useUserSelectGoodsBundleData(state => state.single)
 
 
 
     const test = () => {
-        console.log('hell', goodsArr, selectCategory)
+        console.log(multipleData, singleData)
     }
 
     const clickAddCategory = async () => {
@@ -244,8 +299,15 @@ const SelectGoods = () => {
     }
 
 
-    const clickCompleteSelectGoods = () => {
-        router.replace('/getGiftList')
+    const clickCompleteSelectGoods = async () => {
+        try {
+            const getBundleData = await postBundleList(selectGoods)
+            await useUserSelectGoodsBundleData.setState({multiple: getBundleData.data.multiple, single: getBundleData.data.single})
+            await router.replace('/selectGoods/showGiftList')
+        } catch (err) {
+            console.log('fail')
+        }
+
     }
     useEffect(() => {
         getGoodsList()
@@ -261,9 +323,7 @@ const SelectGoods = () => {
                 progressWidth={'300px'}
             />
 
-            <div onClick={test}>
-                adsfasdfasdfasdf
-            </div>
+
 
             <div className={'goods_list__layout__content'}>
                 {/* <div className={'category_dialog__layout__menu__select'}> */}
