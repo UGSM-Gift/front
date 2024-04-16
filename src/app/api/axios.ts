@@ -25,4 +25,4 @@ const headers = {
 }
 
 export default instance;
-export { headers };
+export { headers};

@@ -1,5 +1,4 @@
 'use client'
-import TestPageHeader from "@/app/(main)/test/_component/TestPageHeader";
 import DefaultButton from "@/app/_component/DefaultButton";
 import {useRouter} from "next/navigation";
 import './userJob.scss'
@@ -10,6 +9,7 @@ import {useTestStore} from "@/app/zustand/testStore";
 import {getJobList} from "@/app/api/UGTest";
 import TestPageFooterButton from "@/app/(main)/test/_component/TestPageFooterButton";
 import {EventListState, UserChoiceProps, UserJobProps} from "@/app/type";
+import TestPageHeader from "@/app/_component/TestPageHeader";
 
 
 
@@ -122,7 +122,7 @@ const UserJob = () => {
 
     useEffect(()=> {
         getUserJob()
-    })
+    },[])
 
 
     return (

@@ -1,0 +1,82 @@
+.select_goods_packaging__contents{
+  width: 100%;
+  padding-left: 16px;
+  box-sizing: border-box;
+}
+
+// 포장 이미지_선택
+.self_add_image, .provided_image, .checked_image{
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  margin-right: 12px;
+}
+.self_add_image{
+  border: 1px solid #C1C7CA;
+  flex-wrap: wrap;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.provided_image{
+  // background-color: yellow;
+  position: relative;
+
+  & .radio_btn{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 6px;
+    right: 6px;
+  }
+}
+
+.checked_image{
+  position: relative;
+  border: 1px solid #B94DFC;
+
+  & .radio_btn{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 6px;
+    right: 6px;
+  }
+}
+
+// 사용자가 선택한 이미지
+.packaging_img__default, .packaging_img__selected{
+  width: 343px;
+  height: 172px;
+  border-radius: 12px;
+  // border: 5px dashed #DDE1E3;
+}
+
+.packaging_img__default{
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='12' ry='12' stroke='%23DDE1E3FF' stroke-width='1' stroke-dasharray='10%2c 5' stroke-dashoffset='10' stroke-linecap='round'/%3e%3c/svg%3e");
+  border-spacing :100px;
+  display: flex;
+  align-content: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+// divider
+.divider_1px{
+  width: 343px;
+  height: 1px;
+  background-color: #F2F4F5;
+}
+
+// 푸터 버튼
+.packaging__layout__footer{
+  width: 343px;
+  height: 61px;
+  position: fixed;
+  bottom: 0;
+  padding: 16px 16px 10px;
+  box-shadow: 0px -8px 12px 0px #0000000A;
+}

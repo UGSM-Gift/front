@@ -1,0 +1,25 @@
+.iframe__cover {
+  width: 370px;
+  height: 100vh;
+  background-color: red;
+}
+
+
+
+.select__goods__detail__footer{
+  width: 343px;
+  height: 61px;
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  bottom: 0;
+  padding: 16px 16px 10px;
+  box-shadow: 0px -8px 12px 0px #0000000A;
+  background-color: #fff;
+}
+
+.select__goods__detail__footer__button {
+  width: 100%;
+  margin: 0 5px 0;
+}

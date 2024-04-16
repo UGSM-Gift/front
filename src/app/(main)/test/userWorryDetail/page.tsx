@@ -7,8 +7,8 @@ import {getQuestionList} from "@/app/api/UGTest";
 import {ChangeEvent, useEffect, useState} from "react";
 import DefaultInput from "@/app/_component/DefaultInput";
 import DefaultButton from "@/app/_component/DefaultButton";
-import TestPageHeader from "@/app/(main)/test/_component/TestPageHeader";
 import {useRouter} from "next/navigation";
+import TestPageHeader from "@/app/_component/TestPageHeader";
 
 const UserWorryDetail = () => {
 
@@ -155,7 +155,7 @@ const UserWorryDetail = () => {
 
     useEffect(() => {
         getHobbyDetail()
-    })
+    },[])
 
 
     interface AnsweredCategories {

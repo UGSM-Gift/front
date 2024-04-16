@@ -1,6 +1,6 @@
 'use client'
 import './giftListLetterDetail.scss'
-import NavLayout from "@/app/(main)/_component/NavLayout";
+import NavLayout from "@/app/_component/NavLayout";
 import Image from "next/image";
 import LargeProductComponent from "@/app/(main)/_component/LargeProductComponent";
 import DefaultButton from "@/app/_component/DefaultButton";

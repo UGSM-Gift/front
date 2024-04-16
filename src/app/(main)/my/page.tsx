@@ -1,6 +1,6 @@
 'use client'
 import './myPage.scss'
-import NavLayout from "@/app/(main)/_component/NavLayout";
+import NavLayout from "@/app/_component/NavLayout";
 import FooterLayout from "@/app/(main)/_component/FooterLayout";
 import Image from "next/image";
 import MenuComponent from "@/app/(main)/my/_component/MenuComponent";

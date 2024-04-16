@@ -6,7 +6,7 @@ import Image from "next/image";
 import {useEventList, useTestStore} from "@/app/zustand/testStore";
 import {useRouter} from "next/navigation";
 import {useState} from "react";
-import NavLayout from "@/app/(main)/_component/NavLayout";
+import NavLayout from "@/app/_component/NavLayout";
 
 
 const PackagePage  = () => {

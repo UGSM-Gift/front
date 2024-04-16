@@ -1,6 +1,6 @@
 import './giftListCheck.scss'
 import MediumProductComponent from "@/app/(main)/_component/MediumProductComponent";
-import NavLayout from "@/app/(main)/_component/NavLayout";
+import NavLayout from "@/app/_component/NavLayout";
 import DefaultButton from "@/app/_component/DefaultButton";
 import Image from "next/image";
 

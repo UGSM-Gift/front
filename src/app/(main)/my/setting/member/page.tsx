@@ -1,6 +1,6 @@
 'use client'
 import './mySettingMember.scss'
-import NavLayout from "@/app/(main)/_component/NavLayout";
+import NavLayout from "@/app/_component/NavLayout";
 import Image from "next/image";
 import DefaultInput from "@/app/_component/DefaultInput";
 import {ChangeEvent, useEffect, useState} from "react";

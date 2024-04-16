@@ -1,6 +1,6 @@
 'use client'
 import './giftListHeart.scss'
-import NavLayout from "@/app/(main)/_component/NavLayout";
+import NavLayout from "@/app/_component/NavLayout";
 import Image from "next/image";
 import SmallProductComponent from "@/app/(main)/_component/SmallProductComponent";
 import {useRouter} from "next/navigation";

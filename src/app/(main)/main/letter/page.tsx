@@ -1,6 +1,6 @@
 'use client'
 import './giftListLetter.scss'
-import NavLayout from "@/app/(main)/_component/NavLayout";
+import NavLayout from "@/app/_component/NavLayout";
 import {useState} from "react";
 import Image from "next/image";
 import LetterBoxComponent from "@/app/(main)/_component/LetterBoxComponent";

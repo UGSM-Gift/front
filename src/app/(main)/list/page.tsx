@@ -1,6 +1,6 @@
 'use client'
 import './list.scss'
-import NavLayout from "@/app/(main)/_component/NavLayout";
+import NavLayout from "@/app/_component/NavLayout";
 import TopNavTabComponent from "@/app/(main)/_component/TopNavTabComponent";
 import MyList from "@/app/(main)/list/my/page";
 import FooterLayout from "@/app/(main)/_component/FooterLayout";

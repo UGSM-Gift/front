@@ -1,5 +1,4 @@
 'use client'
-import TestPageHeader from "@/app/(main)/test/_component/TestPageHeader";
 import DefaultSelect from "@/app/_component/DefaultSelect";
 import DefaultButton from "@/app/_component/DefaultButton";
 import {useEffect, useState} from "react";
@@ -9,6 +8,7 @@ import './userInterest.scss'
 import {useRouter} from "next/navigation";
 import {UserHobbyProps} from "@/app/type";
 import TestPageFooterButton from "@/app/(main)/test/_component/TestPageFooterButton";
+import TestPageHeader from "@/app/_component/TestPageHeader";
 
 const UserInterest = () => {
 
@@ -130,7 +130,7 @@ const UserInterest = () => {
     useEffect(() => {
         getUserInterest()
 
-    })
+    },[])
 
 
     const [buttonActive, setButtonActive] = useState(false)

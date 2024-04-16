@@ -522,6 +522,22 @@
     ))
   }
 
+  &.small_product_button__checked {
+    .label__text {
+      padding: 10px 2px;
+    }
+    @extend %button__font;
+    @include button-style((
+            background: map-get($primary-colors, 50),
+            color: map-get($primary-colors, 800),
+            border: 1px solid map-get($primary-colors, 500),
+            maxWidth: 104px,
+            radius: 6px,
+            maxHeight: 36px,
+    ))
+  }
+
+
   &.medium_product_button {
     .label__text {
       padding: 10px 2px;

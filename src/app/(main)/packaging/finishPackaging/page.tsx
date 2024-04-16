@@ -1,10 +1,10 @@
 'use client'
 import './finishPackaging.scss'
-import NavLayout_default from '../../../_component/NavLayout_default';
 import TestPageFooterButton from "@/app/(main)/test/_component/TestPageFooterButton";
 import Image from "next/image";
 import {useState} from "react";
 import {useRouter} from "next/navigation";
+import NavLayout from "@/app/_component/NavLayout";
 
 const FinishPackaging = () => {
 
@@ -17,9 +17,10 @@ const FinishPackaging = () => {
 
     return(
         <div>
-            <NavLayout_default
+            <NavLayout
                         rightIconArr={['close']}
                         clickBack={clickBack}
+                        shadow={false}
                 />
             
             <div className={"finish_packaging__layout"}>

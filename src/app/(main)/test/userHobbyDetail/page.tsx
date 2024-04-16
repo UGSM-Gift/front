@@ -5,10 +5,10 @@ import DefaultSelect from "@/app/_component/DefaultSelect";
 import {getQuestionList} from "@/app/api/UGTest";
 import {usePostTestResultDataStore, useTestStore} from "@/app/zustand/testStore";
 import {useEffect, useState} from "react";
-import TestPageHeader from "@/app/(main)/test/_component/TestPageHeader";
 import {useRouter} from "next/navigation";
 import {IdCollectorProps, TestResultData, UserHobbyProps} from "@/app/type";
 import TestPageFooterButton from "@/app/(main)/test/_component/TestPageFooterButton";
+import TestPageHeader from "@/app/_component/TestPageHeader";
 
 
 interface ChoicesProps {
@@ -235,7 +235,7 @@ const UserHobbyDetail = () => {
 
     useEffect(()=> {
         getHobbyDetail()
-    })
+    },[])
 
 
     useEffect(()=> {

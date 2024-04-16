@@ -1,7 +1,7 @@
 'use client'
 import'./notication.scss';
 import {useRouter} from "next/navigation";
-import NavLayout_default from "@/app/_component/NavLayout_default";
+import NavLayout from "@/app/_component/NavLayout";
 
 const Notication =()=>{
 
@@ -15,11 +15,13 @@ const Notication =()=>{
         <div>
 
             {/* shadow가 없는 Nav가 필요해서 하나 만들었어요 */}
-            <NavLayout_default
-                    centerText={'알림'}
-                    leftIcon={'back'}
-                    clickBack={clickBack}
+            <NavLayout
+                centerText={'알림'}
+                leftIcon={'back'}
+                clickBack={clickBack}
+                shadow={false}
             />
+
             <div className={"notication_contents__layout mt_16"}>
                 {/* 알림 확인 전 */}
                 <div className={"notication__layout notication_default"}>

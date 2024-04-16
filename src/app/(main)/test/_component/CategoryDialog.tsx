@@ -1,7 +1,7 @@
 'use client'
 import './categoryDialog.scss'
 import DefaultSelect from "@/app/_component/DefaultSelect";
-import NavLayout from "@/app/(main)/_component/NavLayout";
+import NavLayout from "@/app/_component/NavLayout";
 import Image from "next/image";
 import {getAddCategory} from "@/app/api/UGTest";
 import {useAddCategoryList, useCategoryStore} from "@/app/zustand/testStore";
@@ -153,7 +153,7 @@ const CategoryDialog = ({closeDialog}: CategoryDialogProps) => {
 
     useEffect(() => {
         addCategory()
-    })
+    },[])
 
 
 

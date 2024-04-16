@@ -4,7 +4,7 @@ import Head from "next/head";
 export const metadata = {
     title: '은근슨몰',
     description: 'UGSM',
-    metadataBase: 'https://www.ugsm.co.kr',
+    metadataBase: new URL('https://www.ugsm.co.kr/'),
     openGraph: {
         title: 'UGSM',
         type: 'website',

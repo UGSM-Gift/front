@@ -5,9 +5,10 @@ import {getCategoryList, postAddCategoryList} from "@/app/api/UGTest";
 import {useEffect, useState} from "react";
 import {useAddCategoryList, useCategoryStore, usePostTestResultDataStore} from "@/app/zustand/testStore";
 import CategoryDialog from "@/app/(main)/test/_component/CategoryDialog";
-import TestPageHeader from "@/app/(main)/test/_component/TestPageHeader";
 import DefaultButton from "@/app/_component/DefaultButton";
 import {useRouter} from "next/navigation";
+import TestPageHeader from "@/app/_component/TestPageHeader";
+import {useUserCategory} from "@/app/zustand/goodsStore";
 
 const UserCategory = () => {
 
@@ -29,6 +30,7 @@ const UserCategory = () => {
             const addList = await postAddCategoryList(categoryId, selectCategory)
 
             console.log(addList)
+
             setCategoryDialog(false)
 
 
@@ -53,7 +55,7 @@ const UserCategory = () => {
             } else {
                 const postAddCategoryData = await postAddCategory()
                 console.log(postAddCategoryData)
-                router.replace('/test/complete')
+                router.replace('/selectGoods')
             }
         }
     }
@@ -120,6 +122,7 @@ const UserCategory = () => {
             const list = await getCategoryList(categoryId)
             await setCategoryArr(list.data)
             await setCategoryLoading(true)
+
         } catch (err) {
             console.log('err dodhd')
         }
@@ -127,7 +130,7 @@ const UserCategory = () => {
 
     useEffect(() => {
         getCategory()
-    })
+    },[])
 
 
     interface CategoryItem {

@@ -4,11 +4,11 @@ import './userWorry.scss'
 import {useEffect, useState} from "react";
 import {getWorryList, postTestResult} from "@/app/api/UGTest";
 import {usePostTestResultDataStore, useTestStore} from "@/app/zustand/testStore";
-import TestPageHeader from "@/app/(main)/test/_component/TestPageHeader";
 import DefaultButton from "@/app/_component/DefaultButton";
 import {useRouter} from "next/navigation";
 import TestPageFooterButton from "@/app/(main)/test/_component/TestPageFooterButton";
 import {UserHobbyProps} from "@/app/type";
+import TestPageHeader from "@/app/_component/TestPageHeader";
 
 const UserWorry = () => {
 
@@ -145,7 +145,7 @@ const UserWorry = () => {
 
     useEffect(()=> {
         getWorryArr()
-    })
+    },[])
 
 
 

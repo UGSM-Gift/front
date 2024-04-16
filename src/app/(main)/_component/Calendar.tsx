@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import {useEffect, useState} from "react";
 import './calendar.scss';
-import NavLayout from "@/app/(main)/_component/NavLayout";
+import NavLayout from "@/app/_component/NavLayout";
 import Image from "next/image";
 import {useTestStore} from "@/app/zustand/testStore";
 

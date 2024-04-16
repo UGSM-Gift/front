@@ -58,7 +58,7 @@ const Login = () => {
 
     useEffect(()=> {
         changeLoginHistoryLabel()
-    })
+    },[])
 
 
     return (

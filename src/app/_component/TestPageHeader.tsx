@@ -1,4 +1,4 @@
-import NavLayout from "@/app/(main)/_component/NavLayout";
+import NavLayout from "@/app/_component/NavLayout";
 import './testPageHeader.scss'
 
 interface TestPageHeaderProps {

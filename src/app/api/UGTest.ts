@@ -2,6 +2,7 @@ import instance, {headers} from './axios';
 import {func, number} from "prop-types";
 import {useCategoryStore} from "@/app/zustand/testStore";
 import {useRouter} from "next/navigation";
+import {useUserCategory} from "@/app/zustand/goodsStore";
 
 
 export const getJobList = async () => {
@@ -93,7 +94,6 @@ export const getCategoryList = async (id:number) => {
     try {
 
         const res = await instance.get(`/api/survey/${id}/product-category/recommended`);
-        console.log(res.data)
         return res.data
     } catch (err) {
         setTimeout(()=> {
@@ -122,6 +122,10 @@ export const postAddCategoryList = async (categoryIds: number, categoryList: num
     try {
         const res = await instance.post(`/api/survey/${categoryIds}/product-category`, categoryList, {headers});
         console.log(res.data, 'post add category list ')
+        useUserCategory.setState((prevState)=>({
+            ...prevState,
+            categoryArr: res.data.data
+        }))
         return res.data;
     } catch (error) {
         console.error('Nickname duplication check failed:', error);

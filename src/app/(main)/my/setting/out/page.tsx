@@ -1,6 +1,6 @@
 'use client'
 import './mySettingOut.scss'
-import NavLayout from "@/app/(main)/_component/NavLayout";
+import NavLayout from "@/app/_component/NavLayout";
 import DefaultInput from "@/app/_component/DefaultInput";
 import React, {ReactEventHandler, useEffect, useState} from "react";
 import DefaultButton from "@/app/_component/DefaultButton";

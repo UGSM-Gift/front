@@ -1,6 +1,6 @@
 'use client'
 import './myPageSetting.scss'
-import NavLayout from "@/app/(main)/_component/NavLayout";
+import NavLayout from "@/app/_component/NavLayout";
 import MenuComponent from "@/app/(main)/my/_component/MenuComponent";
 import FooterLayout from "@/app/(main)/_component/FooterLayout";
 import {useRouter} from "next/navigation";

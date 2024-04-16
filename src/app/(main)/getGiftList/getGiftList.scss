@@ -1,0 +1,24 @@
+@import "../../variables.scss";
+
+.getGiftList_contents__layout{
+    width: 100%;
+    padding: 0 16px;
+}
+
+.input__layout {
+    width: 341px;
+    height: 54px;
+    border-radius: 8px;
+    background-color: map-get($gray-colors, 5);
+    padding: 20px 16px;
+    box-sizing: border-box;
+  }
+
+  // 푸터 버튼
+.getgiftlist__layout__footer{
+    width: 343px;
+    height: 61px;
+    position: fixed;
+    bottom: 0;
+    padding: 16px 16px 10px;
+}

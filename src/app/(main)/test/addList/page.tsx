@@ -1,5 +1,5 @@
 'use client'
-import NavLayout from "@/app/(main)/_component/NavLayout";
+import NavLayout from "@/app/_component/NavLayout";
 import Calendar from "@/app/(main)/_component/Calendar";
 import AddEvent from "@/app/(main)/_component/AddEvent";
 import Image from "next/image";
@@ -10,7 +10,7 @@ import './addList.scss'
 import {useEventList, useTestStore} from "@/app/zustand/testStore";
 import {getAnniversaryList, postAnniversary} from "@/app/api/anniversary";
 import {useRouter} from "next/navigation";
-import TestPageHeader from "@/app/(main)/test/_component/TestPageHeader";
+import TestPageHeader from "@/app/_component/TestPageHeader";
 
 
 interface EventListState {
@@ -86,10 +86,7 @@ const AddList = () => {
         }
     }
 
-    const initEventList = async () => {
-        const initList = await getAnniversaryList('')
-        updateEventList(initList.data)
-    }
+
 
 
 
@@ -153,11 +150,16 @@ const AddList = () => {
         }
     }
 
+    const initEventList = async () => {
+        const initList = await getAnniversaryList('')
 
+        updateEventList(initList.data)
+        return initList.data
+    }
 
     useEffect(()=> {
         initEventList()
-    })
+    }, [])
 
 
     const test = () => {

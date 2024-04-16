@@ -36,7 +36,7 @@ const Oauth = () => {
 
     useEffect(()=> {
         getUser()
-    })
+    },[])
 
     return <div>로그인중입니다.</div>;
 };

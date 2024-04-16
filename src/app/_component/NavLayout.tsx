@@ -1,5 +1,5 @@
 'use client'
-import './navLayout_default.scss'
+import './navLayout.scss'
 import Image from "next/image";
 import {MouseEventHandler, useState} from "react";
 
@@ -16,13 +16,14 @@ interface NavLayoutProps {
     clickBack?: MouseEventHandler<HTMLDivElement>;
     clickSetting?: MouseEventHandler<HTMLDivElement>;
     clickClose?: MouseEventHandler<HTMLDivElement>;
+    shadow?: boolean
 }
 
 const NavLayout = (
     {
         leftIcon = '',
         centerText = '', rightIconArr = [], rightText = '',
-        clickAlert, clickPencil, clickHeart, clickAdd, clickRightText, clickBack, clickSetting, clickClose
+        clickAlert, clickPencil, clickHeart, clickAdd, clickRightText, clickBack, clickSetting, clickClose, shadow = true
     }: NavLayoutProps) => {
 
     const renderLeftIcon = () => {
@@ -94,8 +95,9 @@ const NavLayout = (
     }
 
 
+
     return (
-        <article className={'nav__layout'}>
+        <article className={`${shadow ? 'nav__layout_shadow' : ''} nav__layout`} >
             <section className={'nav__layout__left'}>
                 {renderLeftIcon()}
             </section>

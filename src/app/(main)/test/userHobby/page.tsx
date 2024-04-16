@@ -1,5 +1,4 @@
 'use client'
-import TestPageHeader from "@/app/(main)/test/_component/TestPageHeader";
 import {useRouter} from "next/navigation";
 import './userHobby.scss'
 import {useEffect, useState} from "react";
@@ -8,6 +7,7 @@ import {useTestStore, useUserTestInfoStore} from "@/app/zustand/testStore";
 import DefaultSelect from "@/app/_component/DefaultSelect";
 import {UserHobbyProps} from "@/app/type";
 import TestPageFooterButton from "@/app/(main)/test/_component/TestPageFooterButton";
+import TestPageHeader from "@/app/_component/TestPageHeader";
 
 
 
@@ -154,7 +154,7 @@ const UserHobby = () => {
 
     useEffect(() => {
         getUserHobby()
-    })
+    },[])
 
 
     return (
