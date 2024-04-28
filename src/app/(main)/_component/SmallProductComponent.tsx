@@ -2,8 +2,10 @@
 import Image from "next/image";
 import './smallProductComponent.scss'
 import DefaultButton from "@/app/_component/DefaultButton";
-import {MouseEventHandler, useState} from "react";
+import {MouseEventHandler, useEffect, useState} from "react";
 import {object} from "prop-types";
+import {delHeartList} from "@/app/api/userData";
+
 interface SmallProductComponentProps {
     price?: string | number
     text?: string
@@ -11,12 +13,16 @@ interface SmallProductComponentProps {
     multi?: boolean
     clickSmallProduct?: MouseEventHandler<HTMLDivElement>;
     clickSmallProductItem?: (item: object) => void;
-    bottomButtonLabel?:string,
+    bottomButtonLabel?: string,
     clickImage?: MouseEventHandler<HTMLDivElement>;
-    clickImageItem?: (item:object) => void;
+    clickImageItem?: (item: object) => void;
     item?: object
     style?: string
     checked?: boolean
+    heart?: boolean
+    itemId?: number
+    onClickHeartButton?: MouseEventHandler<HTMLDivElement>
+    title?:string
 }
 
 const SmallProductComponent = (
@@ -31,7 +37,11 @@ const SmallProductComponent = (
         clickImage,
         clickImageItem,
         style = 'default',
-        checked = false
+        checked = false,
+        heart = false,
+        itemId = 0,
+        title,
+        onClickHeartButton
     }: SmallProductComponentProps) => {
 
     const ellipsisText = text.length > 15 ? `${text.slice(0, 15)}...` : text;
@@ -44,11 +54,21 @@ const SmallProductComponent = (
         }
         if (clickImage) {
             console.log('bye')
-
             clickImage
         }
     }
 
+
+    const clickHeartButton = async () => {
+        try {
+            const delHeart = await delHeartList(itemId)
+
+            onClickHeartButton
+            console.log(delHeart)
+        } catch (err) {
+            console.log('fail click del heart list ')
+        }
+    }
 
 
     return (
@@ -59,8 +79,15 @@ const SmallProductComponent = (
                         <Image src={'/select_left_icon_true.svg'} alt={'x'} width={25} height={25}/>
                     </div> : <div></div>
             }
+
+            {
+                heart ?
+                    <div className={'small__product__checked_icon_heart'} onClick={clickHeartButton}>
+                        <Image src={'/heart_true_icon.svg'} alt={'x'} width={25} height={25}/>
+                    </div> : <div></div>
+            }
             <div className={'small__product__layout__image_wrapper mb_14'} onClick={clickImageButton}
-                style={checked ? {border: '2px solid #FF2882'} : {border: '2px solid #FFF'}}
+                 style={checked ? {border: '2px solid #FF2882'} : {border: '2px solid #FFF'}}
             >
 
                 <Image src={'/gift_list_main_image.svg'} alt={'x'} width={160} height={120}/>
@@ -68,6 +95,11 @@ const SmallProductComponent = (
             {
                 price ? <h5 className={'gray__color__100 mb_4'}>
                     {String(price).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원
+                </h5> : ''
+            }
+            {
+                title ? <h5 className={'gray__color__100 mb_4'}>
+                    {title}
                 </h5> : ''
             }
 
@@ -81,7 +113,7 @@ const SmallProductComponent = (
             {update ? <div className={'mt_10'}>
                     <DefaultButton label={bottomButtonLabel}
                                    type={checked ? 'small_product_button__checked' : 'small_product_button'}
-                        buttonClick={clickSmallProduct}
+                                   buttonClick={clickSmallProduct}
                     />
                 </div>
                 : ''

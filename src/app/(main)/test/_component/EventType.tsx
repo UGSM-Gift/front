@@ -5,6 +5,7 @@ import {MouseEventHandler, useEffect, useState} from "react";
 import DefaultInput from "@/app/_component/DefaultInput";
 import {useEventList, useTestStore} from "@/app/zustand/testStore";
 import {getAnniversaryList} from "@/app/api/anniversary";
+import {useUserPostGoodsData} from "@/app/zustand/goodsStore";
 
 interface EventTypeProps {
     // clickAddEvent?: MouseEventHandler<HTMLDivElement>;
@@ -54,6 +55,7 @@ const EventType = ({clickAddEvent}: EventTypeProps) => {
 
 
     const clickSelect = (item: EventListState | UserJobProps | UserChoiceProps) => {
+        console.log(item)
 
         if ('name' in item) {
             useTestStore.setState({eventText: item.name})
@@ -63,7 +65,7 @@ const EventType = ({clickAddEvent}: EventTypeProps) => {
             useTestStore.setState({eventDay: item.date})
         }
         useTestStore.setState({eventType: item.id})
-
+        useUserPostGoodsData.setState({anniversaryId: item.id})
         setSelectEvent(item.id)
     }
 

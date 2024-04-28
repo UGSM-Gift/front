@@ -5,6 +5,7 @@ import FooterLayout from "@/app/(main)/_component/FooterLayout";
 import Image from "next/image";
 import MenuComponent from "@/app/(main)/my/_component/MenuComponent";
 import {useRouter} from "next/navigation";
+import Anniversary from "@/app/(main)/my/anniversary/page";
 
 const MyPage = () => {
 
@@ -24,6 +25,10 @@ const MyPage = () => {
 
     }
 
+
+    const clickAnniversary = () => {
+        router.replace('/my/anniversary')
+    }
     return (
         <div>
             <NavLayout
@@ -44,7 +49,7 @@ const MyPage = () => {
                         <Image src={'/cake.png'} alt={'x'} width={80} height={80}/>
                         <p className={'bold__text__font gray__color__100 mt_8'}>99.00.00</p>
                     </div>
-                    <div className={'my_page__layout__event_box'}>
+                    <div className={'my_page__layout__event_box'} onClick={clickAnniversary}>
                         <Image src={'/fire_craker_icon.svg'} alt={'x'} width={80} height={80}/>
                         <p className={'bold__text__font gray__color__100 mt_8'}>기념일 (0)</p>
                     </div>

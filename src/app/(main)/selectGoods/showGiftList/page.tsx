@@ -3,11 +3,16 @@ import './showGiftList.scss';
 import TestPageHeader from "@/app/_component/TestPageHeader";
 import CategorySelectBox from "@/app/_component/CategorySelectBox";
 import SmallProductComponent from "@/app/(main)/_component/SmallProductComponent";
-import {useUserSelectGoodsBundleData} from "@/app/zustand/goodsStore";
+import {
+    useUserPostGoodsData,
+    useUserPostGoodsOnlyProductData,
+    useUserSelectGoodsBundleData
+} from "@/app/zustand/goodsStore";
 import DefaultButton from "@/app/_component/DefaultButton";
 import NavLayout from "@/app/_component/NavLayout";
 import Image from "next/image";
 import {useState} from "react";
+import {useRouter} from "next/navigation";
 
 
 interface GoodsArrProps {
@@ -29,6 +34,16 @@ interface BundleMultiProps {
     products: GoodsArrProps[]
 }
 
+interface PostGoodsDataArrProps {
+    categoryId: number,
+    receiptType: "ALL" | "ONLY_ONE" | null
+    productIds: number[]
+}
+
+
+interface PostGoodsDataProps {
+    goodsData: PostGoodsDataArrProps[]
+}
 
 const ShowGiftList = () => {
 
@@ -39,20 +54,32 @@ const ShowGiftList = () => {
 
     const test = () => {
         console.log(selectCategoryData)
+
+
     }
+
+
+
 
     const [selectCategoryId, setSelectCategoryId] = useState(0)
     const [selectCategoryData, setSelectCategoryData] = useState<BundleMultiProps>()
+
 
     const clickMultiIcon = (item: any) => {
         console.log(item)
         setSelectCategoryId(item.categoryId)
         setSelectCategoryData(item)
-
+        setDisableLayout('disabled_true')
     }
 
-    const testComplete = () => {
+    const clickMultiRadioButton = () => {
 
+
+    }
+    const router = useRouter()
+
+    const testComplete = () => {
+        router.replace('/packaging')
     }
 
     const clickCloseModal = () => {
@@ -61,6 +88,69 @@ const ShowGiftList = () => {
 
     const clickModalSubmit = () => {
         setDisableLayout('')
+
+
+        interface PostGoodsDataArrProps {
+            categoryId: number,
+            receiptType: "ALL" | "ONLY_ONE" | null
+            productIds: number[]
+        }
+
+
+        interface PostGoodsDataProps {
+            categoriesWithProducts: PostGoodsDataArrProps[]
+            imageFileName: string,
+            availableAt: string,
+            expiredAt: string,
+            anniversaryId: number,
+        }
+
+
+
+        if (allRadio === '/check_box_radio_true.svg') {
+            useUserPostGoodsOnlyProductData.setState((prevState) => {
+                let productIdArr: number[] = [];
+                if (selectCategoryData) {
+                    selectCategoryData?.products.forEach((ele) => {
+                        productIdArr.push(ele.id);
+                    });
+                }
+
+                return {
+                    categoriesWithProducts: [
+                        ...prevState.categoriesWithProducts,
+                        {
+                            categoryId: selectCategoryData?.categoryId || 0, // 기본값으로 0을 사용하거나 필요에 따라 적절한 값으로 변경하세요.
+                            receiptType: 'ALL',
+                            productIds: productIdArr,
+                        },
+                    ],
+                };
+            });
+        } else {
+            useUserPostGoodsOnlyProductData.setState((prevState) => {
+                let productIdArr: number[] = [];
+                if (selectCategoryData) {
+                    selectCategoryData?.products.forEach((ele) => {
+                        productIdArr.push(ele.id);
+                    });
+                }
+
+                return {
+                    categoriesWithProducts: [
+                        ...prevState.categoriesWithProducts,
+                        {
+                            categoryId: selectCategoryData?.categoryId || 0, // 기본값으로 0을 사용하거나 필요에 따라 적절한 값으로 변경하세요.
+                            receiptType: 'ONLY_ONE',
+                            productIds: productIdArr,
+                        },
+                    ],
+                };
+            });
+        }
+        console.log(selectCategoryData)
+
+
     }
 
     const openModal = () => {
@@ -69,6 +159,7 @@ const ShowGiftList = () => {
 
     const clickMultiModalSelect = (item:any) => {
         console.log(item)
+
     }
 
     const clickModalRadioButton = (value:string) => {
@@ -95,10 +186,9 @@ const ShowGiftList = () => {
                 subTitle={'최종 확인해주세요'}
                 content={'총 선택 상품 15개'}
                 progressWidth={'343px'}
+                rightIconArr={['heart']}
             />
             <div onClick={test}>asdfadfadsf</div>
-            <div onClick={test}>asdfadfadsf</div>
-            <div onClick={openModal}>asdfadfadsf</div>
 
             <section className={'mt_40'}>
                 <article>
@@ -185,6 +275,8 @@ const ShowGiftList = () => {
                                     text={item.name}
                                     item={item}
                                     clickSmallProduct={() => clickMultiModalSelect(item)}
+                                    update={true}
+                                    bottomButtonLabel={'삭제'}
                                 />
                             </div>
 
@@ -220,7 +312,7 @@ const ShowGiftList = () => {
 
 
             <section className={'goods_list__layout__footer'}>
-                <DefaultButton label={'완료'} type={'large_primary'}
+                <DefaultButton label={'테스트 종료'} type={'large_primary'}
                                buttonClick={testComplete}
                 />
             </section>

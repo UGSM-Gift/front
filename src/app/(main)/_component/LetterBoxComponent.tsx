@@ -2,18 +2,34 @@ import './letterBoxComponent.scss'
 import Image from "next/image";
 import {MouseEventHandler} from "react";
 
+
+interface letterBoxArr {
+    "id": number,
+    "giverId": number,
+    "giverNickname": string,
+    "giftListPackageImgUrl": string
+    "writtenAt": string
+}
 interface LetterBoxComponentProps {
     userName?: string
     date?: string
-    clickLetterBox?: MouseEventHandler<HTMLDivElement>
+    clickLetterBox: (item: letterBoxArr) => void
+    item: letterBoxArr
+    image: string
 }
 
-const LetterBoxComponent = ({userName = '', date = '', clickLetterBox}: LetterBoxComponentProps) => {
+const LetterBoxComponent = (
+    {userName = '', date = '', clickLetterBox, item, image
+    }: LetterBoxComponentProps) => {
 
+
+    const clickBox = () => {
+        clickLetterBox(item)
+    }
     return (
-        <div className={'letter__box__layout'} onClick={clickLetterBox}>
+        <div className={'letter__box__layout'} onClick={clickBox}>
             <div className={'letter__box__layout__image'}>
-                <Image src={'/gift_list_main_image.svg'} alt={'x'} width={400} height={230}/>
+                <Image src={image} alt={'x'} width={400} height={230}/>
             </div>
             <article className={'letter__box__layout__text'}>
                 <div className={'letter__box__layout__text__left'}>

@@ -8,7 +8,12 @@ interface TestPageFooterButtonProps {
     state: boolean
 }
 const TestPageFooterButton = (
-    {clickFooterButton, leftButtonTitle = '이전', rightButtonTitle = '다음', state = false}: TestPageFooterButtonProps
+    {
+        clickFooterButton,
+        leftButtonTitle = '이전',
+        rightButtonTitle = '다음',
+        state = false,
+    }: TestPageFooterButtonProps
 ) => {
 
 

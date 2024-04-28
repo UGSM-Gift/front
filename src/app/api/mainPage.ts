@@ -11,6 +11,8 @@ export const getRecommendedProduct = async () => {
 }
 
 
+
+// 진행중인 선물리스트 목록
 export const getGiftList = async () => {
     try {
         const res = await instance.get('/api/user/me/gift-list?page=1')

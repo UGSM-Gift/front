@@ -8,10 +8,12 @@ import LargeProductComponent from "@/app/(main)/_component/LargeProductComponent
 import {MouseEventHandler, useEffect, useRef, useState} from "react";
 import FooterLayout from "@/app/(main)/_component/FooterLayout";
 import {useRouter} from "next/navigation";
-import {getRecommendedProduct} from "@/app/api/mainPage";
+import {getGiftList, getRecommendedProduct} from "@/app/api/mainPage";
 import {getMainPageGiftList} from "@/app/api/giftList";
 import {useTestStore} from "@/app/zustand/testStore";
 import {UserHobbyProps} from "@/app/type";
+import {postHeartList} from "@/app/api/userData";
+import {useSelectGiftListDetail} from "@/app/zustand/goodsStore";
 
 const Main = () => {
 
@@ -49,7 +51,9 @@ const Main = () => {
         router.replace('/main/heart')
     }
 
-    const clickPresentListBox = () => {
+    const selectListDetailId = useSelectGiftListDetail(state =>state.listId); // 상태 구독
+    const clickPresentListBox = (item:any) => {
+        useSelectGiftListDetail.setState({listId: item.listId})
         router.replace('/giftList')
     }
     const clickLetterBox = () => {
@@ -104,6 +108,8 @@ const Main = () => {
             type: 'price_button_border'
         },
     ])
+
+
     const onSwitchGoodsState = (value: string) => {
 
         switch (value) {
@@ -131,6 +137,7 @@ const Main = () => {
                 ]);
                 break;
             case 'between10KTo30K':
+                console.log('hell?')
                 setViewGoodsState(between10KTo30K)
                 setButtonList([
                     {
@@ -206,31 +213,47 @@ const Main = () => {
     const getProductList = async () => {
         try {
             const getList = await getRecommendedProduct()
+
             await setLessThan10K(getList.data.lessThan10K)
             await setBetween10KTo30K(getList.data.between10KTo30K)
             await setBetween30KTo50K(getList.data.between30KTo50K)
             await setMoreThan50K(getList.data.moreThan50K)
 
-            await setViewGoodsState(lessThan10K)
+            console.log(getList.data.lessThan10K)
+            setViewGoodsState(getList.data.lessThan10K)
 
-            console.log(getList)
         } catch (err) {
             console.log(err, 'fail get product list tsx')
         }
-
-        onSwitchGoodsState('lessThan10K')
-
     }
 
 
 
 
+    const [eventList, setEventList] = useState([
+        {
+            listId: 1,
+            createdAt: "2024-04-20 23:08:14",
+            availableAt: "2024-04-20 23:08:14",
+            expiredAt: "2024-04-21 23:59:59",
+            anniversaryImageUrl: "https://cloudfront.ugsm.co.kr/anniversary/ic-party-popper.png",
+            anniversaryTitle: "생일",
+            selectedProductsNumber: 0,
+            receivedProductsNumber: 0,
+        },
+    ])
+
+    const getMainGiftList = async () => {
+        try {
+            const data =  await getGiftList()
+            console.log(data, ' get Gift List')
+            setEventList(data.data)
+        } catch (err) {
+            console.log(err, 'fail get gift list ')
+        }
+    }
 
 
-    const eventList = [
-        {id: 1},
-        {id: 2},
-    ]
     //
     let presentWrapperClassName = `w_311`
     if (eventList.length > 1) {
@@ -254,10 +277,31 @@ const Main = () => {
 
 
 
+
+
+
+
+    const clickHeart = async (item:any) => {
+        try {
+            const addHeart = await postHeartList(item.id)
+            getProductList()
+            console.log(addHeart)
+        } catch (err) {
+            console.log('fail add heart list ')
+        }
+    }
+
+
+
+
     useEffect(()=> {
         getProductList()
         getGiftArray()
+        getMainGiftList()
     }, [])
+
+
+
 
 
 
@@ -282,8 +326,17 @@ const Main = () => {
                          onMouseLeave={onMouseUp}>
 
                     {eventList.map((item) => (
-                        <div className={presentWrapperClassName} key={item.id}>
-                            <PresentListBoxComponent clickPresentListBox={clickPresentListBox}/>
+                        <div className={presentWrapperClassName} key={item.listId}>
+                            <PresentListBoxComponent
+                                clickPresentListBoxItem={clickPresentListBox}
+                                item={item}
+                                image={item.anniversaryImageUrl}
+                                availableAt={item.availableAt}
+                                expiredAt={item.expiredAt}
+                                anniversaryTitle={item.anniversaryTitle}
+                                selectedProductsNumber={item.selectedProductsNumber}
+                                receivedProductsNumber={item.receivedProductsNumber}
+                            />
                         </div>
                     ))}
 
@@ -342,6 +395,10 @@ const Main = () => {
                                     <LargeProductComponent
                                         title={item.name}
                                         price={`${item.price}`}
+                                        item={item}
+                                        itemId={item.id}
+                                        image={item.imageUrl}
+                                        clickHeart={() => clickHeart(item)}
                                     />
                                 </div>
                             </div>

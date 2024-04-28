@@ -1,4 +1,5 @@
 import instance, {headers} from "@/app/api/axios";
+import {useGoodsDetail, useUserPostGoodsData} from "@/app/zustand/goodsStore";
 
 
 export const getMainPageGiftList = async () => {
@@ -40,3 +41,75 @@ export const postBundleList = async (goodsList:BundleListProps[]) => {
         console.log('fail get select goods gift list',err)
     }
 }
+
+
+
+interface categoriesWithProductsProps {
+    categoryId: number
+    receiptType: string,
+    productIds: number[]
+}
+
+interface GiftListProps {
+    imageFileName?: string,
+    availableAt?: string,
+    expiredAt?: string,
+    anniversaryId?: number
+    categoriesWithProducts?: categoriesWithProductsProps[]
+}
+
+
+// 선물리스트 생성
+export const postGiftList = async (postData: any) => {
+
+    console.log(useUserPostGoodsData.getState().categoriesWithProducts)
+    try {
+        const res = await instance.post(`/api/gift-list`,
+            postData, {headers})
+        console.log(res.data)
+        return res.data
+    } catch (err) {
+        console.log('fail get select goods gift list',err)
+    }
+}
+
+// giftList page
+
+
+export const getGiftListDetail = async (giftLIstId: number) => {
+    try {
+        const res = await instance.get(`/api/gift-list/${giftLIstId}/info`,
+            {headers})
+        console.log(res)
+        return res.data
+    } catch (err) {
+        console.log('fail get select goods gift list',err)
+    }
+}
+
+export const getGiveGiftList = async () => {
+    try {
+        const res = await instance.get(`/api/gift-list-letter/product/receiver/me`,
+            {headers})
+        console.log(res)
+        return res.data
+    } catch (err) {
+        console.log('fail get select goods gift list',err)
+    }
+}
+
+export const getSendGiftList = async () => {
+    try {
+        const res = await instance.get(`/api/gift-list-letter/product/receiver/me`,
+            {headers})
+        console.log(res)
+        return res.data
+    } catch (err) {
+        console.log('fail get select goods gift list',err)
+    }
+}
+
+
+
+
+

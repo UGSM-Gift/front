@@ -63,6 +63,11 @@
   }
 }
 
+.main__layout__product__content {
+  height: 600px;
+  overflow-y: scroll;
+}
+
 .main__layout__product__content__wrapper {
   margin-bottom: 8px;
 }

@@ -4,24 +4,50 @@ import NavLayout from "@/app/_component/NavLayout";
 import Image from "next/image";
 import SmallProductComponent from "@/app/(main)/_component/SmallProductComponent";
 import {useRouter} from "next/navigation";
+import {getHeartList} from "@/app/api/userData";
+import {useEffect, useState} from "react";
+
 const GiftListHeart = () => {
 
+
     const present = true
-    const heartSmallPresentArr = [
-        {id: 1},
-        {id: 2},
-        {id: 3},
-        {id: 4},
-        {id: 5},
-        {id: 6},
-        {id: 7},
-    ]
+    const [heartSmallPresentArr, setHeartSmallPresentArr] = useState([
+        {
+            brandName: "쿠프마케팅",
+            buyingUrl: "https://shopping.naver.com/gift/products/8990695351",
+            categoryId: 0,
+            freeShipping: false,
+            id: 26619,
+            isSoldOut: false,
+            name: "[선물하기] 배스킨라빈스 파인트 아이스크림",
+            price: 9800,
+            thumbnailImgUrl: "https://shop-phinf.pstatic.net/2023"
+        },
+    ])
 
     const router = useRouter()
 
     const onClickBack = () => {
-        router.back()
+        router.replace('/main')
     }
+
+    const callHeartList = async () => {
+        try {
+            const data = await getHeartList()
+            console.log(data.data)
+            setHeartSmallPresentArr(data.data)
+        } catch (err) {
+            console.log('fail call heart list ')
+        }
+    }
+
+    const onClickHeartButton = async () => {
+        callHeartList()
+    }
+
+    useEffect(() => {
+        callHeartList()
+    }, [])
 
 
     return (
@@ -36,7 +62,7 @@ const GiftListHeart = () => {
                     present ?
                         <div className={'mb_20'}>
                             <article className={'gift_list_heart__layout__nav'}>
-                                <p className={'gray__color__60 text__font'}>총 NN개</p>
+                                <p className={'gray__color__60 text__font'}>총 {heartSmallPresentArr.length}개</p>
                                 <div className={'gift_list_heart__layout__nav_right'}>
                                     <p className={'gray__color__80 text__font'}>최근 찜한 순</p>
                                     <div>
@@ -57,10 +83,14 @@ const GiftListHeart = () => {
                 }
                 <article className={'gift_list_heart__layout__content__present'}>
                     {
-                        heartSmallPresentArr.map((item)=> (
+                        heartSmallPresentArr.map((item) => (
                             <div key={item.id}>
                                 <SmallProductComponent
-                                    text={'암튼상품정보암튼상품정보암튼상품정보암튼상품정보암튼상품정보암튼상품정보암튼상품정보암튼상품정보암튼상품정보암튼상품정보'}
+                                    text={item.name}
+                                    price={item.price}
+                                    heart={true}
+                                    itemId={item.id}
+                                    onClickHeartButton={onClickHeartButton}
                                 />
                             </div>
                         ))

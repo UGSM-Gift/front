@@ -2,22 +2,56 @@
 import './myList.scss'
 import PresentListBoxComponent from "@/app/(main)/_component/PresentListBoxComponent";
 import {useRouter} from "next/navigation";
+import {getGiftList} from "@/app/api/mainPage";
+import {useEffect, useState} from "react";
+import {useListPageStore} from "@/app/zustand/listPageStore";
 
 
 const MyList = () => {
 
-    const presentArr = [
-        {id: 1},
-        {id: 2},
-        {id: 3},
-        {id: 4},
-        {id: 5},
-    ]
-
     const router = useRouter()
+
+    const [presentArr, setPresentArr] = useState(
+        [
+            {
+                listId: 1,
+                createdAt: "2024-04-20 23:08:14",
+                availableAt: "2024-04-20 23:08:14",
+                expiredAt: "2024-04-21 23:59:59",
+                anniversaryImageUrl: "https://cloudfront.ugsm.co.kr/anniversary/ic-party-popper.png",
+                anniversaryTitle: "생일",
+                selectedProductsNumber: 0,
+                receivedProductsNumber: 0,
+            },
+        ]
+    )
+
+    const getMainGiftList = async () => {
+        try {
+            const data =  await getGiftList()
+            console.log(data, ' get Gift List')
+            setPresentArr(data.data)
+            useListPageStore.setState((prevState) => {
+                return {
+                    ...prevState,
+                    presentArr: data.data
+                }
+            })
+        } catch (err) {
+            console.log(err, 'fail get gift list ')
+        }
+    }
+
+    useEffect(()=> {
+        getMainGiftList()
+    }, [])
+
+
+
     const clickPresentListBox = () => {
         router.replace('/giftList')
     }
+
 
     return (
         <div className={'my_list__layout'}>
@@ -26,8 +60,16 @@ const MyList = () => {
                     <article className={'my_list__layout__content mb_14'}>
                         {
                             presentArr.map((item)=> (
-                                <div key={item.id} className={'mb_14'}>
-                                    <PresentListBoxComponent clickPresentListBox={clickPresentListBox}/>
+                                <div key={item.listId} className={'mb_14'}>
+                                    <PresentListBoxComponent
+                                        clickPresentListBox={clickPresentListBox}
+                                        image={item.anniversaryImageUrl}
+                                        availableAt={item.availableAt}
+                                        expiredAt={item.expiredAt}
+                                        anniversaryTitle={item.anniversaryTitle}
+                                        selectedProductsNumber={item.selectedProductsNumber}
+                                        receivedProductsNumber={item.receivedProductsNumber}
+                                    />
                                 </div>
                             ))
                         }

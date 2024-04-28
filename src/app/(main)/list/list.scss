@@ -1,4 +1,20 @@
 .list__layout__content {
   padding: 16px;
   background-color: #F2F4F5;
+  overflow-y: scroll;
+}
+
+
+.top_filter__layout {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+
+  &__filter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
 }

@@ -43,3 +43,13 @@ export const getAnniversaryList = async (date : string) => {
 };
 
 
+export const delAnniversaryList = async (anniversaryId: number) => {
+    try {
+        const res = await instance.delete(`/api/user/me/anniversary/${anniversaryId}`, {headers})
+        return res.data
+    } catch (err) {
+        console.log(err, 'err axios get userData err')
+    }
+}
+
+

@@ -55,7 +55,7 @@ const UserCategory = () => {
             } else {
                 const postAddCategoryData = await postAddCategory()
                 console.log(postAddCategoryData)
-                router.replace('/selectGoods')
+                router.push('/selectGoods')
             }
         }
     }

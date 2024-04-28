@@ -8,7 +8,12 @@ interface TopFilteringComponentProps {
     clickFilter?: MouseEventHandler<HTMLDivElement>;
 }
 
-const TopFilteringComponent = ({number = 0, filter = '최신 순', clickFilter}: TopFilteringComponentProps) => {
+const TopFilteringComponent = (
+    {
+        number = 0,
+        filter = '최신 순',
+        clickFilter
+    }: TopFilteringComponentProps) => {
 
 
 

@@ -256,7 +256,7 @@ const SelectGoods = () => {
     }
 
 
-    const [categoryDialogState, setCategoryDialogState] = useState(true)
+    const [categoryDialogState, setCategoryDialogState] = useState(false)
 
 
     const [addCategoryArr, setAddCategoryArr] = useState<number[]>([])

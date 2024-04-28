@@ -1,6 +1,6 @@
 'use client'
 import IframeContent from "@/app/_component/IframeContent";
-import {useGoodsDetail} from "@/app/zustand/goodsStore";
+import {useGoodsDetail, useUserSelectGoods} from "@/app/zustand/goodsStore";
 import './selectGoodsDetail.scss'
 import DefaultButton from "@/app/_component/DefaultButton";
 import {useRouter} from "next/navigation";
@@ -11,6 +11,11 @@ const SelectGoodsDetail = () => {
     const buyingUrl = useGoodsDetail(state => state.buyingUrl); // 상태 구독
 
     const router = useRouter()
+
+
+
+    const testing = () => {
+    }
 
     const clickClose = () => {
         router.replace('/selectGoods')

@@ -9,10 +9,15 @@ import NavLayout from "@/app/_component/NavLayout";
 const FinishPackaging = () => {
 
 
-    const [buttonActive , setButtonActive] = useState(false)
     const clickFooterButton = (value: string) => {
+        if (value === '이전') {
+
+        } else {
+
+        }
     }
     const clickBack = () => {
+
     }
 
     return(
@@ -36,15 +41,15 @@ const FinishPackaging = () => {
             </div>
 
             {/* 링크 복사 시 토스트 */}
-            <div className={"toast__layout white__color text__font"}>
-                링크가 복사되었습니다
-            </div>
+            {/*<div className={"toast__layout white__color text__font"}>*/}
+            {/*    링크가 복사되었습니다*/}
+            {/*</div>*/}
 
             <TestPageFooterButton
                 clickFooterButton={clickFooterButton}
                 leftButtonTitle={'내 선물 리스트 확인'}
                 rightButtonTitle={'링크 복사'}
-                state={buttonActive}
+                state={true}
             />
         </div>
     )

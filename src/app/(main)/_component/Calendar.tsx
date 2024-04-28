@@ -15,7 +15,13 @@ interface TestElement {
     select: boolean;
 }
 
-const Calendar = () => {
+
+interface CalendarProps {
+    clickDay?: (day:any) => void
+}
+const Calendar = (
+    {clickDay}: CalendarProps
+) => {
 
     const [calendar, setCalendar] = useState<number[][]>([[]]);
     const [currentMonth, setCurrentMonth] = useState<dayjs.Dayjs>(dayjs());
@@ -87,10 +93,16 @@ const Calendar = () => {
         }
     };
 
-    const [selectDay, setSelectDay] = useState(Number(currentMonth.format('D')))
+    // const [selectDay, setSelectDay] = useState<number>(Number(currentMonth.format('D')));
+    const [selectDay, setSelectDay] = useState(Number(currentMonth.format('D')));
 
-    const selectClickDay = (day: number) => {
+    const selectClickDay = (day: any) => {
         setSelectDay(day)
+
+        if (clickDay) {
+            const formattedDay = `${currentMonth.format('YYYY-MM')}-${day}`;
+            clickDay(formattedDay); // day 변수를 전달
+        }
         useTestStore.setState({eventDay: `${currentMonth.format('YYYY-MM')}-${day}`})
     }
 
